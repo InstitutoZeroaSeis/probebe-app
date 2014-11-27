@@ -1,4 +1,4 @@
-angular.module("starter.services", []).factory "Friends", ->
+angular.module("proBebe.services", ["proBebe.constants"]).factory "Friends", ->
   # Some fake testing data
   friends = [
     {
@@ -23,7 +23,7 @@ angular.module("starter.services", []).factory "Friends", ->
 
   get: (friendId) ->
     friends[friendId]
-.factory "AuthenticationService", ($q, $http) ->
+.factory "AuthenticationService", ($q, $http, Constants) ->
   authenticate: (email, password) ->
     authentication_data =
       email: email
@@ -33,19 +33,19 @@ angular.module("starter.services", []).factory "Friends", ->
     localStorage.setItem 'password', password
     localStorage.setItem 'authenticated', false
 
-    url = 'http://localhost:3000/credentials'
+    url = "#{Constants.API_BASE_URL}/credentials"
     deferred = $q.defer()
     $http.post(url, authentication_data).then (result) ->
       localStorage.setItem 'authenticated', result.data.valid
       deferred.resolve(result.data.valid)
     .catch (err) ->
-      deferred.reject("Error")
+      console.log err
+      deferred.reject("Could not authenticate")
 
     deferred.promise
 
   email: -> localStorage.getItem('email')
-  isAuthenticated: ->
-    localStorage.getItem('authenticated') == 'true'
+  isAuthenticated: -> localStorage.getItem('authenticated') == 'true'
   password: -> localStorage.getItem('password')
 
 # factory for processing push notifications.
@@ -96,26 +96,28 @@ onNotificationGCM = (e) ->
         # myService = injector.get('PushProcessingService')
         # myService.registerID(e.regid)
     when 'message'
-        # if this flag is set, this notification happened while we were in the foreground.
-        # you might want to play a sound to get the user's attention, throw up a dialog, etc.
-        if (e.foreground)
-          # we're using the app when a message is received.
-          console.log('--INLINE NOTIFICATION--' + '')
-          # if the notification contains a soundname, play it.
-          # var my_media = new Media(&quot/android_asset/www/&quot+e.soundname)
-          # my_media.play()
-          alert(e.payload.message)
+      console.dir(e)
+      # if this flag is set, this notification happened while we were in the foreground.
+      # you might want to play a sound to get the user's attention, throw up a dialog, etc.
+      if (e.foreground)
+        # we're using the app when a message is received.
+        console.log('--INLINE NOTIFICATION--' + '')
+        # if the notification contains a soundname, play it.
+        # var my_media = new Media(&quot/android_asset/www/&quot+e.soundname)
+        # my_media.play()
+        alert(e.payload.message)
+      else
+        window.open(e.article_url, "_system")
+        # otherwise we were launched because the user touched a notification in the notification tray.
+        if (e.coldstart)
+          console.log('--COLDSTART NOTIFICATION--' + '')
         else
-          # otherwise we were launched because the user touched a notification in the notification tray.
-          if (e.coldstart)
-            console.log('--COLDSTART NOTIFICATION--' + '')
-          else
-            console.log('--BACKGROUND NOTIFICATION--' + '')
-          # direct user here:
-          window.location = "#/tab/featured"
-        console.log('MESSAGE -&gt MSG: ' + e.payload.message + '')
-        console.log('MESSAGE: '+ JSON.stringify(e.payload))
+          console.log('--BACKGROUND NOTIFICATION--' + '')
+        # direct user here:
+        window.location = "#/tab/featured"
+      console.log('MESSAGE -&gt MSG: ' + e.payload.message + '')
+      console.log('MESSAGE: '+ JSON.stringify(e.payload))
     when 'error'
-        console.log('ERROR -&gt MSG:' + e.msg + '')
+      console.log('ERROR -&gt MSG:' + e.msg + '')
     else
       console.log('EVENT -&gt Unknown, an event was received and we do not know what it is')

@@ -1,4 +1,4 @@
-angular.module("starter", ["ionic", "starter.controllers", "starter.services"]).run(function($ionicPlatform, $rootScope, $state, AuthenticationService, PushProcessingService) {
+angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).run(function($ionicPlatform, $rootScope, $state, AuthenticationService, PushProcessingService) {
   $ionicPlatform.ready(function() {
     var _ref, _ref1, _ref2;
     if ((_ref = window.cordova) != null) {
@@ -69,7 +69,11 @@ angular.module("starter", ["ionic", "starter.controllers", "starter.services"]).
   return $urlRouterProvider.otherwise("/tab/dash");
 });
 
-angular.module("starter.controllers", []).controller("DashCtrl", function($scope) {}).controller("FriendsCtrl", function($scope, Friends) {
+angular.module("proBebe.constants", []).constant("Constants", Object.freeze({
+  API_BASE_URL: "http://192.168.1.43:3000"
+}));
+
+angular.module("proBebe.controllers", []).controller("DashCtrl", function($scope) {}).controller("FriendsCtrl", function($scope, Friends) {
   return $scope.friends = Friends.all();
 }).controller("FriendDetailCtrl", function($scope, $stateParams, Friends) {
   return $scope.friend = Friends.get($stateParams.friendId);
@@ -107,7 +111,7 @@ angular.module("starter.controllers", []).controller("DashCtrl", function($scope
 
 var onNotificationGCM;
 
-angular.module("starter.services", []).factory("Friends", function() {
+angular.module("proBebe.services", ["proBebe.constants"]).factory("Friends", function() {
   var friends;
   friends = [
     {
@@ -132,7 +136,7 @@ angular.module("starter.services", []).factory("Friends", function() {
       return friends[friendId];
     }
   };
-}).factory("AuthenticationService", function($q, $http) {
+}).factory("AuthenticationService", function($q, $http, Constants) {
   return {
     authenticate: function(email, password) {
       var authentication_data, deferred, url;
@@ -143,13 +147,14 @@ angular.module("starter.services", []).factory("Friends", function() {
       localStorage.setItem('email', email);
       localStorage.setItem('password', password);
       localStorage.setItem('authenticated', false);
-      url = 'http://localhost:3000/credentials';
+      url = "" + Constants.API_BASE_URL + "/credentials";
       deferred = $q.defer();
       $http.post(url, authentication_data).then(function(result) {
         localStorage.setItem('authenticated', result.data.valid);
         return deferred.resolve(result.data.valid);
       })["catch"](function(err) {
-        return deferred.reject("Error");
+        console.log(err);
+        return deferred.reject("Could not authenticate");
       });
       return deferred.promise;
     },
@@ -212,10 +217,12 @@ onNotificationGCM = function(e) {
       }
       break;
     case 'message':
+      console.dir(e);
       if (e.foreground) {
         console.log('--INLINE NOTIFICATION--' + '');
         alert(e.payload.message);
       } else {
+        window.open(e.article_url, "_system");
         if (e.coldstart) {
           console.log('--COLDSTART NOTIFICATION--' + '');
         } else {

@@ -1,4 +1,4 @@
-angular.module("starter.controllers", [])
+angular.module("proBebe.controllers", [])
 
 .controller("DashCtrl", ($scope) ->
 

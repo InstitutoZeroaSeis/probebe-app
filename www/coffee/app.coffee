@@ -11,10 +11,10 @@
 # for form inputs)
 
 # org.apache.cordova.statusbar required
-angular.module("starter", [
+angular.module("proBebe", [
     "ionic"
-    "starter.controllers"
-    "starter.services"
+    "proBebe.controllers"
+    "proBebe.services"
   ])
   .run(($ionicPlatform, $rootScope, $state, AuthenticationService, PushProcessingService) ->
     $ionicPlatform.ready ->
