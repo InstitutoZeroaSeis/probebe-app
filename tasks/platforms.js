@@ -12,6 +12,6 @@ var sys = require('sys');
 var exec = require('child_process').exec;
 
 packageJson.platforms.forEach(function(platform) {
-    var platformCmd = 'cordova platform ' + command + ' ' + platform;
-    exec(platformCmd);
+  var platformCmd = 'phonegap platform ' + command + ' ' + platform;
+  exec(platformCmd);
 });

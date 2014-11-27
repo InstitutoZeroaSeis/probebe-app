@@ -14,7 +14,7 @@ var sys = require('sys');
 var exec = require('child_process').exec;
 
 function createAddRemoveStatement(plugin) {
-    var pluginCmd = 'cordova plugin ' + command + ' ';
+    var pluginCmd = 'phonegap plugin ' + command + ' ';
     if(typeof plugin === 'string') {
         pluginCmd += plugin;
     } else {
