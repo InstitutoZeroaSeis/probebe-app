@@ -16,10 +16,11 @@ angular.module("starter", [
     "starter.controllers"
     "starter.services"
   ])
-  .run(($ionicPlatform, $rootScope, $state, AuthenticationService) ->
+  .run(($ionicPlatform, $rootScope, $state, AuthenticationService, PushProcessingService) ->
     $ionicPlatform.ready ->
       window.cordova?.plugins.Keyboard?.hideKeyboardAccessoryBar()
       window.StatusBar?.styleDefault()
+    PushProcessingService.initialize()
     $rootScope.$on('$stateChangeStart', (event, toState, toParams, fromState, fromParams) ->
       console.log("Changing state from #{fromState.name} to #{toState.name}")
       if !AuthenticationService.isAuthenticated() and toState.name != 'auth.signin'
@@ -69,6 +70,5 @@ angular.module("starter", [
           controller: "AuthCtrl"
     )
 
+    # if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise "/tab/dash"
-
-  # if none of the above states are matched, use this as the fallback

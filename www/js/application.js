@@ -1,4 +1,4 @@
-angular.module("starter", ["ionic", "starter.controllers", "starter.services"]).run(function($ionicPlatform, $rootScope, $state, AuthenticationService) {
+angular.module("starter", ["ionic", "starter.controllers", "starter.services"]).run(function($ionicPlatform, $rootScope, $state, AuthenticationService, PushProcessingService) {
   $ionicPlatform.ready(function() {
     var _ref, _ref1, _ref2;
     if ((_ref = window.cordova) != null) {
@@ -8,6 +8,7 @@ angular.module("starter", ["ionic", "starter.controllers", "starter.services"]).
     }
     return (_ref2 = window.StatusBar) != null ? _ref2.styleDefault() : void 0;
   });
+  PushProcessingService.initialize();
   return $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
     console.log("Changing state from " + fromState.name + " to " + toState.name);
     if (!AuthenticationService.isAuthenticated() && toState.name !== 'auth.signin') {
@@ -104,6 +105,8 @@ angular.module("starter.controllers", []).controller("DashCtrl", function($scope
   };
 });
 
+var onNotificationGCM;
+
 angular.module("starter.services", []).factory("Friends", function() {
   var friends;
   friends = [
@@ -160,4 +163,71 @@ angular.module("starter.services", []).factory("Friends", function() {
       return localStorage.getItem('password');
     }
   };
+}).factory('PushProcessingService', function() {
+  var gcmErrorHandler, gcmSuccessHandler, onDeviceReady;
+  onDeviceReady = function() {
+    var pushNotification;
+    console.info('NOTIFY  Device is ready.  Registering with GCM server');
+    pushNotification = window.plugins.pushNotification;
+    return pushNotification.register(gcmSuccessHandler, gcmErrorHandler, {
+      "senderID": "315459751586",
+      "ecb": "onNotificationGCM"
+    });
+  };
+  gcmSuccessHandler = function(result) {
+    return console.info('NOTIFY  pushNotification.register succeeded.  Result = ' + result);
+  };
+  gcmErrorHandler = function(error) {
+    return console.error('NOTIFY  ' + error);
+  };
+  return {
+    initialize: function() {
+      console.info('NOTIFY  initializing');
+      return document.addEventListener('deviceready', onDeviceReady, false);
+    },
+    registerID: function(id) {
+      return console.log("Registration ID = " + id);
+    },
+    unregister: function() {
+      var push;
+      console.info('unregister');
+      push = window.plugins.pushNotification;
+      if (push) {
+        return push.unregister(function() {
+          return console.info('unregister success');
+        });
+      }
+    }
+  };
 });
+
+onNotificationGCM = function(e) {
+  var elem;
+  console.log("EVENT RECEIVED: " + e.event + " ");
+  switch (e.event) {
+    case 'registered':
+      console.log("REGISTERED with GCM Server -&gt REGID: " + e.regid);
+      if (e.regid.length > 0) {
+        return elem = angular.element(document.querySelector('[ng-app]'));
+      }
+      break;
+    case 'message':
+      if (e.foreground) {
+        console.log('--INLINE NOTIFICATION--' + '');
+        alert(e.payload.message);
+      } else {
+        if (e.coldstart) {
+          console.log('--COLDSTART NOTIFICATION--' + '');
+        } else {
+          console.log('--BACKGROUND NOTIFICATION--' + '');
+        }
+        window.location = "#/tab/featured";
+      }
+      console.log('MESSAGE -&gt MSG: ' + e.payload.message + '');
+      return console.log('MESSAGE: ' + JSON.stringify(e.payload));
+    case 'error':
+      return console.log('ERROR -&gt MSG:' + e.msg + '');
+    default:
+      return console.log('EVENT -&gt Unknown, an event was received and we do not know what it is');
+  }
+};
