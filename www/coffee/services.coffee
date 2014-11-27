@@ -1,22 +1,10 @@
 angular.module("proBebe.services", ["proBebe.constants"]).factory "Friends", ->
   # Some fake testing data
   friends = [
-    {
-      id: 0
-      name: "Scruff McGruff"
-    }
-    {
-      id: 1
-      name: "G.I. Joe"
-    }
-    {
-      id: 2
-      name: "Miss Frizzle"
-    }
-    {
-      id: 3
-      name: "Ash Ketchum"
-    }
+    { id: 0, name: "Scruff McGruff" }
+    { id: 1, name: "G.I. Joe" }
+    { id: 2, name: "Miss Frizzle" }
+    { id: 3, name: "Ash Ketchum" }
   ]
   all: ->
     friends
@@ -80,7 +68,6 @@ angular.module("proBebe.services", ["proBebe.constants"]).factory "Friends", ->
           push.unregister ->
             console.info('unregister success')
 
-
 # ALL GCM notifications come through here.
 onNotificationGCM = (e) ->
   console.log("EVENT RECEIVED: #{e.event} ")
@@ -102,23 +89,21 @@ onNotificationGCM = (e) ->
       # you might want to play a sound to get the user's attention, throw up a dialog, etc.
       if (e.foreground)
         # we're using the app when a message is received.
-        console.log('--INLINE NOTIFICATION--' + '')
+        console.log('--INLINE NOTIFICATION--')
         # if the notification contains a soundname, play it.
-        # var my_media = new Media(&quot/android_asset/www/&quot+e.soundname)
+        # my_media = new Media("/android_asset/www/#{e.soundname}")
         # my_media.play()
         alert(e.payload.message)
       else
         window.open(e.payload.article_url, "_system")
         # otherwise we were launched because the user touched a notification in the notification tray.
         if (e.coldstart)
-          console.log('--COLDSTART NOTIFICATION--' + '')
+          console.log('--COLDSTART NOTIFICATION--')
         else
-          console.log('--BACKGROUND NOTIFICATION--' + '')
-        # direct user here:
-        window.location = "#/tab/featured"
+          console.log('--BACKGROUND NOTIFICATION--')
       console.log('MESSAGE -&gt MSG: ' + e.payload.message + '')
       console.log('MESSAGE: '+ JSON.stringify(e.payload))
     when 'error'
       console.log('ERROR -&gt MSG:' + e.msg + '')
     else
-      console.log('EVENT -&gt Unknown, an event was received and we do not know what it is')
+      console.log("Unknown event sent: #{e.event}")
