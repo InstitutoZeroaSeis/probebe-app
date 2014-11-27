@@ -108,7 +108,7 @@ onNotificationGCM = (e) ->
         # my_media.play()
         alert(e.payload.message)
       else
-        window.open(e.article_url, "_system")
+        window.open(e.payload.article_url, "_system")
         # otherwise we were launched because the user touched a notification in the notification tray.
         if (e.coldstart)
           console.log('--COLDSTART NOTIFICATION--' + '')
