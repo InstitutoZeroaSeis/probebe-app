@@ -96,6 +96,7 @@ onNotificationGCM = (e) ->
         # myService = injector.get('PushProcessingService')
         # myService.registerID(e.regid)
     when 'message'
+      console.log "Received message #{JSON.stringify(e.message)}, foreground = #{e.foreground}"
       console.dir(e)
       # if this flag is set, this notification happened while we were in the foreground.
       # you might want to play a sound to get the user's attention, throw up a dialog, etc.
