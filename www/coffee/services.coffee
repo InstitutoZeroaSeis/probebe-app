@@ -1,4 +1,4 @@
-angular.module("proBebe.services", ["proBebe.constants"]).factory "Friends", ->
+angular.module("proBebe.services", ["proBebe.constants", "ngCordova"]).factory "Friends", ->
   # Some fake testing data
   friends = [
     { id: 0, name: "Scruff McGruff" }
@@ -37,24 +37,35 @@ angular.module("proBebe.services", ["proBebe.constants"]).factory "Friends", ->
   password: -> localStorage.getItem('password')
 
 # factory for processing push notifications.
-.factory 'PushProcessingService', ->
-    onDeviceReady = ->
-        console.info('NOTIFY  Device is ready.  Registering with GCM server')
-        # register with google GCM server
-        pushNotification = window.plugins.pushNotification
-        pushNotification.register(gcmSuccessHandler, gcmErrorHandler, {"senderID": "315459751586", "ecb": "onNotificationGCM"})
-    gcmSuccessHandler = (result) ->
-      console.info('NOTIFY  pushNotification.register succeeded.  Result = '+result)
-    gcmErrorHandler = (error) ->
-      console.error('NOTIFY  '+error)
-
+.factory 'PushProcessingService', ($rootScope, $cordovaPush, $ionicPlatform) ->
     initialize: ->
-      console.info('NOTIFY  initializing')
-      document.addEventListener('deviceready', onDeviceReady, false)
+      pushConfig =
+        senderID: "315459751586"
+      $ionicPlatform.ready ->
+        $cordovaPush.register(pushConfig).then (result) ->
+          console.info("Push registered, result = #{result}")
+        , (error) ->
+          console.error("Registration failed, error = #{error}")
+
+      $rootScope.$on 'pushNotificationReceived', (event, notification) ->
+        console.log("EVENT RECEIVED: #{notification.event} ")
+        switch  notification.event
+          when 'registered'
+            console.log("REGISTERED with GCM Server REGID: #{notification.regid}")
+            if ( notification.regid.length > 0 )
+              elem = angular.element(document.querySelector('[ng-app]'))
+              injector = elem.injector()
+              myService = injector.get('AuthenticationService')
+              # myService.registerID(notification.regid)
+          when 'message'
+            console.log "Received message #{JSON.stringify(notification.message)}, payload = #{notification.payload}"
+            window.open(notification.payload.article_url, "_system")
+          when 'error'
+            console.log('ERROR MSG:' + notification)
+          else
+            console.log("Unknown event sent: #{event}")
+
     registerID: (id) ->
-        # Insert code here to store the user's ID on your notification server.
-        # You'll probably have a web service (wrapped in an Angular service of course) set up for this.
-        # For example:
         console.log("Registration ID = #{id}")
         # MyService.registerNotificationID(id).then (response) ->
         #   if (response.data.Result)
@@ -67,43 +78,3 @@ angular.module("proBebe.services", ["proBebe.constants"]).factory "Friends", ->
         if (push)
           push.unregister ->
             console.info('unregister success')
-
-# ALL GCM notifications come through here.
-onNotificationGCM = (e) ->
-  console.log("EVENT RECEIVED: #{e.event} ")
-  switch  e.event
-    when 'registered'
-      console.log("REGISTERED with GCM Server -&gt REGID: #{e.regid}")
-      if ( e.regid.length > 0 )
-        # call back to web service in Angular.
-        # This works for me because in my code I have a factory called
-        # PushProcessingService with method registerID
-        elem = angular.element(document.querySelector('[ng-app]'))
-        # injector = elem.injector()
-        # myService = injector.get('PushProcessingService')
-        # myService.registerID(e.regid)
-    when 'message'
-      console.log "Received message #{JSON.stringify(e.message)}, foreground = #{e.foreground}"
-      console.dir(e)
-      # if this flag is set, this notification happened while we were in the foreground.
-      # you might want to play a sound to get the user's attention, throw up a dialog, etc.
-      if (e.foreground)
-        # we're using the app when a message is received.
-        console.log('--INLINE NOTIFICATION--')
-        # if the notification contains a soundname, play it.
-        # my_media = new Media("/android_asset/www/#{e.soundname}")
-        # my_media.play()
-        alert(e.payload.message)
-      else
-        window.open(e.payload.article_url, "_system")
-        # otherwise we were launched because the user touched a notification in the notification tray.
-        if (e.coldstart)
-          console.log('--COLDSTART NOTIFICATION--')
-        else
-          console.log('--BACKGROUND NOTIFICATION--')
-      console.log('MESSAGE -&gt MSG: ' + e.payload.message + '')
-      console.log('MESSAGE: '+ JSON.stringify(e.payload))
-    when 'error'
-      console.log('ERROR -&gt MSG:' + e.msg + '')
-    else
-      console.log("Unknown event sent: #{e.event}")
