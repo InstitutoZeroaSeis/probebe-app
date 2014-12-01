@@ -1,4 +1,6 @@
 angular.module("proBebe.services", ["proBebe.constants", "ngCordova"])
+.run ($http) ->
+  $http.defaults.headers.common['Accept'] = 'application/json'
 .factory "AuthenticationService", ($q, $http, $rootScope, $cordovaDevice, Constants) ->
   authenticate: (email, password) ->
     authentication_data =
@@ -15,6 +17,8 @@ angular.module("proBebe.services", ["proBebe.constants", "ngCordova"])
       localStorage.setItem 'authenticated', result.data.valid
       if result.data.valid
         $rootScope.$emit('authenticate')
+        $http.defaults.headers.common['X-User-Email'] = email
+        $http.defaults.headers.common['X-User-Password'] = password
       deferred.resolve(result.data.valid)
     .catch (err) ->
       console.log err
@@ -30,8 +34,6 @@ angular.module("proBebe.services", ["proBebe.constants", "ngCordova"])
       device_registration:
         platform: $cordovaDevice.getPlatform()
         platform_code: device_registration_id
-      email: localStorage.getItem('email')
-      password: localStorage.getItem('password')
     url = "#{Constants.API_BASE_URL}/device_registrations"
     $http.post(url, registration_data, format: 'json').then (result, status) ->
       localStorage.setItem 'registered', status == 200
@@ -66,3 +68,13 @@ angular.module("proBebe.services", ["proBebe.constants", "ngCordova"])
             console.log("ERROR MSG: #{notification}")
           else
             console.log("Unknown event sent: #{event}")
+
+.factory 'MessagesService', ($http, $q, Constants) ->
+  getMessages: ->
+    url = "#{Constants.API_BASE_URL}/timeline"
+    deferred = $q.defer()
+    $http.get(url).then (result) ->
+      deferred.resolve(result.data)
+    .catch (error) ->
+      deferred.reject(error)
+    deferred.promise

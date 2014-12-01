@@ -1,5 +1,12 @@
 <ion-view title="Pro Bebê">
   <ion-content class="has-header padding">
     <h1>Mensagens</h1>
+    <ul>
+      <ion-list>
+        <ion-item ng-repeat="message in messages">
+          {{message.text}}
+        </ion-item>
+      </ion-list>
+    </ul>
   </ion-content>
 </ion-view>

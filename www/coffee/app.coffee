@@ -35,8 +35,8 @@ angular.module("proBebe", [
       url: "/messages"
       views:
         "tab-messages":
-          templateUrl: "templates/tab-messages.html"
           controller: "MessagesCtrl"
+          templateUrl: "templates/tab-messages.html"
     ).state("auth.signin",
       url: "/auth/sign_in"
       views:
