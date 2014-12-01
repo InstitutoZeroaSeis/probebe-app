@@ -1,16 +1,4 @@
-angular.module("proBebe.services", ["proBebe.constants", "ngCordova"]).factory "Friends", ->
-  # Some fake testing data
-  friends = [
-    { id: 0, name: "Scruff McGruff" }
-    { id: 1, name: "G.I. Joe" }
-    { id: 2, name: "Miss Frizzle" }
-    { id: 3, name: "Ash Ketchum" }
-  ]
-  all: ->
-    friends
-
-  get: (friendId) ->
-    friends[friendId]
+angular.module("proBebe.services", ["proBebe.constants", "ngCordova"])
 .factory "AuthenticationService", ($q, $http, $rootScope, $cordovaDevice, Constants) ->
   authenticate: (email, password) ->
     authentication_data =
@@ -78,17 +66,3 @@ angular.module("proBebe.services", ["proBebe.constants", "ngCordova"]).factory "
             console.log("ERROR MSG: #{notification}")
           else
             console.log("Unknown event sent: #{event}")
-
-    registerID: (id) ->
-        console.log("Registration ID = #{id}")
-        # MyService.registerNotificationID(id).then (response) ->
-        #   if (response.data.Result)
-        #     console.info('NOTIFY  Registration succeeded')
-        #   else
-        #     console.error('NOTIFY  Registration failed')
-    unregister: ->
-        console.info('unregister')
-        push = window.plugins.pushNotification
-        if (push)
-          push.unregister ->
-            console.info('unregister success')
