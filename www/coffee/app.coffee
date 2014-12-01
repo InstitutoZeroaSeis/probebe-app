@@ -8,6 +8,7 @@ angular.module("proBebe", [
       window.cordova?.plugins.Keyboard?.hideKeyboardAccessoryBar()
       window.StatusBar?.styleDefault()
 
+    AuthenticationService.initialize()
     if AuthenticationService.isAuthenticated()
       PushProcessingService.initialize()
 

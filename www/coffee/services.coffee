@@ -13,12 +13,11 @@ angular.module("proBebe.services", ["proBebe.constants", "ngCordova"])
 
     url = "#{Constants.API_BASE_URL}/credentials"
     deferred = $q.defer()
-    $http.post(url, authentication_data).then (result) ->
+    $http.post(url, authentication_data).then (result) =>
       localStorage.setItem 'authenticated', result.data.valid
       if result.data.valid
+        @setAuthenticationHeaders
         $rootScope.$emit('authenticate')
-        $http.defaults.headers.common['X-User-Email'] = email
-        $http.defaults.headers.common['X-User-Password'] = password
       deferred.resolve(result.data.valid)
     .catch (err) ->
       console.log err
@@ -28,6 +27,8 @@ angular.module("proBebe.services", ["proBebe.constants", "ngCordova"])
 
   email: -> localStorage.getItem('email')
   isAuthenticated: -> localStorage.getItem('authenticated') == 'true'
+  initialize:->
+    @setAuthenticationHeaders() if @isAuthenticated
   password: -> localStorage.getItem('password')
   registerDeviceNotificationId: (device_registration_id) ->
     registration_data =
@@ -39,6 +40,9 @@ angular.module("proBebe.services", ["proBebe.constants", "ngCordova"])
       localStorage.setItem 'registered', status == 200
     .catch (err) ->
       console.log err
+  setAuthenticationHeaders: ->
+    $http.defaults.headers.common['X-User-Email'] = @email
+    $http.defaults.headers.common['X-User-Password'] = @password
 
 # factory for processing push notifications.
 .factory 'PushProcessingService', ($rootScope, $cordovaPush, $ionicPlatform) ->
