@@ -7,10 +7,14 @@ var minifyCss = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sh = require('shelljs');
 var coffee = require('gulp-coffee');
+var replace = require('gulp-replace-task');
+var path = require('path');
 
 var paths = {
   sass: ['./www/**/*.scss'],
-  coffee: ['./www/**/*.coffee']
+  coffee: ['./www/**/*.coffee'],
+  html: path.join(__dirname, 'www', 'index.html'),
+  www: path.join(__dirname, 'platforms/android/assets/', 'www')
 };
 
 function handleError(error) {
@@ -51,6 +55,28 @@ gulp.task('spawn-watch', function() {
     });
   };
   spawnWatch();
+});
+
+var devServerHost = require('ip').address();
+
+gulp.task('html', function() {
+  gulp.src(paths.html)
+  .pipe(replace({
+    patterns: [
+      {
+        match: /<head>/,
+        replacement: "" +
+          "<head>\n" +
+          "<script type=\"text/javascript\">\n" +
+          "var __devSite = 'http://" + "192.168.1.43" + ":8100';\n" +
+          "if (window.location.origin !== __devSite) {\n" +
+            "window.location = __devSite;\n" +
+          "}\n" +
+          "</script>"
+      }
+    ]
+  }
+  )).pipe(gulp.dest(paths.www));
 });
 
 gulp.task('default', ['spawn-watch']);
