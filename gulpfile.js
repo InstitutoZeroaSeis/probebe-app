@@ -57,8 +57,6 @@ gulp.task('spawn-watch', function() {
   spawnWatch();
 });
 
-var devServerHost = require('ip').address();
-
 gulp.task('html', function() {
   gulp.src(paths.html)
   .pipe(replace({
