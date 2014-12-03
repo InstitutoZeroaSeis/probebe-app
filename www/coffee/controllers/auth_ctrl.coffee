@@ -14,4 +14,7 @@ controllers.controller("AuthCtrl", ($scope, $ionicLoading, $http, $state, Authen
     ).catch((error) ->
       $ionicLoading.show({template: "Error while authenticating", noBackdrop: true, duration: 2000})
     )
+  $scope.signOut = ->
+    localStorage.clear()
+    $state.go('app.signin')
 )
