@@ -12,7 +12,7 @@ var path = require('path');
 
 var paths = {
   sass: ['./www/**/*.scss'],
-  coffee: ['./www/**/*.coffee'],
+  coffee: ['./www/coffee/**/*.coffee'],
   html: path.join(__dirname, 'www', 'index.html'),
   www: path.join(__dirname, 'platforms/android/assets/', 'www')
 };
@@ -37,7 +37,7 @@ gulp.task('sass', function(done) {
 gulp.task('coffee', function(done) {
   gulp.src(paths.coffee)
   .pipe(coffee({bare: true}).on('error', handleError))
-  .pipe(concat('application.js'))
+  // .pipe(concat('application.js'))
   .pipe(gulp.dest('./www/js'))
   .on('end', done);
 });
