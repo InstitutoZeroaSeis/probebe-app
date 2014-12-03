@@ -1,5 +1,10 @@
 angular.module("proBebe.controllers", [])
 
+.controller("AppCtrl", ($scope, $state) ->
+  $scope.signOut = ->
+    localStorage.clear()
+    $state.go('app.signin')
+)
 .controller("AuthCtrl", ($scope, $ionicLoading, $http, $state, AuthenticationService) ->
   $scope.signIn = ->
     $ionicLoading.show(templateUrl: 'templates/loading.html')
@@ -8,7 +13,7 @@ angular.module("proBebe.controllers", [])
     authPromise.then((result) ->
       if result
         $ionicLoading.show({template: "Successfully authenticated", noBackdrop: true, duration: 2000})
-        $state.go('tab.messages')
+        $state.go('app.messages')
       else
         $ionicLoading.show({template: "Invalid credentials", noBackdrop: true, duration: 2000})
     ).catch((error) ->
