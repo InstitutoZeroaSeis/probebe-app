@@ -17,7 +17,7 @@ angular.module("proBebe.services")
             if ( notification.regid.length > 0 )
               elem = angular.element(document.querySelector('[ng-app]'))
               injector = elem.injector()
-              myService = injector.get('AuthenticationService')
+              myService = injector.get('Authentication')
               myService.registerDeviceNotificationId(notification.regid)
           when 'message'
             console.log "Received message #{notification.message}, payload = #{notification.payload}"
