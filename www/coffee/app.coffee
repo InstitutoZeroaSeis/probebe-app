@@ -3,20 +3,20 @@ angular.module("proBebe", [
     "proBebe.controllers"
     "proBebe.services"
   ])
-  .run(($ionicPlatform, $rootScope, $state, Authentication, PushProcessingService) ->
+  .run(($ionicPlatform, $rootScope, $state, authentication, PushProcessingService) ->
     $state.go 'app.messages'
     $ionicPlatform.ready ->
       window.cordova?.plugins.Keyboard?.hideKeyboardAccessoryBar()
       window.StatusBar?.styleDefault()
 
-    PushProcessingService.initialize() if Authentication.isAuthenticated()
+    PushProcessingService.initialize() if authentication.isAuthenticated()
 
-    Authentication.initialize()
+    authentication.initialize()
     $rootScope.$on 'authenticate', -> PushProcessingService.initialize()
 
     $rootScope.$on('$stateChangeStart', (event, toState, toParams, fromState, fromParams) ->
       console.log("Changing state from #{fromState.name} to #{toState.name}")
-      if !Authentication.isAuthenticated() and toState.name != 'app.signin'
+      if !authentication.isAuthenticated() and toState.name != 'app.signin'
         event.preventDefault()
         $state.go('app.signin')
     )

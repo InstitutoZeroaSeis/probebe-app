@@ -1,19 +1,19 @@
 services = angular.module("proBebe.services")
-services.service "Authentication", ($q, $http, $rootScope, $cordovaDevice, Constants) ->
+services.service "authentication", ($q, $http, $rootScope, $cordovaDevice, Constants) ->
   new class Authentication
     authenticate: (email, password) ->
       authentication_data =
         email: email
         password: password
 
-      localStorage.setItem 'email', email
-      localStorage.setItem 'password', password
-      localStorage.setItem 'authenticated', false
+      @setEmail(email)
+      @setPassword(password)
+      @setIsAuthenticated(false)
 
       url = "#{Constants.API_BASE_URL}/credentials"
       deferred = $q.defer()
       $http.post(url, authentication_data).then (result) =>
-        localStorage.setItem 'authenticated', result.data.valid
+        @setIsAuthenticated(result.data.valid)
         if result.data.valid
           @setAuthenticationHeaders
           $rootScope.$emit('authenticate')
@@ -25,10 +25,15 @@ services.service "Authentication", ($q, $http, $rootScope, $cordovaDevice, Const
       deferred.promise
 
     email: -> localStorage.getItem('email')
+
     isAuthenticated: -> localStorage.getItem('authenticated') == 'true'
-    initialize:->
-      @setAuthenticationHeaders() if @isAuthenticated
+
+    initialize:-> @setAuthenticationHeaders() if @isAuthenticated
+
     password: -> localStorage.getItem('password')
+
+    registered: -> localStorage.getItem 'registered'
+
     registerDeviceNotificationId: (device_registration_id) ->
       registration_data =
         device_registration:
@@ -39,6 +44,15 @@ services.service "Authentication", ($q, $http, $rootScope, $cordovaDevice, Const
         localStorage.setItem 'registered', status == 200
       .catch (err) ->
         console.log err
+
     setAuthenticationHeaders: ->
       $http.defaults.headers.common['X-User-Email'] = @email
       $http.defaults.headers.common['X-User-Password'] = @password
+
+    setIsAuthenticated: (authenticated) -> localStorage.setItem 'authenticated', authenticated
+
+    setEmail: (email) -> localStorage.setItem 'email', email
+
+    setPassword: (password) -> localStorage.setItem 'password', password
+
+    setRegistered: (registered) -> localStorage.setItem 'registered', registered

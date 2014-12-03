@@ -1,9 +1,9 @@
 controllers = angular.module("proBebe.controllers")
-controllers.controller("AuthCtrl", ($scope, $ionicLoading, $http, $state, Authentication) ->
+controllers.controller("AuthCtrl", ($scope, $ionicLoading, $http, $state, authentication) ->
   $scope.login_info = {}
   $scope.signIn = ->
     $ionicLoading.show(templateUrl: 'templates/loading.html')
-    authPromise = Authentication.authenticate($scope.login_info.email, $scope.login_info.password)
+    authPromise = authentication.authenticate($scope.login_info.email, $scope.login_info.password)
 
     authPromise.then((result) ->
       if result
