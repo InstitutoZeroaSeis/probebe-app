@@ -4,7 +4,7 @@
 node_modules/
 platforms/
 plugins/
-www/js/
+# www/js/
 www/cordova.js
 www/cordova_plugins.js
 www/plugins
