@@ -10,7 +10,7 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
       this.setEmail(email);
       this.setPassword(password);
       this.setIsAuthenticated(false);
-      url = "" + Constants.API_BASE_URL + "/credentials";
+      url = Constants.API_BASE_URL + "/credentials";
       deferred = $q.defer();
       $http.post(url, authentication_data).then((function(_this) {
         return function(result) {
@@ -21,7 +21,7 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
           }
           return deferred.resolve(result.data.valid);
         };
-      })(this))["catch"](function(err) {
+      })(this)).catch(function(err) {
         console.log(err);
         return deferred.reject("Could not authenticate");
       });

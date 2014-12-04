@@ -1,10 +1,7 @@
-angular.module("proBebe.services").factory('PushProcessingService', function($rootScope, $cordovaPush, $ionicPlatform) {
+angular.module("proBebe.services").factory('pushProcessing', function($rootScope, $cordovaPush, $ionicPlatform, Constants, authentication) {
   return {
     initialize: function() {
-      var pushConfig;
-      pushConfig = {
-        senderID: "315459751586"
-      };
+      var pushConfig = { senderID: Constants.PUSH_NOTIFICATION.GCM.SENDER_ID };
       $ionicPlatform.ready(function() {
         $cordovaPush.register(pushConfig).then(function(result) {
           console.info("Push registered, result = " + result);
@@ -12,18 +9,13 @@ angular.module("proBebe.services").factory('PushProcessingService', function($ro
           console.error("Registration failed, error = " + error);
         });
       });
-      return $rootScope.$on('pushNotificationReceived', function(event, notification) {
+      $rootScope.$on('pushNotificationReceived', function(event, notification) {
         var elem, injector, myService;
         console.log("EVENT RECEIVED: " + notification.event + " ");
         switch (notification.event) {
           case 'registered':
             console.log("REGISTERED with GCM Server REGID: " + notification.regid);
-            if (notification.regid.length > 0) {
-              elem = angular.element(document.querySelector('[ng-app]'));
-              injector = elem.injector();
-              myService = injector.get('authentication');
-              myService.registerDeviceNotificationId(notification.regid);
-            }
+            authentication.registerDeviceNotificationId(notification.regid);
             break;
           case 'message':
             console.log("Received message " + notification.message + ", payload = " + notification.payload);

@@ -2,9 +2,9 @@ var controllers;
 
 controllers = angular.module("proBebe.controllers");
 
-controllers.controller("MessagesCtrl", function($scope, MessagesService) {
+controllers.controller("MessagesCtrl", function($scope, messages) {
   $scope.messages = [];
-  MessagesService.getMessages().then(function(result) {
+  messages.getMessages().then(function(result) {
     window.msgScope = $scope;
     $scope.messages.splice(0, $scope.messages.length);
     result.forEach(function(message_delivery) {

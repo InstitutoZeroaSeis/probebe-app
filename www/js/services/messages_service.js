@@ -1,4 +1,4 @@
-angular.module("proBebe.services").factory('MessagesService', function($http, $q, Constants) {
+angular.module("proBebe.services").factory('messages', function($http, $q, Constants) {
   return {
     getMessages: function() {
       var deferred, url;

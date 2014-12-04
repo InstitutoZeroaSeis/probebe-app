@@ -1,4 +1,4 @@
-angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).run(function($ionicPlatform, $rootScope, $state, authentication, PushProcessingService) {
+angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).run(function($ionicPlatform, $rootScope, $state, authentication, pushProcessing) {
   $state.go('app.messages');
   $ionicPlatform.ready(function() {
     try{
@@ -9,11 +9,11 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).
     }
   });
   if (authentication.isAuthenticated()) {
-    PushProcessingService.initialize();
+    pushProcessing.initialize();
   }
   authentication.initialize();
   $rootScope.$on('authenticate', function() {
-    PushProcessingService.initialize();
+    pushProcessing.initialize();
   });
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
     console.log("Changing state from " + fromState.name + " to " + toState.name);
