@@ -21,10 +21,18 @@ describe('push processing service', function() {
     });
   });
 
-  it('is expected to send the registration id to the backend when receives it from the device', function(done) {
+  it('is expected to send the registration id to the backend when receives it from the device', function() {
     pushProcessing.initialize();
     $rootScope.$emit('pushNotificationReceived', { event: 'registered', regid: 'regid' });
     expect(deviceRegistration.calledWith('regid')).to.equal(true);
-    done();
   });
+
+  it('is expected to emit an event called "pushMessageReceived" when the device sends a notification', function(done) {
+    pushProcessing.initialize();
+    $rootScope.$on('pushMessageReceived', function (event, message) {
+      expect(message).to.equal('message content');
+      done();
+    });
+    $rootScope.$emit('pushNotificationReceived', { event: 'message', message: 'message content' });
+  })
 });

@@ -7,7 +7,7 @@ angular.module("proBebe.services").factory('pushProcessing', function($rootScope
       if (notification.event === 'registered') {
         authentication.registerDeviceNotificationId(notification.regid);
       } else if (notification.event === 'message') {
-        window.open(notification.payload.article_url, "_system");
+        $rootScope.$broadcast('pushMessageReceived', notification.message);
       }
     };
 
