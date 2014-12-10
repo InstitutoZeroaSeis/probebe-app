@@ -12,16 +12,15 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
       this.setIsAuthenticated(false);
       url = Constants.API_BASE_URL + "/credentials";
       deferred = $q.defer();
-      $http.post(url, authentication_data).then((function(_this) {
-        return function(result) {
-          _this.setIsAuthenticated(result.data.valid);
-          if (result.data.valid) {
-            _this.setAuthenticationHeaders();
-            $rootScope.$emit('authenticate');
-          }
-          return deferred.resolve(result.data.valid);
-        };
-      })(this)).catch(function(err) {
+      var self = this;
+      $http.post(url, authentication_data).then(function(result) {
+        self.setIsAuthenticated(result.data.valid);
+        if (result.data.valid) {
+          self.setAuthenticationHeaders();
+          $rootScope.$emit('authenticate');
+        }
+        return deferred.resolve(result.data.valid);
+      }).catch(function(err) {
         console.log(err);
         return deferred.reject("Could not authenticate");
       });
