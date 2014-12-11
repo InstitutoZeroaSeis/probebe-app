@@ -5,7 +5,7 @@ controllers = angular.module("proBebe.controllers");
 controllers.controller("MessagesCtrl", function($scope, messages) {
   $scope.messages = [];
 
-  function messagesReceived() {
+  function messagesReceived(result) {
     $scope.messages.splice(0, $scope.messages.length);
     result.forEach(function(message_delivery) {
       $scope.messages.push(message_delivery.message);

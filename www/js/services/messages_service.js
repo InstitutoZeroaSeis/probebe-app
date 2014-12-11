@@ -4,8 +4,8 @@ angular.module("proBebe.services").factory('messages', function($http, $q, Const
       var deferred, url;
       url = "" + Constants.API_BASE_URL + "/timeline";
       deferred = $q.defer();
-      $http.get(url).then(function(result) {
-        deferred.resolve(result.data);
+      $http.get(url).success(function(result) {
+        deferred.resolve(result);
       }).catch(function(error) {
         deferred.reject(error);
       });
