@@ -1,5 +1,5 @@
 var controllers = angular.module("proBebe.controllers");
-controllers.controller("AuthCtrl", function($scope, $ionicLoading, $http, $state, authentication) {
+controllers.controller("AuthCtrl", function($scope, $ionicLoading, $http, $state, authentication, storage) {
   $scope.login_info = {};
   $scope.signIn = function() {
     var authPromise = authentication.authenticate($scope.login_info.email, $scope.login_info.password);
@@ -30,7 +30,7 @@ controllers.controller("AuthCtrl", function($scope, $ionicLoading, $http, $state
     });
   };
   $scope.signOut = function() {
-    localStorage.clear();
+    storage.clear();
     $state.go('app.signin');
   };
 });

@@ -1,5 +1,5 @@
 var services = angular.module("proBebe.services");
-services.service("authentication", function($q, $http, $rootScope, $cordovaDevice, Constants) {
+services.service("authentication", function($q, $http, $rootScope, $cordovaDevice, Constants, storage) {
   return {
     authenticate: function(email, password) {
       var authentication_data, deferred, url;
@@ -28,11 +28,11 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
     },
 
     email: function() {
-      return localStorage.getItem('email');
+      return storage.get('email');
     },
 
     isAuthenticated: function() {
-      return localStorage.getItem('authenticated') === 'true';
+      return storage.get('authenticated');
     },
 
     initialize: function() {
@@ -42,11 +42,11 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
     },
 
     password: function() {
-      return localStorage.getItem('password');
+      return storage.get('password');
     },
 
     registered: function() {
-      return localStorage.getItem('registered') === 'true';
+      return storage.get('registered') === 'true';
     },
 
     registerDeviceNotificationId: function(device_registration_id) {
@@ -61,7 +61,7 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
       $http.post(url, registration_data, {
         format: 'json'
       }).then(function(result, status) {
-        localStorage.setItem('registered', status === 200);
+        storage.set('registered', status === 200);
       }).catch(function(err) {
         console.log(err);
       });
@@ -73,19 +73,19 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
     },
 
     setIsAuthenticated: function(authenticated) {
-      return localStorage.setItem('authenticated', authenticated);
+      return storage.set('authenticated', authenticated);
     },
 
     setEmail: function(email) {
-      return localStorage.setItem('email', email);
+      return storage.set('email', email);
     },
 
     setPassword: function(password) {
-      return localStorage.setItem('password', password);
+      return storage.set('password', password);
     },
 
     setRegistered: function(registered) {
-      return localStorage.setItem('registered', registered);
+      return storage.set('registered', registered);
     }
   };
 });

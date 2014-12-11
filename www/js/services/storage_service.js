@@ -11,6 +11,9 @@ services.factory('storage', function($window) {
     },
     set: function(key, value) {
       $window.localStorage.setItem(key, JSON.stringify(value));
+    },
+    clear: function() {
+      $window.localStorage.clear();
     }
   };
 });

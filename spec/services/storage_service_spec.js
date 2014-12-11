@@ -18,4 +18,11 @@ describe('storage service', function() {
     expect(storage.get('obj_key').obj_key).to.equal('obj_value');
   });
 
+  it('is expected to clear the storage', function() {
+    storage.set('test_key', 'test_val');
+    storage.set('test_key2', 'test_val');
+    storage.clear();
+    expect(storage.get('test_key')).to.be.null();
+    expect(storage.get('test_key2')).to.be.null();
+  });
 });
