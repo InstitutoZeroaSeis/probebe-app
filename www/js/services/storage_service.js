@@ -10,7 +10,7 @@ services.factory('storage', function($window) {
       }
     },
     set: function(key, value) {
-      $window.localStorage.setItem(JSON.stringify(key));
+      $window.localStorage.setItem(key, JSON.stringify(value));
     }
   };
 });

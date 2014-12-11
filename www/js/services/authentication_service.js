@@ -57,7 +57,7 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
           platform_code: device_registration_id
         }
       };
-      url = "" + Constants.API_BASE_URL + "/device_registrations";
+      url = Constants.API_BASE_URL + "/device_registrations";
       $http.post(url, registration_data, {
         format: 'json'
       }).then(function(result, status) {

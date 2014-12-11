@@ -30,6 +30,7 @@ module.exports = function(config) {
       "www/js/services/authentication_service.js",
       "www/js/services/messages_service.js",
       "www/js/services/push_processing_service.js",
+      "www/js/services/storage_service.js",
       "spec/**/*_spec.js"
     ],
 
