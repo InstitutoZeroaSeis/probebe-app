@@ -36,7 +36,16 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).
         templateUrl: "templates/messages.html"
       }
     }
-  }).state("app.signin", {
+  }).state("app.message", {
+    url: "/message/:id",
+    views: {
+      "menuContent": {
+        controller: "ShowMessageCtrl",
+        templateUrl: "templates/message.html"
+      }
+    }
+  })
+  .state("app.signin", {
     url: "/sign_in",
     views: {
       "menuContent": {

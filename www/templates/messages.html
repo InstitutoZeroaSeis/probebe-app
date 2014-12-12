@@ -6,8 +6,8 @@
     <h1>Mensagens</h1>
     <ul>
       <ion-list>
-        <ion-item ng-repeat="message in messages">
-          {{message.text}}
+        <ion-item ng-repeat="message in messages" class="item-text-wrap">
+          <div ui-sref="app.message({id: message.id})">{{message.text}}</div>
         </ion-item>
       </ion-list>
     </ul>
