@@ -2,21 +2,10 @@ var controllers;
 
 controllers = angular.module("proBebe.controllers");
 
-controllers.controller("MessagesCtrl", function($scope, messages) {
-  $scope.messages = [];
-
-  function messagesReceived(result) {
-    $scope.messages.splice(0, $scope.messages.length);
-    result.forEach(function(message_delivery) {
-      $scope.messages.push(message_delivery.message);
-    });
+controllers.controller("MessagesCtrl", function($scope, Child) {
+  function getChildren() {
+    $scope.children = Child.query();
   }
-
-  function getMessages() {
-    messages.getMessages().then(messagesReceived);
-  }
-
-  $scope.$on('pushMessageReceived', getMessages);
-
-  getMessages();
+  $scope.$on('pushMessageReceived', getChildren);
+  getChildren();
 });

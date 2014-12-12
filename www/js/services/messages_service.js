@@ -1,15 +1,3 @@
-angular.module("proBebe.services").factory('messages', function($http, $q, Constants) {
-  return {
-    getMessages: function() {
-      var deferred, url;
-      url = "" + Constants.API_BASE_URL + "/timeline";
-      deferred = $q.defer();
-      $http.get(url).success(function(result) {
-        deferred.resolve(result);
-      }).catch(function(error) {
-        deferred.reject(error);
-      });
-      return deferred.promise;
-    }
-  };
+angular.module("proBebe.services").factory('Message', function($resource, Constants) {
+  return $resource(Constants.API_BASE_URL + "/api/messages/:id");
 });

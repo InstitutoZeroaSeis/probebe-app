@@ -4,7 +4,7 @@
   </ion-nav-buttons>
   <ion-content class="has-header padding">
     <h1>Mensagem</h1>
-    <h4 class="message_id">{{message.id}}</h4>
-    <h4 class="message_text">{{message.text}}</h4>
+    <h4 class="message_text">Texto: {{message.text}}</h4>
+    <h4 class="message_text">Data do Envio: {{message.delivery_date | date: 'dd/MM/yyyy'}}</h4>
   </ion-content>
 </ion-view>

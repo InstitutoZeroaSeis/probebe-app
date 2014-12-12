@@ -12,14 +12,14 @@
       <h1 class="title">Left</h1>
     </header>
     <ion-content class="has-header">
-      <ion-list ng-controller="AuthCtrl">
-        <ion-item nav-clear menu-close>
-          <span ui-sref="app.messages()">Mensagens</span>
-        </ion-item>
-        <ion-item nav-clear menu-close ng-click="signOut()">
+      <ul ng-controller="AuthCtrl">
+        <li class="item" nav-clear menu-close ui-sref="app.messages()">
+          Mensagens
+        </li>
+        <li class="item" nav-clear menu-close ng-click="signOut()">
           Sign Out
-        </ion-item>
-      </ion-list>
+        </li>
+      </ul>
     </ion-content>
   </ion-side-menu>
 </ion-side-menus>
