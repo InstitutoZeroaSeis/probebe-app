@@ -23,15 +23,9 @@ module.exports = function(config) {
       "www/js/app.js",
       "www/js/constants.js",
       "www/js/controllers.js",
-      "www/js/controllers/app_ctrl.js",
-      "www/js/controllers/auth_ctrl.js",
-      "www/js/controllers/messages_ctrl.js",
+      "www/js/*.js",
       "www/js/services.js",
-      "www/js/storage_service.js",
-      "www/js/services/authentication_service.js",
-      "www/js/services/messages_service.js",
-      "www/js/services/push_processing_service.js",
-      "www/js/services/storage_service.js",
+      "www/js/services/*.js",
       "spec/**/*_spec.js"
     ],
 
