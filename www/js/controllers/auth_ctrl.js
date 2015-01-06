@@ -9,21 +9,21 @@ controllers.controller("AuthCtrl", function($scope, $ionicLoading, $http, $state
     return authPromise.then(function(result) {
       if (result) {
         $ionicLoading.show({
-          template: "Successfully authenticated",
+          template: "Autenticado com sucesso",
           noBackdrop: true,
           duration: 2000
         });
         $state.go('app.messages');
       } else {
         $ionicLoading.show({
-          template: "Invalid credentials",
+          template: "Credenciais inválidas",
           noBackdrop: true,
           duration: 2000
         });
       }
     }).catch(function(error) {
       $ionicLoading.show({
-        template: "Error while authenticating",
+        template: "Ocorreu um erro na autenticação",
         noBackdrop: true,
         duration: 2000
       });
