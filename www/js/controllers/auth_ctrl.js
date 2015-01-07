@@ -13,7 +13,7 @@ controllers.controller("AuthCtrl", function($scope, $ionicLoading, $http, $state
           noBackdrop: true,
           duration: 2000
         });
-        $state.go('app.messages');
+        $state.go('messages');
       } else {
         $ionicLoading.show({
           template: "Credenciais inválidas",
@@ -31,6 +31,6 @@ controllers.controller("AuthCtrl", function($scope, $ionicLoading, $http, $state
   };
   $scope.signOut = function() {
     storage.clear();
-    $state.go('app.signin');
+    $state.go('signin');
   };
 });
