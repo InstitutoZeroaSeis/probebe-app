@@ -1,24 +1,49 @@
 <ion-view title="Pro Bebê">
-  <ion-content class="has-header padding" overflow-scroll="true">
-    <h1>Mensagens</h1>
-    <ul class="children list" ng-repeat="child in children">
-      <div class="item item-divider">
-        {{ child.name }} - {{ child.birth_date | date }}
-      </div>
-      <div class="card" ng-repeat="message in child.messages">
-        <div class="item item-divider">
-          {{ message.delivery_date | date }}
-        </div>
-        <div class="item item-text-wrap">
-          {{ message.text }}
-        </div>
-        <div class="item tabs tabs-secondary tabs-icon-left">
-          <a class="tab-item" href="#">
-            <i class="icon ion-plus-circled"></i>
-            Leia Mais
-          </a>
-        </div>
-      </div>
-    </ul>
-  </ion-content>
+  <ion-side-menus enable-menu-with-back-views="false">
+    <ion-side-menu-content>
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+      <ion-content class="has-header padding" overflow-scroll="true">
+        <h1>Mensagens</h1>
+        <ul class="children list" ng-repeat="child in children">
+          <div class="item item-divider">
+            {{ child.name }} - {{ child.birth_date | date }}
+          </div>
+          <div class="card" ng-repeat="message in child.messages">
+            <div class="item item-divider">
+              {{ message.delivery_date | date }}
+            </div>
+            <div class="item item-text-wrap">
+              {{ message.text }}
+            </div>
+            <div class="item tabs tabs-secondary tabs-icon-left">
+              <a class="tab-item" href="#">
+                <i class="icon ion-plus-circled"></i>
+                Leia Mais
+              </a>
+            </div>
+          </div>
+        </ul>
+      </ion-content>
+    </ion-side-menu-content>
+
+    <ion-side-menu side="left">
+      <ion-content>
+        <ion-list>
+          <ion-item nav-clear menu-close ng-click="login()">
+            <i class="ion-close-circled"></i>
+            Lista de filhos
+          </ion-item>
+        </ion-list>
+        <ion-list ng-controller="AuthCtrl">
+          <ion-item nav-clear ng-click="signOut()">
+            <i class="ion-close-circled"></i>
+            Sair
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-side-menu>
+  </ion-side-menus>
 </ion-view>
