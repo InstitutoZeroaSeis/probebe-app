@@ -6,33 +6,31 @@
         </button>
       </ion-nav-buttons>
       <ion-content class="has-header padding" overflow-scroll="true">
-        <h1>Mensagens</h1>
-        <ul class="children list" ng-repeat="child in children">
+        <h2 ng-show="selectedChild">Mensagens - {{ selectedChild.name }}</h2>
+        <div ng-hide="selectedChild">
+          Carregando ...
+        </div>
+        <div class="card" ng-repeat="message in selectedChild.messages">
           <div class="item item-divider">
-            {{ child.name }} - {{ child.birth_date | date }}
+            {{ message.delivery_date | date }}
           </div>
-          <div class="card" ng-repeat="message in child.messages">
-            <div class="item item-divider">
-              {{ message.delivery_date | date }}
-            </div>
-            <div class="item item-text-wrap">
-              {{ message.text }}
-            </div>
-            <div class="item tabs tabs-secondary tabs-icon-left">
-              <a class="tab-item" href="#">
-                <i class="icon ion-plus-circled"></i>
-                Leia Mais
-              </a>
-            </div>
+          <div class="item item-text-wrap">
+            {{ message.text }}
           </div>
-        </ul>
+          <div class="item tabs tabs-secondary tabs-icon-left">
+            <a class="tab-item" href="#">
+              <i class="icon ion-plus-circled"></i>
+              Leia Mais
+            </a>
+          </div>
+        </div>
       </ion-content>
     </ion-side-menu-content>
 
     <ion-side-menu side="left">
       <ion-content>
-        <ion-list ng-controller="MessagesCtrl">
-          <ion-item nav-clear menu-close ng-click="login()" ng-repeat="child in children">
+        <ion-list>
+          <ion-item nav-clear menu-close ng-click="$parent.selectChild(child)" ng-repeat="child in children">
             {{ child.name }}
           </ion-item>
         </ion-list>
