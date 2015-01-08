@@ -10,7 +10,7 @@
         <div ng-hide="selectedChild">
           Carregando ...
         </div>
-        <div class="card" ng-repeat="message in selectedChild.messages">
+        <div class="card" ng-repeat="message in selectedChild.messages | orderBy:'-delivery_date'">
           <div class="item item-divider">
             {{ message.delivery_date | date }}
           </div>
