@@ -33,7 +33,7 @@
   ],
   "plugins": [
     "com.ionic.keyboard",
-    "com.phonegap.plugins.PushPlugin",
+    "https://github.com/phonegap-build/PushPlugin.git",
     "nl.x-services.plugins.toast",
     "org.apache.cordova.console",
     "org.apache.cordova.device",
