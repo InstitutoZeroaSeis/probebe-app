@@ -1,4 +1,4 @@
-<ion-view title="Pro Bebê">
+<ion-view title="Pro Bebê" ng-controller="MessagesCtrl">
   <ion-side-menus enable-menu-with-back-views="false">
     <ion-side-menu-content>
       <ion-nav-buttons side="left">
@@ -30,7 +30,7 @@
     <ion-side-menu side="left">
       <ion-content>
         <ion-list>
-          <ion-item nav-clear ng-class="{active: selectedChild == child}" menu-close ng-click="$parent.selectedChild(child)" ng-repeat="child in children">
+          <ion-item nav-clear ng-class="{active: selectedChild == child}" menu-close ng-click="selectChild(child)" ng-repeat="child in children">
             {{ child.name }}
           </ion-item>
         </ion-list>
