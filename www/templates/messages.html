@@ -30,7 +30,7 @@
     <ion-side-menu side="left">
       <ion-content>
         <ion-list>
-          <ion-item nav-clear menu-close ng-click="$parent.selectChild(child)" ng-repeat="child in children">
+          <ion-item nav-clear ng-class="{active: selectedChild == child}" menu-close ng-click="$parent.selectedChild(child)" ng-repeat="child in children">
             {{ child.name }}
           </ion-item>
         </ion-list>
