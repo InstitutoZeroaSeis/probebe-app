@@ -1,4 +1,4 @@
-<ion-view title="Pro Bebê" ng-controller="MessagesCtrl">
+<ion-view title="Pro Bebê - Timeline" ng-controller="MessagesCtrl">
   <ion-side-menus enable-menu-with-back-views="false">
     <ion-side-menu-content>
       <ion-nav-buttons side="left">
@@ -6,7 +6,7 @@
         </button>
       </ion-nav-buttons>
       <ion-content class="has-header padding" overflow-scroll="true">
-        <h2 ng-show="selectedChild">Mensagens - {{ selectedChild.name }}</h2>
+        <child-name child="selectedChild"></child-name>
         <div ng-hide="selectedChild">
           Carregando ...
         </div>
@@ -31,7 +31,7 @@
       <ion-content>
         <ion-list>
           <ion-item nav-clear ng-class="{active: selectedChild == child}" menu-close ng-click="selectChild(child)" ng-repeat="child in children">
-            {{ child.name }}
+            <child-name child="child"></child-name>
           </ion-item>
         </ion-list>
         <ion-list ng-controller="AuthCtrl">
