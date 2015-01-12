@@ -1,22 +1,25 @@
 angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).run(function($ionicPlatform, $rootScope, $state, authentication, pushProcessing) {
   $state.go('messages');
   $ionicPlatform.ready(function() {
-    try{
+    try {
       window.cordova.plugins.Keyboard.hideKeyboardAccessoryBar();
       window.StatusBar.styleDefault();
     } catch(error) {
       console.log(error);
     }
   });
+
   if (authentication.isAuthenticated()) {
     pushProcessing.initialize();
   }
+
   authentication.initialize();
+
   $rootScope.$on('authenticate', function() {
     pushProcessing.initialize();
   });
+
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-    console.log("Changing state from " + fromState.name + " to " + toState.name);
     if (!authentication.isAuthenticated() && toState.name !== 'signin') {
       event.preventDefault();
       $state.go('signin');

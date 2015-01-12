@@ -40,7 +40,9 @@
     "org.apache.cordova.dialogs",
     "org.apache.cordova.file",
     "org.apache.cordova.inappbrowser",
-    "org.apache.cordova.media"
+    "org.apache.cordova.media",
+    "org.apache.cordova.network-information",
+    "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git"
   ],
   "scripts": {
     "install": "node tasks/platforms.js && node tasks/plugins.js"

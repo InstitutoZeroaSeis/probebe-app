@@ -1,3 +1,3 @@
 var controllers;
 
-controllers = angular.module("proBebe.controllers", []);
+controllers = angular.module("proBebe.controllers", ['ngCordova']);
