@@ -1,6 +1,11 @@
 var controllers = angular.module("proBebe.controllers");
-controllers.controller("AuthCtrl", function($scope, $ionicLoading, $http, $state, authentication, storage) {
+controllers.controller("AuthCtrl", function($scope, $ionicLoading, $http, $state, $window, Constants, authentication, storage) {
   $scope.login_info = {};
+
+  $scope.signUp = function() {
+    $window.open(Constants.SIGN_UP_URL, '_system');
+  };
+
   $scope.signIn = function() {
     var authPromise = authentication.authenticate($scope.login_info.email, $scope.login_info.password);
     $ionicLoading.show({
