@@ -2,26 +2,27 @@ var services = angular.module("proBebe.services");
 services.service("authentication", function($q, $http, $rootScope, $cordovaDevice, Constants, storage) {
   return {
     authenticate: function(email, password) {
-      var authentication_data, deferred;
-      authentication_data = {
+      var deferred = $q.defer();
+      var authentication_data = {
         email: email,
         password: password
       };
+
       this.setEmail(email);
       this.setPassword(password);
       this.setIsAuthenticated(false);
-      deferred = $q.defer();
+
       var self = this;
+
       $http.post(Constants.CREDENTIALS_URL, authentication_data).then(function(result) {
         self.setIsAuthenticated(result.data.valid);
         if (result.data.valid) {
           self.setAuthenticationHeaders();
           $rootScope.$emit('authenticate');
         }
-        return deferred.resolve(result.data.valid);
+        deferred.resolve(result.data.valid);
       }).catch(function(err) {
-        console.log(err);
-        return deferred.reject("Could not authenticate");
+        deferred.reject("Não foi possível autenticar");
       });
       return deferred.promise;
     },
@@ -35,7 +36,7 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
     },
 
     initialize: function() {
-      if (this.isAuthenticated) {
+      if (this.isAuthenticated()) {
         return this.setAuthenticationHeaders();
       }
     },
@@ -49,19 +50,17 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
     },
 
     registerDeviceNotificationId: function(device_registration_id) {
-      var registration_data;
-      registration_data = {
+      var registration_data = {
         device_registration: {
           platform: $cordovaDevice.getPlatform(),
           platform_code: device_registration_id
         }
       };
+
       $http.post(Constants.DEVICE_REGISTRATION_URL, registration_data, {
         format: 'json'
       }).then(function(result, status) {
         storage.set('registered', status === 200);
-      }).catch(function(err) {
-        console.log(err);
       });
     },
 
