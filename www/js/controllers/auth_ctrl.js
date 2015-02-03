@@ -1,41 +1,41 @@
-var controllers = angular.module("proBebe.controllers");
-controllers.controller("AuthCtrl", function($scope, $ionicLoading, $http, $state, $window, Constants, authentication, storage) {
-  $scope.login_info = {};
-
-  $scope.signUp = function() {
-    $window.open(Constants.SIGN_UP_URL, '_system');
-  };
-
-  $scope.signIn = function() {
-    var authPromise = authentication.authenticate($scope.login_info.email, $scope.login_info.password);
-    $ionicLoading.show({
-      templateUrl: 'templates/loading.html'
+(function() {
+  function showLoading(ionicLoading, text) {
+    ionicLoading.show({
+      template: text,
+      noBackdrop: true,
+      duration: 2000
     });
-    return authPromise.then(function(result) {
-      if (result) {
-        $ionicLoading.show({
-          template: "Autenticado com sucesso",
-          noBackdrop: true,
-          duration: 2000
-        });
-        $state.go('messages');
-      } else {
-        $ionicLoading.show({
-          template: "Credenciais inválidas",
-          noBackdrop: true,
-          duration: 2000
-        });
-      }
-    }).catch(function(error) {
+  }
+
+  angular.module("proBebe.controllers")
+  .controller("AuthCtrl", function($scope, $ionicLoading, $state, $window, Constants, authentication, storage) {
+    $scope.login_info = {};
+
+    $scope.signUp = function() {
+      $window.open(Constants.SIGN_UP_URL, '_system');
+    };
+
+    $scope.signIn = function() {
+      var authPromise = authentication.authenticate($scope.login_info.email, $scope.login_info.password);
       $ionicLoading.show({
-        template: "Ocorreu um erro na autenticação",
-        noBackdrop: true,
-        duration: 2000
+        templateUrl: 'templates/loading.html'
       });
-    });
-  };
-  $scope.signOut = function() {
-    storage.clear();
-    $state.go('signin');
-  };
-});
+      return authPromise.then(function(result) {
+        if (result) {
+          showLoading($ionicLoading, "Autenticado com sucesso");
+          $state.go('messages');
+        } else {
+          showLoading($ionicLoading, "Credenciais inválidas");
+        }
+      }).catch(function(error) {
+        showLoading($ionicLoading, "Ocorreu um erro na autenticação");
+      });
+    };
+
+    $scope.signOut = function() {
+      storage.clear();
+      $state.go('signin');
+    };
+
+  });
+})();
