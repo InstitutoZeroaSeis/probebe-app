@@ -2,7 +2,7 @@ var services = angular.module("proBebe.services");
 services.service("authentication", function($q, $http, $rootScope, $cordovaDevice, Constants, storage) {
   return {
     authenticate: function(email, password) {
-      var authentication_data, deferred, url;
+      var authentication_data, deferred;
       authentication_data = {
         email: email,
         password: password
@@ -10,10 +10,9 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
       this.setEmail(email);
       this.setPassword(password);
       this.setIsAuthenticated(false);
-      url = Constants.API_BASE_URL + "/credentials";
       deferred = $q.defer();
       var self = this;
-      $http.post(url, authentication_data).then(function(result) {
+      $http.post(Constants.CREDENTIALS_URL, authentication_data).then(function(result) {
         self.setIsAuthenticated(result.data.valid);
         if (result.data.valid) {
           self.setAuthenticationHeaders();
@@ -50,15 +49,14 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
     },
 
     registerDeviceNotificationId: function(device_registration_id) {
-      var registration_data, url;
+      var registration_data;
       registration_data = {
         device_registration: {
           platform: $cordovaDevice.getPlatform(),
           platform_code: device_registration_id
         }
       };
-      url = Constants.API_BASE_URL + "/device_registrations";
-      $http.post(url, registration_data, {
+      $http.post(Constants.DEVICE_REGISTRATION_URL, registration_data, {
         format: 'json'
       }).then(function(result, status) {
         storage.set('registered', status === 200);
