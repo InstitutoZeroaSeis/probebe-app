@@ -33,6 +33,7 @@
     };
 
     $scope.signOut = function() {
+      authentication.signOut();
       storage.clear();
       $state.go('signin');
     };

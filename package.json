@@ -45,6 +45,6 @@
     "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git"
   ],
   "scripts": {
-    "install": "node tasks/platforms.js && node tasks/plugins.js"
+    "install": "node tasks/platforms.js"
   }
 }

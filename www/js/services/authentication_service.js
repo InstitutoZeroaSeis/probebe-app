@@ -1,5 +1,5 @@
 var services = angular.module("proBebe.services");
-services.service("authentication", function($q, $http, $rootScope, $cordovaDevice, Constants, storage) {
+services.service("authentication", function($q, $http, $rootScope, $cordovaDevice, Constants, storage, DeviceRegistration) {
   return {
     authenticate: function(email, password) {
       var deferred = $q.defer();
@@ -27,6 +27,12 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
       return deferred.promise;
     },
 
+    signOut: function() {
+      if (this.deviceRegistrationId()) {
+        DeviceRegistration.remove({ platform_code: this.deviceRegistrationId() });
+      }
+    },
+
     email: function() {
       return storage.get('email');
     },
@@ -49,6 +55,10 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
       return storage.get('registered') === 'true';
     },
 
+    deviceRegistrationId: function() {
+      return storage.get('device_registration_id');
+    },
+
     registerDeviceNotificationId: function(device_registration_id) {
       var registration_data = {
         device_registration: {
@@ -57,11 +67,10 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
         }
       };
 
-      $http.post(Constants.DEVICE_REGISTRATION_URL, registration_data, {
-        format: 'json'
-      }).then(function(result, status) {
-        storage.set('registered', status === 200);
-      });
+      this.setDeviceRegistrationId(device_registration_id);
+      this.setRegistered(true);
+
+      DeviceRegistration.save(registration_data);
     },
 
     setAuthenticationHeaders: function() {
@@ -70,19 +79,23 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
     },
 
     setIsAuthenticated: function(authenticated) {
-      return storage.set('authenticated', authenticated);
+      storage.set('authenticated', authenticated);
     },
 
     setEmail: function(email) {
-      return storage.set('email', email);
+      storage.set('email', email);
     },
 
     setPassword: function(password) {
-      return storage.set('password', password);
+      storage.set('password', password);
     },
 
     setRegistered: function(registered) {
-      return storage.set('registered', registered);
+      storage.set('registered', registered);
+    },
+
+    setDeviceRegistrationId: function(device_registration_id) {
+      storage.set('device_registration_id', device_registration_id);
     }
   };
 });
