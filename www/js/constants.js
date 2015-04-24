@@ -1,5 +1,5 @@
 (function() {
-  var API_BASE_URL = "http://192.168.245.146:3000/api";
+  var API_BASE_URL = "http://localhost:3000/api";
   angular.module("proBebe.constants", []).constant("Constants", Object.freeze({
     API_BASE_URL: API_BASE_URL,
     CHILDREN_URL: API_BASE_URL + "/children",

@@ -1,3 +1,75 @@
 a {
   color: blue;
   height: 25px; }
+
+.bar.bar-light {
+  border-color: #ddd;
+  background-color: #f69343;
+  background-image: url(../img/logo.png);
+  color: #FFF;
+  background-size: 30%;
+  background-repeat: no-repeat;
+  background-position: 7px 5px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.bar-light .button.button-clear {
+  border-color: transparent;
+  background: none;
+  box-shadow: none;
+  color: #FFF;
+  font-size: 17px;
+  opacity: 0;
+}
+
+.bar.bar-light .title {
+  color: #FFF;
+}
+
+.bar .title {
+  position: absolute;
+  top: -2px;
+  right: 2px !important;
+  left: 0;
+  z-index: 0;
+  overflow: hidden;
+  margin: 0 10px;
+  min-width: 30px;
+  height: 43px;
+  text-align: right;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 17px;
+  line-height: 44px;
+}
+
+.item.tabs.tabs-secondary.tabs-icon-left {
+  border-bottom: 5px solid #F9B47D !important;
+  border-radius: 0px 0px 6px 6px !important;
+  border-top: 1px dotted #ccc !important;
+}
+
+.tabs-icon-left.tabs .tab-item .icon:before, .tabs-icon-left > .tabs .tab-item .icon:before, .tabs-icon-right.tabs .tab-item .icon:before, .tabs-icon-right > .tabs .tab-item .icon:before {
+  font-size: 24px;
+  color: #F69343;
+  line-height: 49px;
+  top: -3px;
+}
+
+.item-divider {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  min-height: 30px;
+  background-color: rgba(86, 86, 86, 0.87);
+  color: #fff;
+  font-weight: bold;
+  border: none;
+}
+
+.button.button-positive {
+  border-color: #D87F36;
+  background-color: #F69343;
+  color: #fff;
+  width: 94% !important;
+  margin-left: 3%;
+}
