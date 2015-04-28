@@ -9,7 +9,7 @@ a {
   color: #FFF;
   background-size: 30%;
   background-repeat: no-repeat;
-  background-position: 7px 5px;
+  background-position: center 5px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
@@ -19,7 +19,6 @@ a {
   box-shadow: none;
   color: #FFF;
   font-size: 17px;
-  opacity: 0;
 }
 
 .bar.bar-light .title {
@@ -72,4 +71,80 @@ a {
   color: #fff;
   width: 94% !important;
   margin-left: 3%;
+  margin-top: -10px;
+}
+
+
+.bg-1{
+  background: url("../img/bg-1.jpg");
+}
+
+.bg-2{
+  background: url("../img/bg-2.jpg");
+}
+
+.bg-3{
+  background: url("../img/bg-3.jpg");
+}
+
+.bg-4{
+  background: url("../img/bg-4.jpg");
+}
+
+.bg-1, .bg-2, .bg-3, .bg-4{
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background-size: 100%;
+}
+
+.signin .pane, .signin .view{
+  background: none;
+}
+
+.signin.padding.signin.scroll-content.ionic-scroll.has-header .scroll {
+  position: absolute;
+  bottom: 0px;
+  width: 95%;
+}
+
+.signin.keyboard-open .padding.signin.scroll-content.ionic-scroll.has-header .scroll {
+  position: absolute;
+  bottom: -40px;
+  width: 95%;
+}
+
+.signin button.button.button-light.button-full {
+  border-color: #D87F36;
+  background-color: #F69343;
+  color: #fff;
+  width: 94% !important;
+  margin-left: 3%;
+  border-radius: 3px;
+}
+
+.signin .item {
+  border-color: rgba(0, 0, 0, 0.2);
+  background-color: rgba(255, 255, 255, 0.85);
+  position: relative;
+  z-index: 2;
+  display: block;
+  margin: -1px;
+  padding: 10px 15px;
+  border-width: 1px;
+  border-style: solid;
+  font-size: 16px;
+}
+
+.signin .item input{
+  color: #333 !important;
+}
+
+.signin .card, .list-inset {
+  overflow: hidden;
+  margin: 20px 10px;
+  border-radius: 3px;
+  background-color: rgba(255, 255, 255, 0);
 }

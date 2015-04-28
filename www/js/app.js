@@ -1,6 +1,7 @@
 angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).run(function($ionicPlatform, $rootScope, $state, authentication, pushProcessing) {
   $state.go('messages');
   $ionicPlatform.ready(function() {
+
     try {
       window.cordova.plugins.Keyboard.hideKeyboardAccessoryBar();
       window.StatusBar.styleDefault();
@@ -10,7 +11,9 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).
   });
 
   if (authentication.isAuthenticated()) {
-    pushProcessing.initialize();
+    pushProcessing.initialize(); 
+  } else {
+    $rootScope.status = 'signin';
   }
 
   authentication.initialize();
@@ -25,6 +28,7 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).
       $state.go('signin');
     }
   });
+
 }).config(function($stateProvider, $urlRouterProvider) {
   $stateProvider.state("messages", {
     url: "/messages",
