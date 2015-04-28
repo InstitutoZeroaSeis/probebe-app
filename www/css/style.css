@@ -114,6 +114,7 @@ a {
   position: absolute;
   bottom: -40px;
   width: 95%;
+  -webkit-transform: translate3d(0px, -40px, 0px) scale(1) !important;
 }
 
 .signin button.button.button-light.button-full {
