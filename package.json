@@ -46,5 +46,9 @@
   ],
   "scripts": {
     "install": "node tasks/platforms.js"
-  }
+  },
+  "cordovaPlugins": [],
+  "cordovaPlatforms": [
+    "android"
+  ]
 }
