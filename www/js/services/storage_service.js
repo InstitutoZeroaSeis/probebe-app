@@ -13,7 +13,7 @@ services.factory('storage', function($window) {
       $window.localStorage.setItem(key, JSON.stringify(value));
     },
     clear: function() {
-      $window.localStorage.clear();
+      localStorage.clear();
     }
   };
 });
