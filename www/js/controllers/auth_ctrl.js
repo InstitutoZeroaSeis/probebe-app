@@ -24,6 +24,7 @@
         if (result) {
           showLoading($ionicLoading, "Autenticado com sucesso");
           $state.go('messages');
+          location.reload();
         } else {
           showLoading($ionicLoading, "Credenciais inválidas");
         }
