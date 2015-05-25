@@ -4689,10 +4689,9 @@ input[type="file"], input[type="image"], input[type="submit"], input[type="reset
 input[type="file"] {
   line-height: 34px; }
 
-.previous-input-focus, .cloned-text-input + input, .cloned-text-input + textarea {
-  position: absolute;
-  left: -9999px;
-  width: 200px; }
+.item-input input[type="text"].cloned-text-input, .item-input input[type="email"].cloned-text-input, .item-input textarea.cloned-text-input{
+  display: none !important;
+}
 
 input::-moz-placeholder, textarea::-moz-placeholder {
   /* Firefox 19+ */
