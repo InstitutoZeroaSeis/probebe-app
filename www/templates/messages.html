@@ -17,8 +17,8 @@
           <div class="item item-text-wrap">
             {{ message.text }}
           </div>
-          <div class="item tabs tabs-secondary tabs-icon-left">
-            <a class="tab-item" href="#">
+          <div class="item tabs tabs-secondary tabs-icon-left" ng-if="message.url">
+            <a class="tab-item" ng-click="openInBrowser(message.url)" href="#">
               <i class="icon ion-plus-circled"></i>
               Leia Mais
             </a>
