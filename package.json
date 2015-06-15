@@ -31,9 +31,13 @@
   "platforms": [
     "android"
   ],
-  "plugins": [
+  "cordovaPlugins": [
     "com.ionic.keyboard",
     "https://github.com/phonegap-build/PushPlugin.git",
+    {
+      "locator": "https://github.com/phonegap-build/PushPlugin.git",
+      "id": "com.phonegap.plugins.PushPlugin"
+    },
     "nl.x-services.plugins.toast",
     "org.apache.cordova.console",
     "org.apache.cordova.device",
@@ -47,8 +51,8 @@
   "scripts": {
     "install": "node tasks/platforms.js"
   },
-  "cordovaPlugins": [],
   "cordovaPlatforms": [
-    "android"
+    "android",
+    "ios"
   ]
 }
