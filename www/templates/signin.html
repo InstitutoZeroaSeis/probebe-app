@@ -1,18 +1,20 @@
-<ion-content class='signin-content' class="has-header padding signin-style" scroll="false">
-  <div class='signin-content signin-style'>
-    <form ng-submit="signIn()" method="get" accept-charset="utf-8">
-      <div class="list list-inset">
-        <label class="item item-input">
-          <input type="email" placeholder="Email" ng-model="login_info.email">
-        </label>
-        <label class="item item-input">
-          <input type="password" placeholder="Password" ng-model="login_info.password">
-        </label>
-      </div>
-      <input type="submit" class="button button-block button-positive" value="Entrar" />
-    </form>
-    <button class="button button-light button-full" ng-click="signUp()">
-      Criar Usuário
-    </button>
-  </div>
-</ion-content>
+<ion-view title="">
+  <ion-content class='signin-content' class="has-header padding signin-style" scroll="false">
+    <div class='signin-content signin-style'>
+      <form ng-submit="signIn()" method="get" accept-charset="utf-8">
+        <div class="list list-inset">
+          <label class="item item-input">
+            <input type="email" placeholder="Email" ng-model="login_info.email">
+          </label>
+          <label class="item item-input">
+            <input type="password" placeholder="Password" ng-model="login_info.password">
+          </label>
+        </div>
+        <input type="submit" class="button button-block button-positive" value="Entrar" />
+      </form>
+      <button class="button button-light button-full" ng-click="signUp()">
+        Criar Usuário
+      </button>
+    </div>
+  </ion-content>
+</ion-view>

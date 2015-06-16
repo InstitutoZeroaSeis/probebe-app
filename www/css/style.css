@@ -1,6 +1,15 @@
 a {
   color: blue;
-  height: 25px; }
+  height: 25px;
+}
+
+.pane {
+  background-color: transparent;
+}
+
+.messages-list{
+  background-color: #fff;
+}
 
 .bar.bar-light {
   border-color: #ddd;
