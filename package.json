@@ -46,7 +46,8 @@
     "org.apache.cordova.inappbrowser",
     "org.apache.cordova.media",
     "org.apache.cordova.network-information",
-    "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git"
+    "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git",
+    "cordova-plugin-whitelist"
   ],
   "scripts": {
     "install": "node tasks/platforms.js"

@@ -101,24 +101,24 @@ a {
   background-repeat: no-repeat;
 }
 
-.signin .pane, .signin .view{
+.signin-style .pane, .signin-style .view{
   background: none;
 }
 
-.signin.padding.signin.scroll-content.ionic-scroll.has-header .scroll {
+.signin-style.padding.signin-style.scroll-content.ionic-scroll.has-header .scroll {
   position: absolute;
   bottom: 0px;
   width: 95%;
 }
 
-.signin.keyboard-open .padding.signin.scroll-content.ionic-scroll.has-header .scroll {
+.signin-style.keyboard-open .padding.signin-style.scroll-content.ionic-scroll.has-header .scroll {
   position: absolute;
   bottom: -40px;
   width: 95%;
   -webkit-transform: translate3d(0px, -40px, 0px) scale(1) !important;
 }
 
-.signin button.button.button-light.button-full {
+.signin-style button.button.button-light.button-full {
   border-color: #D87F36;
   background-color: #F69343;
   color: #fff;
@@ -127,7 +127,7 @@ a {
   border-radius: 3px;
 }
 
-.signin .item {
+.signin-style .item {
   border-color: rgba(0, 0, 0, 0.2);
   background-color: rgba(255, 255, 255, 0.92);
   position: relative;
@@ -140,11 +140,11 @@ a {
   font-size: 16px;
 }
 
-.signin .item input{
+.signin-style .item input{
   color: #333 !important;
 }
 
-.signin .card, .list-inset {
+.signin-style .card, .list-inset {
   overflow: hidden;
   margin: 20px 10px;
   border-radius: 3px;
