@@ -14,11 +14,7 @@ a {
 .bar.bar-light {
   border-color: #ddd;
   background-color: #f69343;
-  background-image: url(../img/logo.png);
   color: #FFF;
-  background-size: 30%;
-  background-repeat: no-repeat;
-  background-position: center 5px;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 }
 
@@ -34,22 +30,16 @@ a {
   color: #FFF;
 }
 
-.bar .title {
-  position: absolute;
-  top: -2px;
-  right: 2px !important;
-  left: 0;
-  z-index: 0;
-  overflow: hidden;
+/*.bar .title {
   margin: 0 10px;
   min-width: 30px;
   height: 43px;
-  text-align: right;
+  text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 17px;
   line-height: 44px;
-}
+}*/
 
 .item.tabs.tabs-secondary.tabs-icon-left {
   border-bottom: 5px solid #F9B47D !important;
@@ -168,4 +158,8 @@ a {
 
 .side-menu{
   top: 40px;
+}
+
+.nav-bar-title{
+  margin-top: 10px;
 }
