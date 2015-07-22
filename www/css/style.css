@@ -27,6 +27,7 @@ a {
 }
 
 .bar.bar-light .title {
+  text-align: center;
   color: #FFF;
 }
 

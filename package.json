@@ -33,11 +33,6 @@
   ],
   "cordovaPlugins": [
     "com.ionic.keyboard",
-    "https://github.com/phonegap-build/PushPlugin.git",
-    {
-      "locator": "https://github.com/phonegap-build/PushPlugin.git",
-      "id": "com.phonegap.plugins.PushPlugin"
-    },
     "nl.x-services.plugins.toast",
     "org.apache.cordova.console",
     "org.apache.cordova.device",
@@ -47,13 +42,14 @@
     "org.apache.cordova.media",
     "org.apache.cordova.network-information",
     "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git",
-    "cordova-plugin-whitelist"
+    "cordova-plugin-whitelist",
+    "https://github.com/phonegap-build/PushPlugin"
   ],
   "scripts": {
     "install": "node tasks/platforms.js"
   },
   "cordovaPlatforms": [
-    "android",
-    "ios"
+    "ios",
+    "android"
   ]
 }
