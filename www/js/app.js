@@ -5,13 +5,14 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).
     try {
       window.cordova.plugins.Keyboard.hideKeyboardAccessoryBar();
       window.StatusBar.styleDefault();
+      window.open = window.cordova.InAppBrowser.open;
     } catch(error) {
       console.log(error);
     }
   });
 
   if (authentication.isAuthenticated()) {
-    pushProcessing.initialize(); 
+    pushProcessing.initialize();
   } else {
     $rootScope.status = 'signin';
   }

@@ -12,7 +12,7 @@
     $scope.login_info = {};
 
     $scope.signUp = function() {
-      $window.open(Constants.SIGN_UP_URL, '_system');
+      window.open(Constants.SIGN_UP_URL, '_system');
     };
 
     $scope.signIn = function() {

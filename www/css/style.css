@@ -164,3 +164,14 @@ a {
 .nav-bar-title{
   margin-top: 10px;
 }
+
+.sign-up-link{
+  font-size: 18px;
+  text-align: center;
+  width: 100%;
+  position: relative;
+  float: left;
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+}
