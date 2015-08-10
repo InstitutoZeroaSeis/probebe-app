@@ -2,20 +2,39 @@ var controllers;
 
 controllers = angular.module("proBebe.controllers");
 
-controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, $rootScope, $ionicPopup, $cordovaToast, $window, Child) {
+controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, $rootScope, $ionicPopup, $ionicModal, $cordovaToast, $window, Child, Profile, Constants, Microdonation) {
   $rootScope.$on('networkOffline', function(event, networkState) {
     $cordovaToast.showLongBottom('Sem conexão');
   });
 
+ $ionicModal.fromTemplateUrl('microdonation-modal.html', {
+    scope: $scope,
+    animation: 'slide-in-up'
+  }).then(function(modal) {
+    $scope.modal = modal;
+  });
+
   function getChildren() {
-    $scope.children = Child.query(function() {
+    $scope.profile = Profile.get(function() {
       if (!$scope.selectedChild) {
-        $scope.selectedChild = $scope.children[0];
+        $scope.selectedChild = $scope.profile.children[0];
+        initDonationProcess();
       }
     }, function(err) {
       console.log(err);
       $cordovaToast.showLongBottom('Não foi possível carregar as mensagens');
     });
+  }
+
+  function initDonationProcess() {
+    Microdonation.setProfileType($scope.profile.profile_type);
+    if(Microdonation.isProfilePossibleDonor()){
+      Microdonation.openPopup($scope);
+    }else{
+      Microdonation.sendMessages(function(){
+
+      });
+    }
   }
 
   $scope.selectChild = function(child) {

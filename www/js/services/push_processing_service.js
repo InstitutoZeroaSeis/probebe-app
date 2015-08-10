@@ -12,7 +12,10 @@ angular.module("proBebe.services").factory('pushProcessing', function($rootScope
     };
 
     this.initialize = function() {
-      var pushConfig = { senderID: Constants.PUSH_NOTIFICATION.GCM.SENDER_ID };
+      var pushConfig = {
+        senderID: Constants.PUSH_NOTIFICATION.GCM.SENDER_ID,
+        ecb: 'onNotification'
+      };
 
       $ionicPlatform.ready(function() {
         $cordovaPush.register(pushConfig).then(function(result) {

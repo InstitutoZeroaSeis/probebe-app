@@ -4,6 +4,7 @@
   angular.module("proBebe.constants", []).constant("Constants", Object.freeze({
     API_BASE_URL: API_BASE_URL,
     CHILDREN_URL: API_BASE_URL + "/children",
+    PROFILE_URL: API_BASE_URL + "/profiles",
     CREDENTIALS_URL: API_BASE_URL + "/credentials",
     DEVICE_REGISTRATION_URL: API_BASE_URL + "/device_registrations/:platform_code",
     MESSAGE_URL: API_BASE_URL + "/messages/:id",
@@ -14,5 +15,7 @@
     },
     SIGN_UP_URL: API_BASE_URL + "/users",
     PROFILE_URL: API_BASE_URL + "/profiles"
+    PROFILE_TYPE_DONOR: 'donor',
+    PROFILE_TYPE_POSSIBLE_DONOR: 'possible_donor'
   }));
 }());
