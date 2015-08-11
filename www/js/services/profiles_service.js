@@ -13,4 +13,3 @@ angular.module("proBebe.services").factory('Profile', function($http, Constants)
   return Profile;
 
 });
-

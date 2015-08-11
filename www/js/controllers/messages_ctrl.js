@@ -29,7 +29,7 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
   function initDonationProcess() {
     Microdonation.setProfileType($scope.profile.profile_type);
     if(Microdonation.isProfilePossibleDonor()){
-      Microdonation.openPopup($scope);
+      Microdonation.openRequestPopup($scope);
     }else{
       Microdonation.sendMessages(function(){
 
