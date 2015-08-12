@@ -1,7 +1,10 @@
-angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).run(function($ionicPlatform, $rootScope, $state, authentication, pushProcessing) {
+function onNotification(e){
+  console.log('NOTIFICATION', e);
+}
+
+angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).run(function($ionicPlatform, $rootScope, $state, authentication, pushProcessing, Microdonation) {
   // $state.go('messages');
   $ionicPlatform.ready(function() {
-
     var isIOS = ionic.Platform.isIOS();
     var isAndroid = ionic.Platform.isAndroid();
     var currentPlatform = ionic.Platform.platform();
@@ -9,6 +12,8 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).
     if(!isIOS && !isAndroid) $rootScope.systemType = 'other';
     if(isIOS) $rootScope.systemType = 'ios';
     if(isAndroid) $rootScope.systemType = 'android';
+
+    Microdonation.setSendingMessages(false);
 
     try {
       window.cordova.plugins.Keyboard.hideKeyboardAccessoryBar();

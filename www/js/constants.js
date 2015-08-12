@@ -6,6 +6,7 @@
     CHILDREN_URL: API_BASE_URL + "/children",
     PROFILE_URL: API_BASE_URL + "/profiles",
     CREDENTIALS_URL: API_BASE_URL + "/credentials",
+    DONATED_MESSAGES_URL: API_BASE_URL + "/donated_messages",
     DEVICE_REGISTRATION_URL: API_BASE_URL + "/device_registrations/:platform_code",
     MESSAGE_URL: API_BASE_URL + "/messages/:id",
     PUSH_NOTIFICATION: {

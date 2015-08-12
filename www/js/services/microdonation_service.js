@@ -1,4 +1,4 @@
-angular.module("proBebe.services").factory('Microdonation', function($resource, Constants, storage, $ionicPopup, Profile) {
+angular.module("proBebe.services").factory('Microdonation', function($resource, Constants, storage, $ionicPopup, Profile, DonatedMessage, $q, SmsSender) {
   return {
     setProfileType: function(profileType){
       storage.set('profileType', profileType);
@@ -6,53 +6,56 @@ angular.module("proBebe.services").factory('Microdonation', function($resource, 
     getProfileType: function(){
       return storage.get('profileType');
     },
+    setSendingMessages: function(value){
+      storage.set('microdonationSendingMessage', value);
+    },
+    isSendingMessages: function(){
+      return storage.get('microdonationSendingMessage');
+    },
     isProfilePossibleDonor: function(){
       return this.getProfileType() === Constants.PROFILE_TYPE_POSSIBLE_DONOR;
     },
+    isProfileDonor: function(){
+      return this.getProfileType() === Constants.PROFILE_TYPE_DONOR;
+    },
     sendMessages: function(){
-
-    },
-    _showSuccessPopup: function(message, scope){
-      $ionicPopup.show({
-        template: message,
-        title: 'Confirmado',
-        subTitle: '',
-        scope: scope,
-        buttons: [
-          { text: 'Ok' },
-        ]
-      });
-    },
-    openRequestPopup: function(scope){
       var self = this;
-      scope.microdonation = {
-        childrenNumber: 3
-      };
-
-      function confirmFunction(e){
-        var ProfileMaxRecipientChildren = $resource(Constants.PROFILE_URL + "/max_recipient_children");
-        ProfileMaxRecipientChildren.save({ max_recipient_children: scope.microdonation.childrenNumber }, function(){
-          self._showSuccessPopup("Parabéns! Você é uma doadora de mensagens!");
-        })
+      if(self.isSendingMessages()){
+        return;
       }
-
-      $ionicPopup.show({
-        template: 'Número de Crianças: <select ng-model="microdonation.childrenNumber">' +
-                    '<option value="1">1</option>' +
-                    '<option value="3">3</option>' +
-                    '<option value="5">5</option>' +
-                  '</select>',
-        title: 'Doação de Mensagens',
-        subTitle: 'Gostaria de se tornar uma doadora de mensagens?',
-        scope: scope,
-        buttons: [
-          { text: 'Não' },
-          {
-            text: 'Sim',
-            type: 'button-positive',
-            onTap: confirmFunction
-          }
-        ]
+      self.setSendingMessages(true);
+      DonatedMessage.get()
+        .$promise.then(function(resp){
+          return $q.all(resp.donated_messages.map(function(donated_message){
+            return self._sendMessage(donated_message);
+          }));
+        })
+        .then(function(resp){
+          self.setSendingMessages(false);
+          console.log('Terminou de enviar as mensagens');
+        }).catch(function(){
+          self.setSendingMessages(false);
+          console.log('Falha');
+        });
+    },
+    _sendMessage: function(donated_message){
+      var self = this;
+      SmsSender
+      .send(donated_message.message, '5511973062961')
+      .then(function(){
+        return self._markMessageAsSent(donated_message);
+      }, function(){
+        return false;
+      })
+    },
+    _markMessageAsSent: function(donated_message){
+      var DonatedMessageMarkAsSent = $resource(Constants.DONATED_MESSAGES_URL + '/mark_as_sent');
+      DonatedMessageMarkAsSent.save({id: donated_message.id})
+      .$promise.then(function(){
+        return true;
+      })
+      .catch(function(){
+        return false;
       });
     }
 

@@ -7,14 +7,7 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
     $cordovaToast.showLongBottom('Sem conexão');
   });
 
- $ionicModal.fromTemplateUrl('microdonation-modal.html', {
-    scope: $scope,
-    animation: 'slide-in-up'
-  }).then(function(modal) {
-    $scope.modal = modal;
-  });
-
-  function getChildren() {
+  function init() {
     $scope.profile = Profile.get(function() {
       if (!$scope.selectedChild) {
         $scope.selectedChild = $scope.profile.children[0];
@@ -28,12 +21,12 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
 
   function initDonationProcess() {
     Microdonation.setProfileType($scope.profile.profile_type);
-    if(Microdonation.isProfilePossibleDonor()){
-      Microdonation.openRequestPopup($scope);
-    }else{
+    if(Microdonation.isProfileDonor()){
       Microdonation.sendMessages(function(){
 
       });
+    }else{
+
     }
   }
 
@@ -51,6 +44,6 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
     $scope.selectedChild = child;
   });
 
-  $scope.$on('pushMessageReceived', getChildren);
-  getChildren();
+  $scope.$on('pushMessageReceived', init);
+  init();
 });
