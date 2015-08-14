@@ -41,7 +41,7 @@ angular.module("proBebe.services").factory('Microdonation', function($resource, 
     _sendMessage: function(donated_message){
       var self = this;
       SmsSender
-      .send(donated_message.message, '5511973062961')
+      .send(donated_message.message, donated_message.phone_number)
       .then(function(){
         return self._markMessageAsSent(donated_message);
       }, function(){

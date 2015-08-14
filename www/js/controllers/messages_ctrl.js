@@ -25,8 +25,6 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
       Microdonation.sendMessages(function(){
 
       });
-    }else{
-
     }
   }
 
