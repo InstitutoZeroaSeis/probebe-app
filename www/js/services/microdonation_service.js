@@ -27,6 +27,9 @@ angular.module("proBebe.services").factory('Microdonation', function($resource, 
       DonatedMessage.get()
         .$promise.then(function(resp){
           return $q.all(resp.donated_messages.map(function(donated_message){
+            if(self._wasAlreadySent(donated_message))
+              return self._markMessageAsSent(donated_message);
+
             return self._sendMessage(donated_message);
           }));
         })
@@ -43,21 +46,49 @@ angular.module("proBebe.services").factory('Microdonation', function($resource, 
       SmsSender
       .send(donated_message.message, donated_message.phone_number)
       .then(function(){
+        self._addInAlreadySentList(donated_message);
         return self._markMessageAsSent(donated_message);
       }, function(){
         return false;
       })
     },
     _markMessageAsSent: function(donated_message){
+      var self = this;
       var DonatedMessageMarkAsSent = $resource(Constants.DONATED_MESSAGES_URL + '/mark_as_sent');
-      DonatedMessageMarkAsSent.save({id: donated_message.id})
+      return DonatedMessageMarkAsSent.save({id: donated_message.id})
       .$promise.then(function(){
+        self._removeFromAlreadySentList(donated_message);
         return true;
       })
       .catch(function(){
         return false;
       });
-    }
+    },
+    _wasAlreadySent: function(donated_message){
+      var messagesSent = storage.get('messagesSent');
+      if(!messagesSent)
+        return false;
+      return messagesSent.indexOf(donated_message.id) >= 0
+    },
+    _addInAlreadySentList: function(donated_message){
+      var messagesSent = storage.get('messagesSent');
+      if(!messagesSent)
+        messagesSent = [];
 
+      messagesSent.push(donated_message.id);
+      storage.set('messagesSent', messagesSent)
+    },
+    _removeFromAlreadySentList: function(donated_message){
+      var messagesSent = storage.get('messagesSent');
+      if(!messagesSent)
+        return true;
+
+      var index =  messagesSent.indexOf(donated_message.id)
+
+      if(index >= 0)
+        messagesSent.splice(index, 1);
+
+      storage.set('messagesSent', messagesSent)
+    }
   }
 });
