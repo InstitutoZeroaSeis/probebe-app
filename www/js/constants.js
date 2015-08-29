@@ -11,6 +11,6 @@
         SENDER_ID: "315459751586"
       }
     },
-    SIGN_UP_URL: "http://www.probebe.org.br/users/sign_up"
+    SIGN_UP_URL: "http://www.probebe.org.br/#sign_up?utm_source=probebe-app"
   }));
 }());
