@@ -1,4 +1,4 @@
-angular.module("proBebe.services").factory('Microdonation', function($resource, Constants, storage, $ionicPopup, Profile, DonatedMessage, $q, SmsSender) {
+angular.module("proBebe.services").factory('Microdonation', function($resource, Constants, storage, $ionicPopup, Profile, DonatedMessage, $q, SmsSender, RemoveAccents) {
   return {
     setProfileType: function(profileType){
       storage.set('profileType', profileType);
@@ -43,8 +43,9 @@ angular.module("proBebe.services").factory('Microdonation', function($resource, 
     },
     _sendMessage: function(donated_message){
       var self = this;
+      var message = RemoveAccents.remove(donated_message.message);
       SmsSender
-      .send(donated_message.message, donated_message.phone_number)
+      .send(message, donated_message.phone_number)
       .then(function(){
         self._addInAlreadySentList(donated_message);
         return self._markMessageAsSent(donated_message);
