@@ -24,7 +24,7 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).
   });
 
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-    if (!authentication.isAuthenticated() && toState.name !== 'signin') {
+    if (!authentication.isAuthenticated() && (toState.name !== 'signin' && toState.name !== 'signup')) {
       event.preventDefault();
       $state.go('signin');
     }
@@ -39,7 +39,13 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).
   .state("signin", {
     url: "/sign_in",
     controller: "AuthCtrl",
-    templateUrl: "templates/signin.html"
+    templateUrl: "templates/auth/signin.html"
+  })
+  .state("signup", {
+    url: "/sign_up",
+    controller: "AuthCtrl",
+    templateUrl: "templates/auth/signup.html"
   });
+
   $urlRouterProvider.otherwise("/messages");
 });
