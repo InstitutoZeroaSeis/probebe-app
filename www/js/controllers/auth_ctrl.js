@@ -10,9 +10,13 @@
   angular.module("proBebe.controllers")
   .controller("AuthCtrl", function($scope, $ionicLoading, $state, $window, Constants, authentication, storage) {
     $scope.login_info = {};
+    $scope.user = {};
 
-    $scope.signUp = function() {
-
+    $scope.signUp = function(form) {
+      if (form.$valid) {
+        console.log("=============");
+        console.log($scope.user);
+      }
     };
 
     $scope.signIn = function() {
