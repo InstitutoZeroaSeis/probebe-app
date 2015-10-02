@@ -8,7 +8,7 @@
   }
 
   angular.module("proBebe.controllers")
-  .controller("AuthCtrl", function($scope, $ionicLoading, $state, $window, $http, Constants, authentication, storage) {
+  .controller("AuthCtrl", function($scope, $ionicLoading, $state, $http, Constants, authentication, storage) {
     $scope.login_info = {};
     $scope.user = {};
 
@@ -23,14 +23,14 @@
     }
 
     $scope.signIn = function() {
-      var authPromise = authentication.authenticate($scope.login_info.email, $scope.login_info.password);
+      var authPromise = authentication.authenticate($scope.login_info.email, $scope.login_info.password, $scope.login_info.name);
       $ionicLoading.show({
         templateUrl: 'templates/loading.html'
       });
       return authPromise.then(function(result) {
         if (result) {
           showLoading($ionicLoading, "Autenticado com sucesso");
-          $state.go('messages');
+          $state.go('profile');
         } else {
           showLoading($ionicLoading, "Credenciais inválidas");
         }
@@ -45,6 +45,7 @@
         $http.post(Constants.SIGN_UP_URL, data).then(function(result) {
           $scope.login_info.email = $scope.user.email;
           $scope.login_info.password = $scope.user.password;
+          $scope.login_info.name = $scope.user.name;
           $scope.signIn();
         }).catch(function(err) {
           showLoading($ionicLoading, "Ocorreu um erro no cadastro");

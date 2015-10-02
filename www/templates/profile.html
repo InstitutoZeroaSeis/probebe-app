@@ -1,33 +1,72 @@
-<ion-nav-bar class="bar-light">
-  <ion-nav-title>
-    <img src='img/logo.png' />
-  </ion-nav-title>
-</ion-nav-bar>
+<ion-view title="Profile">
 
-<ion-view title="">
-  <ion-content class='signin-content' class="has-header padding signin-style" scroll="false">
+  <ion-side-menus enable-menu-with-back-views="false">
+    <ion-nav-bar class="bar-light">
 
-    <div class='signin-content signin-style'>
-      <form name="signUpForm" ng-submit="signUp(signUpForm)" accept-charset="utf-8">
-        <div class="list list-inset">
+      <ion-nav-buttons side="left">
+        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
+        </button>
+      </ion-nav-buttons>
+    </ion-nav-bar>
 
-          <label class="item item-input" ng-class="{ 'has-error' : signUpForm.userName.$invalid}">
-            <input type="text" name="userName" placeholder="Nome" ng-model="user.name" required>
-          </label>
+    <ion-side-menu-content>
+      <ion-content class="has-header padding messages-list" overflow-scroll="true">
 
-          <label class="item item-input" ng-class="{ 'has-error' : signUpForm.email.$invalid}">
-            <input type="email" name="email" placeholder="Email" ng-model="user.email" required>
-          </label>
-
-          <label class="item item-input" ng-class="{ 'has-error' : signUpForm.password.$invalid}">
-            <input type="password" name="password" placeholder="Password" ng-model="user.password" required>
-          </label>
+      <div class="row">
+        <div class="col">
+          Adicione filhos, edite telefone, e-mail e dados pessoais aqui
         </div>
+     </div>
 
-        <input type="submit" class="button button-block button-positive" value="Cadastrar" />
+      <form name="profileForm" ng-submit="save(profileForm)" accept-charset="utf-8">
+        <ion-list>
+          <h4>Informações Pessoais</h4>
+
+          <label class="item item-input" >
+            <span class="input-label">Nome</span>
+            <input type="text" name="userName" ng-model="profile.name" readonly>
+          </label>
+
+          <label class="item item-input">
+            <span class="input-label">Sexo</span>
+
+              <label class="item item-radio">
+                <input type="radio" name="group">
+                <div class="item-content">F</div>
+                <i class="radio-icon ion-checkmark"></i>
+              </label>
+
+              <label class="item item-radio">
+                <input type="radio" name="group">
+                <div class="item-content">M</div>
+                <i class="radio-icon ion-checkmark"></i>
+              </label>
+          </label>
+        </ion-list>
+
+        <!-- <div class="spacer" style="width: 300px; height: 75px;"></div> -->
+
+        <input type="submit" class="button button-block button-positive" value="Atualizar perfil" />
       </form>
 
-    </div>
+      </ion-content>
+    </ion-side-menu-content>
 
-  </ion-content>
+    <ion-side-menu side="left">
+      <ion-content class='has-header' scroll='false'>
+        <ion-list>
+          <ion-item nav-clear ng-class="{active: selectedChild == child}" menu-close ng-click="selectChild(child)" ng-repeat="child in children">
+            <child-name child="child"></child-name>
+          </ion-item>
+        </ion-list>
+        <ion-list ng-controller="AuthCtrl">
+          <ion-item nav-clear ng-click="signOut()">
+            <i class="ion-close-circled"></i>
+            Sair
+          </ion-item>
+        </ion-list>
+      </ion-content>
+    </ion-side-menu>
+
+  </ion-side-menus>
 </ion-view>
