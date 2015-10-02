@@ -45,6 +45,11 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).
     url: "/sign_up",
     controller: "AuthCtrl",
     templateUrl: "templates/auth/signup.html"
+  })
+  .state("profile", {
+    url: "/profile",
+    controller: "ProfileCtrl",
+    templateUrl: "templates/profile.html"
   });
 
   $urlRouterProvider.otherwise("/messages");

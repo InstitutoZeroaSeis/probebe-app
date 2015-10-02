@@ -8,16 +8,19 @@
   }
 
   angular.module("proBebe.controllers")
-  .controller("AuthCtrl", function($scope, $ionicLoading, $state, $window, Constants, authentication, storage) {
+  .controller("AuthCtrl", function($scope, $ionicLoading, $state, $window, $http, Constants, authentication, storage) {
     $scope.login_info = {};
     $scope.user = {};
 
-    $scope.signUp = function(form) {
-      if (form.$valid) {
-        console.log("=============");
-        console.log($scope.user);
+    function defineData(){
+      return {
+        user: { profile_attributes: {name: $scope.user.name},
+          email: $scope.user.email,
+          password: $scope.user.password,
+          source: ""
+        }
       }
-    };
+    }
 
     $scope.signIn = function() {
       var authPromise = authentication.authenticate($scope.login_info.email, $scope.login_info.password);
@@ -34,6 +37,19 @@
       }).catch(function(error) {
         showLoading($ionicLoading, "Ocorreu um erro na autenticação");
       });
+    };
+
+    $scope.signUp = function(form) {
+      if (form.$valid) {
+        var data = defineData();
+        $http.post(Constants.SIGN_UP_URL, data).then(function(result) {
+          $scope.login_info.email = $scope.user.email;
+          $scope.login_info.password = $scope.user.password;
+          $scope.signIn();
+        }).catch(function(err) {
+          showLoading($ionicLoading, "Ocorreu um erro no cadastro");
+        });
+      }
     };
 
     $scope.signOut = function() {

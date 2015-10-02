@@ -12,7 +12,7 @@
         SENDER_ID: "315459751586"
       }
     },
-    SIGN_UP_URL: "http://192.168.245.207:3000/users/sign_up"
+    SIGN_UP_URL: API_BASE_URL + "/users"
     // SIGN_UP_URL: "http://www.probebe.org.br/users/sign_up"
   }));
 }());
