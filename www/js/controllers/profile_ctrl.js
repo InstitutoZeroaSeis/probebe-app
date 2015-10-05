@@ -13,18 +13,25 @@ angular.module("proBebe.controllers")
     $scope.profile.sons.push({name: "", bornDate: "", gender: ""})
   }
 
+  $scope.removeSon = function(index, profile){
+    var son = profile.sons[index];
+   if(son.id){
+    son._destroy = true;
+   }else{
+    profile.sons.splice(index,1);
+   }
+  }
+
   $scope.save = function(){
     var data = paramToSave();
     Profile.update(data)
     .then(function(result) {
-      console.log("======UPDATE========")
       console.log(result)
     }).catch(function(err) {
       // showLoading($ionicLoading, "Ocorreu um erro em buscar o perfil");
       console.log("Ocorreu um erro na atualização do perfil", err);
 
-    });;
-    console.log(data);
+    });
   }
 
   $scope.validadeCellNumber = function(){
@@ -35,14 +42,19 @@ angular.module("proBebe.controllers")
     $scope.profile.cellPhone = cellPhone;
   }
 
+  function getId(son){
+    return son.id ? "0" : new Date().getTime();
+  }
+
   function childrenAttributes(sons){
     var children = {};
     sons.forEach(function(son){
-      children[son.id || new Date().getTime()] = {
+      children[getId(son)] = {
+        id: son.id,
         name: son.name,
         birth_date: $filter('date')(son.bornDate, "dd/MM/yyyy"),
         gender: son.gender,
-        "_destroy": false
+        _destroy: son._destroy
       }
     })
     return children;
@@ -51,6 +63,7 @@ angular.module("proBebe.controllers")
   function buildProfile (){
     Profile.get()
     .then(function(result) {
+      console.log(result)
       var profile = result.data;
       $scope.profile.id = result.data.id;
       sonsScope(profile);
@@ -70,6 +83,7 @@ angular.module("proBebe.controllers")
           name: son.name,
           bornDate: bornDate(son.birth_date),
           gender: son.gender,
+          _destroy: false
         })
       })
     }else{

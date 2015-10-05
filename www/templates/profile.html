@@ -51,35 +51,43 @@
           </div>
 
           <div ng-repeat="son in profile.sons">
-            <h5>
-              {{$index+1}}° Filho
-            </h5>
+            <div ng-hide="son._destroy">
+              <div class="row">
+                <div class="col col-25">
+                  <h5>
+                    {{$index+1}}° Filho
+                    <i class="radio-icon ion-close" ng-click="removeSon($index, profile)"></i>
+                  </h5>
 
-            <label class="item item-input" >
-              <span class="input-label">Nome</span>
-              <input type="text" name="userName" ng-model="profile.sons[$index].name">
-            </label>
+                </div>
+              </div>
 
-            <label class="item item-input" >
-              <span class="input-label">Data de nasc.</span>
-              <input type="date" name="sonBornDate" ng-model="profile.sons[$index].bornDate">
-            </label>
+              <label class="item item-input" >
+                <span class="input-label">Nome</span>
+                <input type="text" name="userName" ng-model="profile.sons[$index].name">
+              </label>
 
-            <label class="item item-input">
-              <span class="input-label">Sexo</span>
+              <label class="item item-input" >
+                <span class="input-label">Data de nasc.</span>
+                <input type="date" name="sonBornDate" ng-model="profile.sons[$index].bornDate">
+              </label>
 
-                <label class="item item-radio">
-                  <input type="radio" name="female{{$index}}" value="female" ng-model="profile.sons[$index].gender">
-                  <div class="item-content">F</div>
-                  <i class="radio-icon ion-checkmark"></i>
-                </label>
+              <label class="item item-input">
+                <span class="input-label">Sexo</span>
 
-                <label class="item item-radio">
-                  <input type="radio" name="male{{$index}}" value="male" ng-model="profile.sons[$index].gender">
-                  <div class="item-content">M</div>
-                  <i class="radio-icon ion-checkmark"></i>
-                </label>
-            </label>
+                  <label class="item item-radio">
+                    <input type="radio" name="female{{$index}}" value="female" ng-model="profile.sons[$index].gender">
+                    <div class="item-content">F</div>
+                    <i class="radio-icon ion-checkmark"></i>
+                  </label>
+
+                  <label class="item item-radio">
+                    <input type="radio" name="male{{$index}}" value="male" ng-model="profile.sons[$index].gender">
+                    <div class="item-content">M</div>
+                    <i class="radio-icon ion-checkmark"></i>
+                  </label>
+              </label>
+            </div>
           </div>
           <input class="button button-block button-positive" ng-click="addSon()"value="Adicionar outro filho" />
         </div>
