@@ -1,116 +1,120 @@
-angular.module("proBebe.controllers")
-.controller("ProfileCtrl", function($scope, $ionicLoading, $filter, $state, authentication, mask, Profile) {
-  $scope.profile = {
-    name: authentication.name(),
-    sons: []
-  };
-
-  function init(){
-    buildProfile();
-  }
-
-  $scope.addSon = function(){
-    $scope.profile.sons.push({name: "", bornDate: "", gender: ""})
-  }
-
-  $scope.removeSon = function(index, profile){
-    var son = profile.sons[index];
-   if(son.id){
-    son._destroy = true;
-   }else{
-    profile.sons.splice(index,1);
-   }
-  }
-
-  $scope.save = function(){
-    var data = paramToSave();
-    Profile.update(data)
-    .then(function(result) {
-      console.log(result)
-    }).catch(function(err) {
-      // showLoading($ionicLoading, "Ocorreu um erro em buscar o perfil");
-      console.log("Ocorreu um erro na atualização do perfil", err);
-
+(function() {
+  function showLoading(ionicLoading, text) {
+    ionicLoading.show({
+      template: text,
+      noBackdrop: true,
+      duration: 2000
     });
   }
 
-  $scope.validadeCellNumber = function(){
-    var cellPhone = $scope.profile.cellPhone;
-    cellPhone = mask.noDigit(cellPhone);
-    cellPhone = mask.bracketsTheFistTwoDigits(cellPhone);
-    cellPhone = mask.dashBetweenFourAndFiveDigit(cellPhone);
-    $scope.profile.cellPhone = cellPhone;
-  }
+  angular.module("proBebe.controllers")
+  .controller("ProfileCtrl", function($scope, $ionicLoading, $filter, $state, authentication, mask, Profile) {
+    $scope.profile = {
+      name: authentication.name(),
+      sons: []
+    };
 
-  function getId(son){
-    return son.id ? "0" : new Date().getTime();
-  }
+    function init(){
+      buildProfile();
+    }
 
-  function childrenAttributes(sons){
-    var children = {};
-    sons.forEach(function(son){
-      children[getId(son)] = {
-        id: son.id,
-        name: son.name,
-        birth_date: $filter('date')(son.bornDate, "dd/MM/yyyy"),
-        gender: son.gender,
-        _destroy: son._destroy
-      }
-    })
-    return children;
-  }
+    $scope.addSon = function(){
+      $scope.profile.sons.push({name: "", bornDate: "", gender: ""})
+    }
 
-  function buildProfile (){
-    Profile.get()
-    .then(function(result) {
-      console.log(result)
-      var profile = result.data;
-      $scope.profile.id = result.data.id;
-      sonsScope(profile);
+    $scope.removeSon = function(index, profile){
+      var son = profile.sons[index];
+     if(son.id){
+      son._destroy = true;
+     }else{
+      profile.sons.splice(index,1);
+     }
+    }
 
-    }).catch(function(err) {
-      // showLoading($ionicLoading, "Ocorreu um erro em buscar o perfil");
-      console.log("Ocorreu um erro em buscar o perfil");
+    $scope.save = function(){
+      var data = paramToSave();
+      Profile.update(data)
+      .then(function(result) {
+        showLoading($ionicLoading, "Perfil savo com sucesso");
+      }).catch(function(err) {
+        showLoading($ionicLoading, "Ocorreu um erro na atualização do perfil");
+      });
+    }
 
-    });
-  }
+    $scope.validadeCellNumber = function(){
+      var cellPhone = $scope.profile.cellPhone;
+      cellPhone = mask.noDigit(cellPhone);
+      cellPhone = mask.bracketsTheFistTwoDigits(cellPhone);
+      cellPhone = mask.dashBetweenFourAndFiveDigit(cellPhone);
+      $scope.profile.cellPhone = cellPhone;
+    }
 
-  function sonsScope(profile){
-    if(profile.children.length > 0){
-      profile.children.forEach(function(son){
-        $scope.profile.sons.push({
+    function getId(son){
+      return son.id ? "0" : new Date().getTime();
+    }
+
+    function childrenAttributes(sons){
+      var children = {};
+      sons.forEach(function(son){
+        children[getId(son)] = {
           id: son.id,
           name: son.name,
-          bornDate: bornDate(son.birth_date),
+          birth_date: $filter('date')(son.bornDate, "dd/MM/yyyy"),
           gender: son.gender,
-          _destroy: false
-        })
+          _destroy: son._destroy
+        }
       })
-    }else{
-      $scope.profile.sons.push({name: "", bornDate: "", gender: ""});
+      return children;
     }
-  }
 
-  function bornDate(birthDate){
-    var date = new Date();
-    var splitDate = birthDate.split("-");
-    date.setDate(splitDate[2]);
-    date.setMonth(splitDate[1] -1);
-    date.setYear(splitDate[0]);
-    return date;
-  }
+    function buildProfile (){
+      Profile.get()
+      .then(function(result) {
+        var profile = result.data;
+        $scope.profile.id = result.data.id;
+        sonsScope(profile);
+      }).catch(function(err) {
+        showLoading($ionicLoading, "Ocorreu um erro em buscar o perfil");
+      });
+    }
 
-  function paramToSave(){
-    return {
-      profile: {
-        name: $scope.profile.name,
-        gender: $scope.profile.gender,
-        children_attributes: childrenAttributes($scope.profile.sons),
-        cell_phone: $scope.profile.cellPhone,
-        cell_phone_system: "android"
+    function sonsScope(profile){
+      if(profile.children.length > 0){
+        profile.children.forEach(function(son){
+          $scope.profile.sons.push({
+            id: son.id,
+            name: son.name,
+            bornDate: bornDate(son.birth_date),
+            gender: son.gender,
+            _destroy: false
+          })
+        })
+      }else{
+        $scope.profile.sons.push({name: "", bornDate: "", gender: ""});
       }
     }
-  }
 
-  init();
-});
+    function bornDate(birthDate){
+      var date = new Date();
+      var splitDate = birthDate.split("-");
+      date.setDate(splitDate[2]);
+      date.setMonth(splitDate[1] -1);
+      date.setYear(splitDate[0]);
+      return date;
+    }
+
+    function paramToSave(){
+      return {
+        profile: {
+          name: $scope.profile.name,
+          gender: $scope.profile.gender,
+          children_attributes: childrenAttributes($scope.profile.sons),
+          cell_phone: $scope.profile.cellPhone,
+          cell_phone_system: "android"
+        }
+      }
+    }
+
+    init();
+  });
+})();
