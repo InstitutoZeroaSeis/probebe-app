@@ -31,13 +31,13 @@
             <span class="input-label">Sexo</span>
 
               <label class="item item-radio">
-                <input type="radio" name="group">
+                <input type="radio" name="gender" ng-model="profile.gender" value="female">
                 <div class="item-content">F</div>
                 <i class="radio-icon ion-checkmark"></i>
               </label>
 
               <label class="item item-radio">
-                <input type="radio" name="group">
+                <input type="radio" name="gender" ng-model="profile.gender" value="male">
                 <div class="item-content">M</div>
                 <i class="radio-icon ion-checkmark"></i>
               </label>
@@ -69,13 +69,13 @@
               <span class="input-label">Sexo</span>
 
                 <label class="item item-radio">
-                  <input type="radio" name="female" value="feminino" ng-model="profile.sons[$index].sex">
+                  <input type="radio" name="female$index" value="female" ng-model="profile.sons[$index].gender">
                   <div class="item-content">F</div>
                   <i class="radio-icon ion-checkmark"></i>
                 </label>
 
                 <label class="item item-radio">
-                  <input type="radio" name="male" value="masculino" ng-model="profile.sons[$index].sex">
+                  <input type="radio" name="male$index" value="male" ng-model="profile.sons[$index].gender">
                   <div class="item-content">M</div>
                   <i class="radio-icon ion-checkmark"></i>
                 </label>
@@ -93,7 +93,7 @@
         <div class="list">
           <label class="item item-input" >
             <span class="input-label">Celular</span>
-            <input type="number" name="userName" ng-model="profile.cellphone">
+            <input type="text" ng-blur="validadeCellNumber()" name="userName" ng-model="profile.cellPhone">
           </label>
 
         </div>

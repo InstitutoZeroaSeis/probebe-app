@@ -42,6 +42,7 @@
     $scope.signUp = function(form) {
       if (form.$valid) {
         var data = defineData();
+        console.log("chegou")
         $http.post(Constants.SIGN_UP_URL, data).then(function(result) {
           $scope.login_info.email = $scope.user.email;
           $scope.login_info.password = $scope.user.password;
