@@ -24,7 +24,7 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).
   });
 
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-    if (!authentication.isAuthenticated() && (toState.name !== 'signin' && toState.name !== 'signup')) {
+    if (!authentication.isAuthenticated() && (toState.name != 'signin' && toState.name != 'signup')) {
       event.preventDefault();
       $state.go('signin');
     }
