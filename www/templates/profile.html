@@ -19,6 +19,7 @@
      </div>
 
       <form name="profileForm" ng-submit="save(profileForm)" accept-charset="utf-8">
+        <!-- PERSONAL INFORMATION -->
         <ion-list>
           <h4>Informações Pessoais</h4>
 
@@ -43,6 +44,7 @@
               </label>
           </label>
         </ion-list>
+
         <!-- SONS NESTED FORM -->
         <div class="list">
 
@@ -62,14 +64,14 @@
                 </div>
               </div>
 
-              <label class="item item-input" >
+              <label class="item item-input" ng-class="{ 'has-error' : profileForm.sonName{{$index}}.$invalid}">
                 <span class="input-label">Nome</span>
-                <input type="text" name="userName" ng-model="profile.sons[$index].name">
+                <input type="text" name="sonName{{$index}}" ng-model="profile.sons[$index].name"  ng-required="{{$index}} == 0">
               </label>
 
-              <label class="item item-input" >
+              <label class="item item-input">
                 <span class="input-label">Data de nasc.</span>
-                <input type="date" name="sonBornDate" ng-model="profile.sons[$index].bornDate">
+                <input type="date" name="sonBornDate" ng-model="profile.sons[$index].bornDate"  ng-required="{{$index == 0}}">
               </label>
 
               <label class="item item-input">
@@ -91,7 +93,6 @@
           </div>
           <input class="button button-block button-positive" ng-click="addSon()"value="Adicionar outro filho" />
         </div>
-        <!-- END SOND NESTED FORM -->
 
         <!-- CELLPHONE INFORMATION -->
         <h4>Telefones</h4>
@@ -99,19 +100,18 @@
           Cadastre seu número de celular para receber informações personalizadas sobre os cuidados básicos do bebê.
         </p>
         <div class="list">
-          <label class="item item-input" >
+          <label class="item item-input" ng-class="{ 'has-error' : profileForm.cellPhone.$invalid}">
             <span class="input-label">Celular</span>
-            <input type="text" ng-blur="validadeCellNumber()" name="userName" ng-model="profile.cellPhone">
+            <input type="text" ng-blur="validadeCellNumber()" name="cellPhone" ng-model="profile.cellPhone" required>
           </label>
 
         </div>
-        <!-- END CELLPHONE INFORMATION -->
         <input type="submit" class="button button-block button-positive" value="Atualizar perfil" />
       </form>
-
       </ion-content>
     </ion-side-menu-content>
 
+    <!-- SIDE MENU -->
     <ion-side-menu side="left">
       <ion-content class='has-header' scroll='false'>
         <ion-list>

@@ -31,14 +31,17 @@
      }
     }
 
-    $scope.save = function(){
-      var data = paramToSave();
-      Profile.update(data)
-      .then(function(result) {
-        showLoading($ionicLoading, "Perfil savo com sucesso");
-      }).catch(function(err) {
-        showLoading($ionicLoading, "Ocorreu um erro na atualização do perfil");
-      });
+    $scope.save = function(form){
+      if(form.$valid){
+        var data = paramToSave();
+        Profile.update(data)
+        .then(function(result) {
+          showLoading($ionicLoading, "Perfil savo com sucesso");
+          $state.go('messages');
+        }).catch(function(err) {
+          showLoading($ionicLoading, "Ocorreu um erro na atualização do perfil");
+        });
+      }
     }
 
     $scope.validadeCellNumber = function(){
