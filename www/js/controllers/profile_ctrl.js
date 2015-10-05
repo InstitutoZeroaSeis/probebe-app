@@ -71,7 +71,11 @@
       Profile.get()
       .then(function(result) {
         var profile = result.data;
-        $scope.profile.id = result.data.id;
+        console.log(profile)
+        $scope.profile.id = profile.id;
+        $scope.profile.name = profile.name;
+        $scope.profile.gender = profile.gender;
+        $scope.profile.cellPhone = profile.cell_phone;
         sonsScope(profile);
       }).catch(function(err) {
         showLoading($ionicLoading, "Ocorreu um erro em buscar o perfil");
