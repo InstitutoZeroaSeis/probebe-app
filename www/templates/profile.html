@@ -1,4 +1,4 @@
-<ion-view title="Profile">
+<ion-view title="Perfil">
 
   <ion-side-menus enable-menu-with-back-views="false">
     <ion-nav-bar class="bar-light">
@@ -119,6 +119,14 @@
             <child-name child="child"></child-name>
           </ion-item>
         </ion-list>
+
+        <ion-list ng-controller="ProfileCtrl">
+          <ion-item nav-clear ng-click="index()">
+            <i class="ion-person"></i>
+            Perfil
+          </ion-item>
+        </ion-list>
+
         <ion-list ng-controller="AuthCtrl">
           <ion-item nav-clear ng-click="signOut()">
             <i class="ion-close-circled"></i>

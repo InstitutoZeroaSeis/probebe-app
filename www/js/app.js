@@ -2,6 +2,14 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).
   // $state.go('messages');
   $ionicPlatform.ready(function() {
 
+    var isIOS = ionic.Platform.isIOS();
+    var isAndroid = ionic.Platform.isAndroid();
+    var currentPlatform = ionic.Platform.platform();
+
+    if(!isIOS && !isAndroid) $rootScope.systemType = 'other';
+    if(isIOS) $rootScope.systemType = 'ios';
+    if(isAndroid) $rootScope.systemType = 'android';
+
     try {
       window.cordova.plugins.Keyboard.hideKeyboardAccessoryBar();
       window.StatusBar.styleDefault();

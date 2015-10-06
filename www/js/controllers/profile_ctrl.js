@@ -8,7 +8,7 @@
   }
 
   angular.module("proBebe.controllers")
-  .controller("ProfileCtrl", function($scope, $ionicLoading, $filter, $state, authentication, mask, Profile) {
+  .controller("ProfileCtrl", function($rootScope, $scope, $ionicLoading, $filter, $state, authentication, mask, Profile) {
     $scope.profile = {
       name: authentication.name(),
       sons: []
@@ -16,6 +16,10 @@
 
     function init(){
       buildProfile();
+    }
+
+    $scope.index = function(){
+      $state.go('profile');
     }
 
     $scope.addSon = function(){
@@ -117,7 +121,7 @@
           gender: $scope.profile.gender,
           children_attributes: childrenAttributes($scope.profile.sons),
           cell_phone: $scope.profile.cellPhone,
-          cell_phone_system: "android"
+          cell_phone_system: $rootScope.systemType
         }
       }
     }

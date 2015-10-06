@@ -22,7 +22,7 @@
       }
     }
 
-    $scope.signIn = function() {
+    $scope.signIn = function(state) {
       var authPromise = authentication.authenticate($scope.login_info.email, $scope.login_info.password, $scope.login_info.name);
       $ionicLoading.show({
         templateUrl: 'templates/loading.html'
@@ -30,7 +30,7 @@
       return authPromise.then(function(result) {
         if (result) {
           showLoading($ionicLoading, "Autenticado com sucesso");
-          $state.go('profile');
+          $state.go(state);
         } else {
           showLoading($ionicLoading, "Credenciais inválidas");
         }
@@ -46,7 +46,7 @@
           $scope.login_info.email = $scope.user.email;
           $scope.login_info.password = $scope.user.password;
           $scope.login_info.name = $scope.user.name;
-          $scope.signIn();
+          $scope.signIn('profile');
         }).catch(function(err) {
           showLoading($ionicLoading, "Ocorreu um erro no cadastro");
         });
