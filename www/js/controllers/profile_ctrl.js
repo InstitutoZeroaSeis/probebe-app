@@ -24,11 +24,11 @@
 
     $scope.removeSon = function(index, profile){
       var son = profile.sons[index];
-     if(son.id){
-      son._destroy = true;
-     }else{
-      profile.sons.splice(index,1);
-     }
+      if(son.id){
+        son._destroy = true;
+      }else{
+        profile.sons.splice(index,1);
+      }
     }
 
     $scope.save = function(form){

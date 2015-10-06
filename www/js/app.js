@@ -1,5 +1,5 @@
 angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).run(function($ionicPlatform, $rootScope, $state, authentication, pushProcessing) {
-  $state.go('messages');
+  // $state.go('messages');
   $ionicPlatform.ready(function() {
 
     try {
@@ -25,12 +25,14 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).
 
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
     if (!authentication.isAuthenticated() && (toState.name != 'signin' && toState.name != 'signup')) {
-      event.preventDefault();
       $state.go('signin');
+      event.preventDefault();
     }
   });
 
-}).config(function($stateProvider, $urlRouterProvider) {
+}).config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+  $ionicConfigProvider.views.maxCache(0);
+
   $stateProvider.state("messages", {
     url: "/messages",
     controller: "MessagesCtrl",
