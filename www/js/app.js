@@ -2,7 +2,7 @@ function onNotification(e){
   console.log('NOTIFICATION', e);
 }
 
-angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).run(function($ionicPlatform, $rootScope, $state, authentication, pushProcessing, Microdonation) {
+angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).run(function($ionicPlatform, $rootScope, $state, authentication, pushProcessing, Microdonation, ObserverMicrodonation) {
   // $state.go('messages');
   $ionicPlatform.ready(function() {
     var isIOS = ionic.Platform.isIOS();
@@ -37,6 +37,9 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).
   });
 
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+    ObserverMicrodonation.start(toState.name);
+    if(ObserverMicrodonation.isTimeToShowPopup()) Microdonation.popup($rootScope);
+
     if (!authentication.isAuthenticated() && (toState.name != 'signin' && toState.name != 'signup')) {
       $state.go('signin');
       event.preventDefault();
