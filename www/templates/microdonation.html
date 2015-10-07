@@ -1,10 +1,7 @@
-<ion-view title="" ng-controller="MessagesCtrl">
+<ion-view title="Microdoação">
 
   <ion-side-menus enable-menu-with-back-views="false">
     <ion-nav-bar class="bar-light">
-      <ion-nav-title>
-        <img src='img/logo.png' />
-      </ion-nav-title>
 
       <ion-nav-buttons side="left">
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
@@ -13,41 +10,39 @@
     </ion-nav-bar>
 
     <ion-side-menu-content>
-
       <ion-content class="has-header padding messages-list" overflow-scroll="true">
-        <child-name child="selectedChild"></child-name>
-        <div ng-hide="selectedChild">
-          Carregando ...
+
+        <div class="row">
+          <div class="col">
+            <h4 align="center">Faça um microdoação</h4>
+          </div>
+       </div>
+
+        <div class="row">
+          <div class="col">
+            <p align="center">Selecione a quantidade de crianças que deseja ajudar doando SMS</p>
+          </div>
+       </div>
+
+        <form name="donationForm" ng-submit="save(donationForm)" accept-charset="utf-8">
+
+          <div class="item range">
+            <i class="icon ion-ios-person-outline"></i>
+            <input type="range" name="volume" min="1" max="5" value="3">
+            <i class="icon ion-ios-people"></i>
         </div>
-        <div class="card" ng-repeat="message in selectedChild.messages | orderBy:'-delivery_date'">
-          <div class="item item-divider">
-            {{ message.delivery_date | date }}
-          </div>
-          <div class="item item-text-wrap">
-            {{ message.text }}
-          </div>
-          <div class="item tabs tabs-secondary tabs-icon-left" ng-if="message.url">
-            <a class="tab-item" ng-click="openInBrowser(message.url)" href="#">
-              <i class="icon ion-plus-circled"></i>
-              Leia Mais
-            </a>
-          </div>
-        </div>
+
+          <input type="submit" class="button button-block button-positive" value="Doar agora" />
+        </form>
       </ion-content>
     </ion-side-menu-content>
 
+    <!-- SIDE MENU -->
     <ion-side-menu side="left">
       <ion-content class='has-header' scroll='false'>
         <ion-list>
           <ion-item nav-clear ng-class="{active: selectedChild == child}" menu-close ng-click="selectChild(child)" ng-repeat="child in children">
             <child-name child="child"></child-name>
-          </ion-item>
-        </ion-list>
-
-        <ion-list ng-controller="MicroDonationCtrl">
-          <ion-item nav-clear ng-click="showPopup()">
-            <i class="ion-person"></i>
-            Doação
           </ion-item>
         </ion-list>
 
@@ -66,5 +61,6 @@
         </ion-list>
       </ion-content>
     </ion-side-menu>
+
   </ion-side-menus>
 </ion-view>

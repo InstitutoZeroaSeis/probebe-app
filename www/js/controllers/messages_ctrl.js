@@ -8,12 +8,14 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
   });
 
   function init() {
-    $scope.profile = Profile.get(function() {
+    Profile.get()
+    .then(function(response) {
+      $scope.profile = response.data
       if (!$scope.selectedChild) {
         $scope.selectedChild = $scope.profile.children[0];
         initDonationProcess();
       }
-    }, function(err) {
+    }).catch(function(err) {
       console.log(err);
       $cordovaToast.showLongBottom('Não foi possível carregar as mensagens');
     });

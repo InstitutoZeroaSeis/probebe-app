@@ -243,3 +243,8 @@ label.item.has-error {
   width: 95% !important;
   margin: 0 auto !important;
 }
+
+.popup-buttons > button{
+  padding: 0px;
+  font-size: 10px;
+}

@@ -65,6 +65,11 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).
     url: "/profile",
     controller: "ProfileCtrl",
     templateUrl: "templates/profile.html"
+  })
+  .state("microdonation", {
+    url: "/microdonation",
+    controller: "MicroDonationCtrl",
+    templateUrl: "templates/microdonation.html"
   });
 
   $urlRouterProvider.otherwise("/messages");
