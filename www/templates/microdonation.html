@@ -24,15 +24,21 @@
           </div>
        </div>
 
-        <form name="donationForm" ng-submit="save(donationForm)" accept-charset="utf-8">
+        <form name="donationForm" ng-submit="save()" accept-charset="utf-8">
 
           <div class="item range">
             <i class="icon ion-ios-person-outline"></i>
-            <input type="range" name="volume" min="1" max="5" value="3">
+            <input type="range" name="volume" min="1" max="5" ng-model="recipientChildren">
             <i class="icon ion-ios-people"></i>
-        </div>
+          </div>
+          <div class="row">
+            <div class="col" align="center">
+              {{recipientChildren}} Criança(s)
+            </div>
+          </div>
 
           <input type="submit" class="button button-block button-positive" value="Doar agora" />
+
         </form>
       </ion-content>
     </ion-side-menu-content>

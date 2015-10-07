@@ -10,6 +10,10 @@ angular.module("proBebe.services").factory('Profile', function($http, Constants)
     return $http.post(Constants.PROFILE_URL, data);
   }
 
+  Profile.maxRecipientChildren = function(recipientChildren){
+    return $http.post(Constants.PROFILE_MAX_RECIPIENT_CHILDREN, { max_recipient_children: recipientChildren});
+  }
+
   return Profile;
 
 });
