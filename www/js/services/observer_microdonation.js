@@ -8,14 +8,13 @@ angular.module("proBebe.services")
     if(dateShowPopup == null){
       var current = new Date;
       current.setMonth(current.getMonth() + 1);
-      console.log("dateShowPopup", current);
       storage.set('dateShowPopup', current);
     }
   }
 
   Observer.updateDateShowPopup = function(){
     var current = new Date;
-    current.setDate(current.getDate() + 7);
+    current.setDate(current.getDate() + 14); // 2 weeks
     storage.set('dateShowPopup',current);
   }
 

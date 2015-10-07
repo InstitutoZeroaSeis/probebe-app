@@ -3,8 +3,11 @@ function onNotification(e){
 }
 
 angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).run(function($ionicPlatform, $rootScope, $state, authentication, pushProcessing, Microdonation, ObserverMicrodonation) {
-  // $state.go('messages');
+
   $ionicPlatform.ready(function() {
+    // $state.go('messages');
+    Microdonation.setSendingMessages(false);
+
     var isIOS = ionic.Platform.isIOS();
     var isAndroid = ionic.Platform.isAndroid();
     var currentPlatform = ionic.Platform.platform();

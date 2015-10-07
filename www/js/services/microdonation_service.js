@@ -1,4 +1,4 @@
-angular.module("proBebe.services").factory('Microdonation', function($resource, $state, $ionicPopup, Constants, storage, $ionicPopup, Profile, DonatedMessage, $q, SmsSender, RemoveAccents) {
+angular.module("proBebe.services").factory('Microdonation', function($resource, $state, $ionicPopup, Constants, storage, $ionicPopup, Profile, DonatedMessage, $q, SmsSender, RemoveAccents, ObserverMicrodonation) {
   return {
     setProfileType: function(profileType){
       storage.set('profileType', profileType);
@@ -50,10 +50,14 @@ angular.module("proBebe.services").factory('Microdonation', function($resource, 
             text: '<b>Quero doar</b>',
             type: 'button-positive',
             onTap: function(e) {
-              $state.go('microdonation')
+              $state.go('microdonation');
             }
           },
-          { text: 'Agora não' },
+          { text: 'Agora não',
+            onTap: function(e) {
+              ObserverMicrodonation.updateDateShowPopup();
+            }
+          },
           { text: 'Esquecer'}
         ]
       });
