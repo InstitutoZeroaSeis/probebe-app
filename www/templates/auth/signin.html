@@ -6,7 +6,7 @@
 <ion-view title="">
   <ion-content class='signin-content' class="has-header padding signin-style" scroll="false">
     <div class='signin-content signin-style'>
-      <form ng-submit="signIn()" method="get" accept-charset="utf-8">
+      <form ng-submit="signIn('messages')" method="get" accept-charset="utf-8">
         <div class="list list-inset">
           <label class="item item-input">
             <input type="email" placeholder="Email" ng-model="login_info.email">
@@ -22,8 +22,8 @@
           <span>ou</span>
         </div>
       </div>
-      <a href="#" class='sign-up-link' ng-click="signUp()">
-        Criar usuário no Site
+      <a href="#/sign_up" class='button button-block button-positive' >
+        Cadastrar
       </a>
     </div>
   </ion-content>

@@ -1,5 +1,6 @@
 (function() {
   var API_BASE_URL = "http://www.probebe.org.br/api";
+  // var API_BASE_URL = "http://192.168.0.101:3000/api";
   angular.module("proBebe.constants", []).constant("Constants", Object.freeze({
     API_BASE_URL: API_BASE_URL,
     CHILDREN_URL: API_BASE_URL + "/children",
@@ -11,6 +12,8 @@
         SENDER_ID: "315459751586"
       }
     },
-    SIGN_UP_URL: "http://www.probebe.org.br/users/sign_up"
+    SIGN_UP_URL: API_BASE_URL + "/users",
+    PROFILE_URL: API_BASE_URL + "/profiles"
+    // SIGN_UP_URL: "http://www.probebe.org.br/users/sign_up"
   }));
 }());

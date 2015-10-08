@@ -44,6 +44,14 @@
             <child-name child="child"></child-name>
           </ion-item>
         </ion-list>
+
+        <ion-list ng-controller="ProfileCtrl">
+          <ion-item nav-clear ng-click="index()">
+            <i class="ion-person"></i>
+            Perfil
+          </ion-item>
+        </ion-list>
+
         <ion-list ng-controller="AuthCtrl">
           <ion-item nav-clear ng-click="signOut()">
             <i class="ion-close-circled"></i>

@@ -1,6 +1,14 @@
 angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).run(function($ionicPlatform, $rootScope, $state, authentication, pushProcessing) {
-  $state.go('messages');
+  // $state.go('messages');
   $ionicPlatform.ready(function() {
+
+    var isIOS = ionic.Platform.isIOS();
+    var isAndroid = ionic.Platform.isAndroid();
+    var currentPlatform = ionic.Platform.platform();
+
+    if(!isIOS && !isAndroid) $rootScope.systemType = 'other';
+    if(isIOS) $rootScope.systemType = 'ios';
+    if(isAndroid) $rootScope.systemType = 'android';
 
     try {
       window.cordova.plugins.Keyboard.hideKeyboardAccessoryBar();
@@ -24,13 +32,15 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).
   });
 
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-    if (!authentication.isAuthenticated() && toState.name !== 'signin') {
-      event.preventDefault();
+    if (!authentication.isAuthenticated() && (toState.name != 'signin' && toState.name != 'signup')) {
       $state.go('signin');
+      event.preventDefault();
     }
   });
 
-}).config(function($stateProvider, $urlRouterProvider) {
+}).config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+  $ionicConfigProvider.views.maxCache(0);
+
   $stateProvider.state("messages", {
     url: "/messages",
     controller: "MessagesCtrl",
@@ -39,7 +49,18 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).
   .state("signin", {
     url: "/sign_in",
     controller: "AuthCtrl",
-    templateUrl: "templates/signin.html"
+    templateUrl: "templates/auth/signin.html"
+  })
+  .state("signup", {
+    url: "/sign_up",
+    controller: "AuthCtrl",
+    templateUrl: "templates/auth/signup.html"
+  })
+  .state("profile", {
+    url: "/profile",
+    controller: "ProfileCtrl",
+    templateUrl: "templates/profile.html"
   });
+
   $urlRouterProvider.otherwise("/messages");
 });

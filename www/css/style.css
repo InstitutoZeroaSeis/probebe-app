@@ -3,6 +3,10 @@ a {
   height: 25px;
 }
 
+label.item.has-error {
+  border-left: 2px solid red;
+}
+
 .pane {
   background-color: transparent;
 }
@@ -71,7 +75,6 @@ a {
   color: #fff;
   width: 94% !important;
   margin-left: 3%;
-  margin-top: -10px;
 }
 
 
