@@ -114,8 +114,8 @@
     <!-- SIDE MENU -->
     <ion-side-menu side="left">
       <ion-content class='has-header' scroll='false'>
-        <ion-list>
-          <ion-item nav-clear ng-class="{active: selectedChild == child}" menu-close ng-click="selectChild(child)" ng-repeat="child in children">
+        <ion-list ng-controller="MessagesCtrl">
+          <ion-item nav-clear menu-close ng-click="selectChild(child)" ng-repeat="child in children">
             <child-name child="child"></child-name>
           </ion-item>
         </ion-list>
