@@ -1,7 +1,7 @@
 var services = angular.module("proBebe.services");
 services.service("authentication", function($q, $http, $rootScope, $cordovaDevice, Constants, storage, DeviceRegistration) {
   return {
-    authenticate: function(email, password) {
+    authenticate: function(email, password, name) {
       var deferred = $q.defer();
       var authentication_data = {
         email: email,
@@ -11,6 +11,7 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
       this.setEmail(email);
       this.setPassword(password);
       this.setIsAuthenticated(false);
+      this.setName(name);
 
       var self = this;
 
@@ -51,6 +52,10 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
       return storage.get('password');
     },
 
+    name : function(){
+      return storage.get('name');
+    },
+
     registered: function() {
       return storage.get('registered') === 'true';
     },
@@ -84,6 +89,10 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
 
     setEmail: function(email) {
       storage.set('email', email);
+    },
+
+    setName: function(name){
+      storage.set('name',name);
     },
 
     setPassword: function(password) {

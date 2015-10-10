@@ -8,28 +8,49 @@
   }
 
   angular.module("proBebe.controllers")
-  .controller("AuthCtrl", function($scope, $ionicLoading, $state, $window, Constants, authentication, storage) {
+  .controller("AuthCtrl", function($scope, $ionicLoading, $state, $http, Constants, authentication, storage) {
     $scope.login_info = {};
+    $scope.user = {};
 
-    $scope.signUp = function() {
-      window.open(Constants.SIGN_UP_URL, '_system');
-    };
+    function defineData(){
+      return {
+        user: { profile_attributes: {name: $scope.user.name},
+          email: $scope.user.email,
+          password: $scope.user.password,
+          source: ""
+        }
+      }
+    }
 
-    $scope.signIn = function() {
-      var authPromise = authentication.authenticate($scope.login_info.email, $scope.login_info.password);
+    $scope.signIn = function(state) {
+      var authPromise = authentication.authenticate($scope.login_info.email, $scope.login_info.password, $scope.login_info.name);
       $ionicLoading.show({
         templateUrl: 'templates/loading.html'
       });
       return authPromise.then(function(result) {
         if (result) {
           showLoading($ionicLoading, "Autenticado com sucesso");
-          $state.go('messages');
+          $state.go(state);
         } else {
           showLoading($ionicLoading, "Credenciais inválidas");
         }
       }).catch(function(error) {
         showLoading($ionicLoading, "Ocorreu um erro na autenticação");
       });
+    };
+
+    $scope.signUp = function(form) {
+      if (form.$valid) {
+        var data = defineData();
+        $http.post(Constants.SIGN_UP_URL, data).then(function(result) {
+          $scope.login_info.email = $scope.user.email;
+          $scope.login_info.password = $scope.user.password;
+          $scope.login_info.name = $scope.user.name;
+          $scope.signIn('profile');
+        }).catch(function(err) {
+          showLoading($ionicLoading, "Ocorreu um erro no cadastro");
+        });
+      }
     };
 
     $scope.signOut = function() {
