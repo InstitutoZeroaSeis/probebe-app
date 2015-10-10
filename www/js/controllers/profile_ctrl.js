@@ -75,10 +75,10 @@
     }
 
     function buildProfile (){
+      showLoading($ionicLoading, "Carregando...");
       Profile.get()
       .then(function(result) {
         var profile = result.data;
-        console.log(profile)
         $scope.profile.id = profile.id;
         $scope.profile.name = profile.name;
         $scope.profile.gender = profile.gender;
