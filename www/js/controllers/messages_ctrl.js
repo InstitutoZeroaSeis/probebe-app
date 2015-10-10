@@ -2,7 +2,7 @@ var controllers;
 
 controllers = angular.module("proBebe.controllers");
 
-controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootScope, $ionicPopup, $cordovaToast, $window, Child) {
+controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, $rootScope, $ionicPopup, $cordovaToast, $window, Child) {
   $rootScope.$on('networkOffline', function(event, networkState) {
     $cordovaToast.showLongBottom('Sem conexão');
   });
@@ -21,6 +21,7 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
   $scope.selectChild = function(child) {
     $scope.selectedChild = child;
     $rootScope.$emit('childSelected', child);
+    $state.go('messages');
   };
 
   $scope.openInBrowser = function(url) {
