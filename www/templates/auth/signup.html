@@ -24,7 +24,7 @@
           </label>
         </div>
 
-        <input type="submit" class="button button-block button-positive" value="Cadastrar" />
+        <input type="submit" class="button button-block button-positive" value="{{ signUpForm.$valid ? 'Cadastrar': 'Preencha todos os campos'}} " />
       </form>
 
     </div>

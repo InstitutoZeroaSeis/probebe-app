@@ -215,3 +215,31 @@ label.item.has-error {
     left: 100%;
     margin-left: 15px;
 }
+
+.sons-nested-list{
+  margin-top: 15px;
+  background-color: #f4f4f4;
+  padding-left: 1px;
+}
+
+.item-divider{
+  background-color: #ccc;
+}
+
+ .item-radio input:checked ~ .item-content {
+  background: #f69343;
+}
+.message-bornDate{
+  font-size: 10px;
+  font-style: italic;
+  text-align: center;
+}
+
+.row .col{
+  padding: 2px;
+}
+
+.profile .item-input{
+  width: 95% !important;
+  margin: 0 auto !important;
+}
