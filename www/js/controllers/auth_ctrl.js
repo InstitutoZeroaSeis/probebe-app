@@ -3,7 +3,7 @@
     ionicLoading.show({
       template: text,
       noBackdrop: true,
-      duration: 2000
+      duration: 4000
     });
   }
 
@@ -47,8 +47,10 @@
           $scope.login_info.password = $scope.user.password;
           $scope.login_info.name = $scope.user.name;
           $scope.signIn('profile');
-        }).catch(function(err) {
-          showLoading($ionicLoading, "Ocorreu um erro no cadastro");
+        }).catch(function(response) {
+          var messageError = "Ocorreu um erro no cadastro ";
+          messageError += "Senha: "+ response.data.errors.password;
+          showLoading($ionicLoading, messageError);
         });
       }
     };

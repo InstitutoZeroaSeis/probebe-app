@@ -215,3 +215,16 @@ label.item.has-error {
     left: 100%;
     margin-left: 15px;
 }
+
+.sons-nested-list{
+  margin-top: 15px;
+  background-color: #f4f4f4;
+}
+
+.item-divider{
+  background-color: #ccc;
+}
+
+ .item-radio input:checked ~ .item-content {
+  background: #f69343;
+}
