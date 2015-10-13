@@ -219,6 +219,7 @@ label.item.has-error {
 .sons-nested-list{
   margin-top: 15px;
   background-color: #f4f4f4;
+  padding-left: 1px;
 }
 
 .item-divider{
