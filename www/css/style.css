@@ -228,3 +228,10 @@ label.item.has-error {
  .item-radio input:checked ~ .item-content {
   background: #f69343;
 }
+.message-bornDate{
+  font-size: 10px;
+}
+
+.row .col{
+  padding: 2px;
+}
