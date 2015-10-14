@@ -40,6 +40,9 @@
     };
 
     $scope.signUp = function(form) {
+      $ionicLoading.show({
+        templateUrl: 'templates/loading.html'
+      });
       if (form.$valid) {
         var data = defineData();
         $http.post(Constants.SIGN_UP_URL, data).then(function(result) {
@@ -48,8 +51,7 @@
           $scope.login_info.name = $scope.user.name;
           $scope.signIn('profile');
         }).catch(function(response) {
-          var messageError = "Ocorreu um erro no cadastro ";
-          messageError += "Senha: "+ response.data.errors.password;
+          var messageError = errorHandler(response);
           showLoading($ionicLoading, messageError);
         });
       }
@@ -60,6 +62,21 @@
       storage.clear();
       $state.go('signin');
     };
+
+    function errorHandler(response){
+      var messageError = "";
+      if(response.data == undefined){
+        messageError = "Ocorreu um erro no cadastro";
+      }else{
+        var errors = response.data.errors;
+        for(key in errors){
+          var attribute = key;
+          if(key == "password") attribute = "senha";
+          messageError += attribute+": "+ errors[key]+" ";
+        }
+      }
+      return messageError;
+    }
 
   });
 })();
