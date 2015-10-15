@@ -12,7 +12,7 @@ angular.module("proBebe.services")
     var errors = response.data.errors;
     for(key in errors){
       var attribute = this._defineAttribute(key) ;
-      message += attribute+": "+ errors[key]+" ";
+      message += attribute+": "+ errors[key]+" <br>";
     }
   }
 
@@ -23,6 +23,9 @@ angular.module("proBebe.services")
         break;
       case "cell_phone":
         return "Nº celular";
+        break;
+      case "children.birth_date":
+        return "Data de nasc.";
         break;
       default:
         return key;
