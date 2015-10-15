@@ -8,7 +8,7 @@
   }
 
   angular.module("proBebe.controllers")
-  .controller("ProfileCtrl", function($rootScope, $scope, $ionicLoading, $filter, $state, authentication, mask, Profile, errorHandler) {
+  .controller("ProfileCtrl", function($rootScope, $scope, $ionicLoading, $filter, $state, $ionicPopup, authentication, mask, Profile, errorHandler) {
     $scope.profile = {
       name: authentication.name(),
       sons: []
@@ -26,10 +26,31 @@
       $scope.profile.sons.push({name: "", bornDate: "", gender: ""})
     }
 
-    $scope.removeSon = function(index, profile){
+    $scope.showConfirm = function(index, profile) {
+     var confirmPopup = $ionicPopup.confirm({
+          title: 'Apagar filho(a)',
+          template: 'Realmente que deseja apagar?',
+          scope: $scope,
+          buttons: [
+            {
+              text: '<b>Sim</b>',
+              type: 'button-positive',
+              onTap: function(e) {
+                removeSon(index, profile);
+              }
+            },
+            { text: 'Não' }
+          ]
+      });
+
+    };
+
+    function removeSon(index, profile){
+      console.log("remove", index, profile)
       var son = profile.sons[index];
       if(son.id){
-        son._destroy = true;
+        console.log("if")
+        son._destroy = 1;
       }else{
         profile.sons.splice(index,1);
       }
