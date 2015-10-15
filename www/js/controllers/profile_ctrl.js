@@ -8,7 +8,7 @@
   }
 
   angular.module("proBebe.controllers")
-  .controller("ProfileCtrl", function($rootScope, $scope, $ionicLoading, $filter, $state, authentication, mask, Profile) {
+  .controller("ProfileCtrl", function($rootScope, $scope, $ionicLoading, $filter, $state, authentication, mask, Profile, errorHandler) {
     $scope.profile = {
       name: authentication.name(),
       sons: []
@@ -43,7 +43,7 @@
           showLoading($ionicLoading, "Perfil savo com sucesso");
           $state.go('messages');
         }).catch(function(response) {
-          var messageError = errorHandler(response);
+          var messageError = errorHandler.message(response);
           showLoading($ionicLoading, messageError);
         });
       }
@@ -55,21 +55,6 @@
       cellPhone = mask.bracketsTheFistTwoDigits(cellPhone);
       cellPhone = mask.dashBetweenFourAndFiveDigit(cellPhone);
       $scope.profile.cellPhone = cellPhone;
-    }
-
-     function errorHandler(response){
-      var messageError = "";
-      if(response.data == undefined){
-        messageError = "Ocorreu um erro na atualização do perfil";
-      }else{
-        var errors = response.data.errors;
-        for(key in errors){
-          var attribute = key;
-          if(key == "cell_phone") attribute = "celular";
-          messageError += attribute+": "+ errors[key]+" ";
-        }
-      }
-      return messageError;
     }
 
     function getId(son){

@@ -107,7 +107,7 @@
               </label>
 
             </div>
-            <input type="submit" class="button button-block button-positive" value="Atualizar perfil" />
+            <input type="submit" class="button button-block button-positive" value="{{ profileForm.$valid ? 'Atualizar perfil': 'Preencha todos os campos'}} " />
           </form>
         </div>
       </div>
