@@ -92,7 +92,7 @@
                   </label>
                 </div>
               </div>
-              <input class="button button-block button-positive" ng-click="addSon()"value="Adicionar outro filho" />
+              <button type="button" class="button button-block button-positive" ng-click="addSon()"> Adicionar outro filho </button>
             </div>
 
             <!-- CELLPHONE INFORMATION -->
@@ -107,7 +107,7 @@
               </label>
 
             </div>
-            <input type="submit" class="button button-block button-positive" value="{{ profileForm.$valid ? 'Atualizar perfil': 'Preencha todos os campos'}} " />
+            <button type="submit" class="button button-block button-positive" /> {{ profileForm.$valid ? 'Atualizar perfil': 'Preencha todos os campos'}} </button>
           </form>
         </div>
       </div>
