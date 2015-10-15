@@ -71,9 +71,11 @@ angular.module("proBebe.controllers")
 
   $scope.validadeCellNumber = function(){
     var cellPhone = $scope.profile.cellPhone;
-    cellPhone = mask.noDigit(cellPhone);
-    cellPhone = mask.bracketsTheFistTwoDigits(cellPhone);
-    cellPhone = mask.dashBetweenFourAndFiveDigit(cellPhone);
+    if(cellPhone){
+      cellPhone = mask.noDigit(cellPhone);
+      cellPhone = mask.bracketsTheFistTwoDigits(cellPhone);
+      cellPhone = mask.dashBetweenFourAndFiveDigit(cellPhone);
+    }
     $scope.profile.cellPhone = cellPhone;
   }
 
