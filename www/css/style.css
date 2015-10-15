@@ -231,8 +231,15 @@ label.item.has-error {
 }
 .message-bornDate{
   font-size: 10px;
+  font-style: italic;
+  text-align: center;
 }
 
 .row .col{
   padding: 2px;
+}
+
+.profile .item-input{
+  width: 95% !important;
+  margin: 0 auto !important;
 }

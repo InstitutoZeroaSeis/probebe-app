@@ -1,4 +1,4 @@
-<ion-view title="Perfil">
+<ion-view title="Perfil" class="profile">
 
   <ion-side-menus enable-menu-with-back-views="false">
     <ion-nav-bar class="bar-light">
@@ -74,7 +74,7 @@
                     <span class="input-label">Data de nasc.</span>
                     <input type="date" name="sonBornDate" ng-model="profile.sons[$index].bornDate"  ng-required="{{$index == 0}}">
                   </label>
-                  <span class="message-bornDate">Se você está grávida, coloque a data aproximada do parto</span>
+                  <div class="message-bornDate">Se você está grávida, coloque a data aproximada do parto</div>
                   <label class="item item-input">
                     <span class="input-label">Sexo</span>
 
