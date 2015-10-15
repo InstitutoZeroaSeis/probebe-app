@@ -59,7 +59,7 @@
                     <div class="col col-25">
                       <h5>
                         {{$index+1}}° Filho
-                        <i class="radio-icon ion-close" ng-click="removeSon($index, profile)"></i>
+                        <i class="radio-icon ion-close" ng-click="showConfirm($index, profile)"></i>
                       </h5>
 
                     </div>
@@ -92,7 +92,7 @@
                   </label>
                 </div>
               </div>
-              <input class="button button-block button-positive" ng-click="addSon()"value="Adicionar outro filho" />
+              <button type="button" class="button button-block button-positive" ng-click="addSon()"> Adicionar outro filho </button>
             </div>
 
             <!-- CELLPHONE INFORMATION -->
@@ -107,7 +107,7 @@
               </label>
 
             </div>
-            <input type="submit" class="button button-block button-positive" value="Atualizar perfil" />
+            <button type="submit" class="button button-block button-positive" /> {{ profileForm.$valid ? 'Atualizar perfil': 'Preencha todos os campos'}} </button>
           </form>
         </div>
       </div>

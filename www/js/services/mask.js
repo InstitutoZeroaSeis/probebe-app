@@ -4,7 +4,6 @@ angular.module("proBebe.services")
   function Mask() {}
 
   Mask.noDigit = function(input){
-    console.log(input)
     return input.replace(/\D/g, '');
   }
 

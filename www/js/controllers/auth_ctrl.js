@@ -8,7 +8,7 @@
   }
 
   angular.module("proBebe.controllers")
-  .controller("AuthCtrl", function($scope, $ionicLoading, $state, $http, Constants, authentication, storage) {
+  .controller("AuthCtrl", function($scope, $ionicLoading, $state, $http, Constants, authentication, storage, errorHandler) {
     $scope.login_info = {};
     $scope.user = {};
 
@@ -25,7 +25,7 @@
     $scope.signIn = function(state) {
       var authPromise = authentication.authenticate($scope.login_info.email, $scope.login_info.password, $scope.login_info.name);
       $ionicLoading.show({
-        templateUrl: 'templates/loading.html'
+        templateUrl: 'templates/loading_default.html'
       });
       return authPromise.then(function(result) {
         if (result) {
@@ -40,6 +40,9 @@
     };
 
     $scope.signUp = function(form) {
+      $ionicLoading.show({
+        templateUrl: 'templates/loading.html'
+      });
       if (form.$valid) {
         var data = defineData();
         $http.post(Constants.SIGN_UP_URL, data).then(function(result) {
@@ -48,8 +51,7 @@
           $scope.login_info.name = $scope.user.name;
           $scope.signIn('profile');
         }).catch(function(response) {
-          var messageError = "Ocorreu um erro no cadastro ";
-          messageError += "Senha: "+ response.data.errors.password;
+          var messageError = errorHandler.message(response);
           showLoading($ionicLoading, messageError);
         });
       }
