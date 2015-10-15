@@ -25,7 +25,7 @@
     $scope.signIn = function(state) {
       var authPromise = authentication.authenticate($scope.login_info.email, $scope.login_info.password, $scope.login_info.name);
       $ionicLoading.show({
-        templateUrl: 'templates/loading.html'
+        templateUrl: 'templates/loading_default.html'
       });
       return authPromise.then(function(result) {
         if (result) {
