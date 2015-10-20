@@ -11,6 +11,7 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
     Profile.get()
     .then(function(response) {
       $scope.profile = response.data
+        $scope.children = $scope.profile.children;
       if (!$scope.selectedChild) {
         $scope.selectedChild = $scope.profile.children[0];
         initDonationProcess();
