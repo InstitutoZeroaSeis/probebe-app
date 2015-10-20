@@ -3,11 +3,11 @@ angular.module("proBebe.services")
 
   function Observer() {}
 
-  Observer.start = function(state){
+  Observer.start = function(){
     var dateShowPopup = storage.get('dateShowPopup');
     if(dateShowPopup == null){
       var current = new Date;
-      current.setMonth(current.getMonth() + 1);
+      // current.setMonth(current.getMonth() + 1);
       storage.set('dateShowPopup', current);
     }
   }
@@ -20,8 +20,11 @@ angular.module("proBebe.services")
 
   Observer._isTimeToShow = function(current){
     var dateShowPopup = new Date(storage.get('dateShowPopup'));
-    if((dateShowPopup.getMonth() == current.getMonth()) && (dateShowPopup.getDate() == current.getDate())){
-      dateShowPopup.setMonth(dateShowPopup.getMonth() -2);
+    if((dateShowPopup.getMonth() <= current.getMonth())
+      && (dateShowPopup.getDate() <= current.getDate())
+      && (dateShowPopup.getFullYear() == current.getFullYear()))
+    {
+      dateShowPopup.setFullYear(dateShowPopup.getFullYear() -1);
       storage.set('dateShowPopup',dateShowPopup);
       return true;
     } else return false;
