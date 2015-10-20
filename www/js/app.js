@@ -40,7 +40,7 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).
   });
 
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-    ObserverMicrodonation.start(toState.name);
+    ObserverMicrodonation.start();
     if(ObserverMicrodonation.isTimeToShowPopup()) Microdonation.popup($rootScope);
 
     if (!authentication.isAuthenticated() && (toState.name != 'signin' && toState.name != 'signup')) {
