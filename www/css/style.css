@@ -248,3 +248,8 @@ label.item.has-error {
   padding: 0px;
   font-size: 10px;
 }
+
+.item-share-social{
+  position: absolute;
+  right: 5px;
+}

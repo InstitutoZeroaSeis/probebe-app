@@ -27,10 +27,17 @@
             {{ message.text }}
           </div>
           <div class="item tabs tabs-secondary tabs-icon-left" ng-if="message.url">
+
             <a class="tab-item" ng-click="openInBrowser(message.url)" href="#">
               <i class="icon ion-plus-circled"></i>
               Leia Mais
             </a>
+            <a class="tab-item item-share-social">
+              <i class="icon ion-android-share-alt"> </i>
+            </a>
+<!--             <div class="">
+
+            </div> -->
           </div>
         </div>
       </ion-content>
