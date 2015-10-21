@@ -57,8 +57,10 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
     .share(message, subject, null, link) // Share via native share sheet
     .then(function(result) {
       showLoading($ionicLoading, "Mesagem compartilhada :)");
+       $ionicLoading.hide();
     }, function(err) {
       showLoading($ionicLoading, "Erro em compartilhar messagem.");
+       $ionicLoading.hide();
     });
   }
 
