@@ -253,3 +253,13 @@ label.item.has-error {
   position: absolute;
   right: 5px;
 }
+
+.sign-logo{
+  margin-top: 30px;
+}
+
+.img-logo{
+  height: 80px;
+  display: block;
+  margin: auto;
+}

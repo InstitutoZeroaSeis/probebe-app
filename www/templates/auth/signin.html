@@ -1,10 +1,14 @@
-<ion-nav-bar class="bar-light">
-  <ion-nav-title>
-    <img src='img/logo.png' />
-  </ion-nav-title>
-</ion-nav-bar>
+
 <ion-view title="">
+
+  <div class="row sign-logo">
+    <div class="col col-center">
+      <img class="img-logo" src='img/logo_probebe.png' />
+    </div>
+  </div>
+
   <ion-content class='signin-content' class="has-header padding signin-style" scroll="false">
+
     <div class='signin-content signin-style'>
       <form ng-submit="signIn('messages')" method="get" accept-charset="utf-8">
         <div class="list list-inset">
@@ -17,14 +21,17 @@
         </div>
         <input type="submit" class="button button-block button-positive" value="Entrar" />
       </form>
+
       <div class='strike-parent'>
         <div class='strike'>
           <span>ou</span>
         </div>
       </div>
+
       <a href="#/sign_up" class='button button-block button-positive' >
         Cadastrar
       </a>
     </div>
+
   </ion-content>
 </ion-view>
