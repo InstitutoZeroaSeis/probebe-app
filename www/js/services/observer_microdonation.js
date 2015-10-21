@@ -7,7 +7,7 @@ angular.module("proBebe.services")
     var dateShowPopup = storage.get('dateShowPopup');
     if(dateShowPopup == null){
       var current = new Date;
-      // current.setMonth(current.getMonth() + 1);
+      current.setMonth(current.getMonth() + 1);
       storage.set('dateShowPopup', current);
     }
   }
