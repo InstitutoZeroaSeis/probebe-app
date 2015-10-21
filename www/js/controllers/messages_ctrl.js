@@ -2,10 +2,14 @@ var controllers;
 
 controllers = angular.module("proBebe.controllers");
 
-controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, $rootScope, $ionicPopup, $ionicModal, $cordovaToast, $window, Child, Profile, Constants, Microdonation) {
+controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, $rootScope, $ionicPopup, $ionicModal, $cordovaToast, $window, $cordovaSocialSharing, $ionicLoading, Child, Profile, Constants, Microdonation) {
   $rootScope.$on('networkOffline', function(event, networkState) {
     $cordovaToast.showLongBottom('Sem conexão');
   });
+
+  var loadingData = {
+    noBackdrop: true
+  }
 
   function init() {
     Profile.get()
@@ -21,6 +25,12 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
       $cordovaToast.showLongBottom('Não foi possível carregar as mensagens');
     });
   }
+
+  function showLoading(ionicLoading, text) {
+    loadingData.template = text;
+    ionicLoading.show(loadingData);
+  }
+
 
   function initDonationProcess() {
     Microdonation.setProfileType($scope.profile.profile_type);
@@ -39,6 +49,17 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
 
   $scope.openInBrowser = function(url) {
     $window.open(url, '_system');
+  }
+
+  $scope.shareMessage = function(message, link){
+    var subject = "Pro Bebê";
+    $cordovaSocialSharing
+    .share(message, subject, null, link) // Share via native share sheet
+    .then(function(result) {
+      showLoading($ionicLoading, "Mesagem compartilhada :)");
+    }, function(err) {
+      showLoading($ionicLoading, "Erro em compartilhar messagem.");
+    });
   }
 
   $scope.$on('childSelected', function(child) {
