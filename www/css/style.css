@@ -264,3 +264,19 @@ label.item.has-error {
 .sign-tab{
   height: 330px !important;
 }
+
+.img-loadding{
+  display: block;
+  margin: auto;
+  width: 130px;
+}
+
+.box-loadding{
+  height: 100%;
+  background-color: #b8e3e9;
+}
+
+.title-loadding{
+  color: #fff;
+  text-align: center;
+}

@@ -34,9 +34,10 @@
     $scope.signIn = function(state) {
       var authPromise = authentication.authenticate($scope.login_info.email, $scope.login_info.password, $scope.login_info.name);
       $ionicLoading.show({
-        templateUrl: 'templates/loading_default.html'
+        templateUrl: 'templates/loading.html'
       });
       return authPromise.then(function(result) {
+        $ionicLoading.hide();
         if (result) {
           showLoading($ionicLoading, "Autenticado com sucesso");
           $state.go(state);
@@ -58,8 +59,10 @@
           $scope.login_info.email = $scope.user.email;
           $scope.login_info.password = $scope.user.password;
           $scope.login_info.name = $scope.user.name;
+          $ionicLoading.hide();
           $scope.signIn('profile');
         }).catch(function(response) {
+          $ionicLoading.hide();
           var messageError = errorHandler.message(response);
           showLoading($ionicLoading, messageError);
         });
