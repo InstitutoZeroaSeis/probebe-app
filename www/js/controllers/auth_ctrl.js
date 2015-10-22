@@ -11,6 +11,10 @@
   .controller("AuthCtrl", function($scope, $ionicLoading, $state, $http, Constants, authentication, storage, errorHandler) {
     $scope.login_info = {};
     $scope.user = {};
+    $scope.form = {
+      signin: true,
+      signup: false
+    }
 
     function defineData(){
       return {
@@ -20,6 +24,11 @@
           source: ""
         }
       }
+    }
+
+    $scope.toggleTab = function(){
+      $scope.form.signin = !$scope.form.signin;
+      $scope.form.signup = !$scope.form.signup;
     }
 
     $scope.signIn = function(state) {
@@ -60,7 +69,7 @@
     $scope.signOut = function() {
       authentication.signOut();
       storage.clear();
-      $state.go('signin');
+      $state.go('sign');
     };
 
   });

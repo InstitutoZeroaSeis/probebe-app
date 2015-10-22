@@ -30,7 +30,7 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).
   if (authentication.isAuthenticated()) {
     pushProcessing.initialize();
   } else {
-    $rootScope.status = 'signin';
+    $rootScope.status = 'sign';
   }
 
   authentication.initialize();
@@ -43,8 +43,8 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).
     ObserverMicrodonation.start();
     if(ObserverMicrodonation.isTimeToShowPopup()) Microdonation.popup($rootScope);
 
-    if (!authentication.isAuthenticated() && (toState.name != 'signin' && toState.name != 'signup')) {
-      $state.go('signin');
+    if (!authentication.isAuthenticated() && (toState.name != 'sign')) {
+      $state.go('sign');
       event.preventDefault();
     }
   });
@@ -57,15 +57,10 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services"]).
     controller: "MessagesCtrl",
     templateUrl: "templates/messages.html"
   })
-  .state("signin", {
-    url: "/sign_in",
+  .state("sign", {
+    url: "/sign",
     controller: "AuthCtrl",
-    templateUrl: "templates/auth/signin.html"
-  })
-  .state("signup", {
-    url: "/sign_up",
-    controller: "AuthCtrl",
-    templateUrl: "templates/auth/signup.html"
+    templateUrl: "templates/auth/sign.html"
   })
   .state("profile", {
     url: "/profile",
