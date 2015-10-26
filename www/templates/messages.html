@@ -3,14 +3,19 @@
 
   <ion-side-menus enable-menu-with-back-views="false">
     <ion-nav-bar class="bar-light">
-      <ion-nav-title>
-        <img src='img/logo.png' />
-      </ion-nav-title>
-
       <ion-nav-buttons side="left">
         <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
         </button>
       </ion-nav-buttons>
+
+      <ion-nav-title>
+        <h2>{{selectedChild.name}}</h2>
+      </ion-nav-title>
+
+      <ion-nav-buttons side="right">
+        <img class="logo-nav-home" src="../img/logo_nav.png">
+      </ion-nav-buttons>
+
     </ion-nav-bar>
 
     <ion-side-menu-content>
