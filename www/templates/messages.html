@@ -1,3 +1,4 @@
+
 <ion-view title="" ng-controller="MessagesCtrl">
 
   <ion-side-menus enable-menu-with-back-views="false">
@@ -15,7 +16,7 @@
     <ion-side-menu-content>
 
       <ion-content class="has-header padding messages-list" overflow-scroll="true">
-        <child-name child="selectedChild"></child-name>
+        <!-- <child-name child="selectedChild"></child-name> -->
         <div ng-hide="selectedChild">
           Carregando ...
         </div>
@@ -35,9 +36,7 @@
             <div ng-click="shareMessage(message.text, message.url)" class="tab-item item-share-social">
               <i class="icon ion-android-share-alt"> </i>
             </div>
-<!--             <div class="">
 
-            </div> -->
           </div>
         </div>
       </ion-content>
