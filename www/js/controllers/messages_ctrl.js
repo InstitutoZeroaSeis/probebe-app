@@ -2,7 +2,7 @@ var controllers;
 
 controllers = angular.module("proBebe.controllers");
 
-controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, $rootScope, $ionicPopup, $ionicModal, $cordovaToast, $window, $cordovaSocialSharing, $ionicLoading, Child, Profile, Constants, Microdonation, storage) {
+controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, $rootScope, $ionicPopup, $ionicModal, $cordovaToast, $window, $cordovaSocialSharing, $ionicLoading, Child, Profile, Constants, Microdonation, storage, messageHandler) {
   $rootScope.$on('networkOffline', function(event, networkState) {
     $cordovaToast.showLongBottom('Sem conexão');
   });
@@ -12,8 +12,10 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
   }
 
   function init() {
+    var loading = messageHandler.showWithTemplate();
     Profile.get()
     .then(function(response) {
+      loading.hide();
       $scope.profile = response.data
         $scope.children = $scope.profile.children;
       if (!$scope.selectedChild) {
@@ -22,7 +24,7 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
         initDonationProcess();
       }
     }).catch(function(err) {
-      console.log(err);
+      loading.hide();
       $cordovaToast.showLongBottom('Não foi possível carregar as mensagens');
     });
   }
