@@ -54,9 +54,9 @@ label.item.has-error {
 }*/
 
 .item.tabs.tabs-secondary.tabs-icon-left {
-  border-bottom: 5px solid #F9B47D !important;
-  border-radius: 0px 0px 6px 6px !important;
-  border-top: 1px dotted #ccc !important;
+  /*border-bottom: 5px solid #F9B47D !important;*/
+  /*border-radius: 0px 0px 6px 6px !important;*/
+  border-top: 1px solid #F9B47D !important;
 }
 
 .tabs-icon-left.tabs .tab-item .icon:before, .tabs-icon-left > .tabs .tab-item .icon:before, .tabs-icon-right.tabs .tab-item .icon:before, .tabs-icon-right > .tabs .tab-item .icon:before {
@@ -64,6 +64,11 @@ label.item.has-error {
   color: #F69343;
   line-height: 49px;
   top: -3px;
+}
+.tabs-icon-left.tabs .tab-item{
+  font-size: 17px !important;
+  color: #f69343;
+  font-weight: bold;
 }
 
 .item-divider {
@@ -295,4 +300,8 @@ h2{
 .logo-nav-home{
   width: 30px;
   height: 30px;
+}
+
+.new-message{
+  background-color: #f69343 !important;
 }

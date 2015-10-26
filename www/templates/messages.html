@@ -26,15 +26,18 @@
           Carregando ...
         </div>
         <div class="card" ng-repeat="message in selectedChild.messages | orderBy:'-delivery_date'">
-          <div class="item item-divider">
-            {{ message.delivery_date | date }}
+
+          <div class="item item-divider" ng-class="{'new-message' : message.isNew }">
+            {{ message.delivery_date | date }} {{message.isNew}}
           </div>
+
           <div class="item item-text-wrap">
             {{ message.text }}
           </div>
+
           <div class="item tabs tabs-secondary tabs-icon-left" ng-if="message.url">
 
-            <a class="tab-item" ng-click="openInBrowser(message.url)" href="#">
+            <a class="tab-item" ng-click="openInBrowser(message.url, message.id)" href="#">
               <i class="icon ion-plus-circled"></i>
               Leia Mais
             </a>

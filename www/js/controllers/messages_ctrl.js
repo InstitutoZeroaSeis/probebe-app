@@ -2,7 +2,7 @@ var controllers;
 
 controllers = angular.module("proBebe.controllers");
 
-controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, $rootScope, $ionicPopup, $ionicModal, $cordovaToast, $window, $cordovaSocialSharing, $ionicLoading, Child, Profile, Constants, Microdonation) {
+controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, $rootScope, $ionicPopup, $ionicModal, $cordovaToast, $window, $cordovaSocialSharing, $ionicLoading, Child, Profile, Constants, Microdonation, storage) {
   $rootScope.$on('networkOffline', function(event, networkState) {
     $cordovaToast.showLongBottom('Sem conexão');
   });
@@ -18,12 +18,22 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
         $scope.children = $scope.profile.children;
       if (!$scope.selectedChild) {
         $scope.selectedChild = $scope.profile.children[0];
+        defineStatusOfMessages();
         initDonationProcess();
       }
     }).catch(function(err) {
       console.log(err);
       $cordovaToast.showLongBottom('Não foi possível carregar as mensagens');
     });
+  }
+
+  function defineStatusOfMessages () {
+    var readMessage = storage.get('readMessage');
+    if(readMessage == null) readMessage = [];
+    $scope.selectedChild.messages.forEach(function(message){
+      if(readMessage.indexOf(message.id) == -1) message.isNew = true;
+    });
+    storage.set('readMessage', readMessage);
   }
 
   function showLoading(ionicLoading, text) {
@@ -47,8 +57,12 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
     $state.go('messages');
   };
 
-  $scope.openInBrowser = function(url) {
+  $scope.openInBrowser = function(url, id) {
+    var readMessage = storage.get('readMessage');
+    readMessage.push(id);
+    storage.set('readMessage', readMessage);
     $window.open(url, '_system');
+    init();
   }
 
   $scope.shareMessage = function(message, link){
