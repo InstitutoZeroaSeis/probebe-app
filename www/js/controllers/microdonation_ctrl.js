@@ -29,5 +29,8 @@
       });
     }
 
+    $scope.index = function(){
+      $state.go('microdonation');
+    }
   });
 })();

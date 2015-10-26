@@ -45,23 +45,42 @@
 
     <!-- SIDE MENU -->
     <ion-side-menu side="left">
-      <ion-content class='has-header' scroll='false'>
-        <ion-list>
-          <ion-item nav-clear ng-class="{active: selectedChild == child}" menu-close ng-click="selectChild(child)" ng-repeat="child in children">
-            <child-name child="child"></child-name>
+      <ion-content class='has-header bg-blue' scroll='false'>
+
+        <ion-list ng-controller="MessagesCtrl">
+          <ion-item class="bg-blue" nav-clear menu-close ng-click="selectChild(child)" ng-repeat="child in children">
+            <i>
+              <img class="custom-icon" src="../img/icone_bebe.svg">
+            </i>
+            {{child.name}}
+            <span class="badge badge-assertive">{{newMessagesTotal}}</span>
+          </ion-item>
+        </ion-list>
+
+        <ion-list ng-controller="MicroDonationCtrl">
+          <ion-item class="bg-blue active" class="bg-blue" nav-clear ng-click="index()">
+            <i>
+              <img class="custom-icon" src="../img/icone_microdoacao.svg">
+            </i>
+            Microdoação
+            <span class="badge badge-assertive">0</span>
           </ion-item>
         </ion-list>
 
         <ion-list ng-controller="ProfileCtrl">
-          <ion-item nav-clear ng-click="index()">
-            <i class="ion-person"></i>
+          <ion-item class="bg-blue" nav-clear ng-click="index()">
+            <i>
+              <img class="custom-icon" src="../img/icone_perfil.svg">
+            </i>
             Perfil
           </ion-item>
         </ion-list>
 
         <ion-list ng-controller="AuthCtrl">
-          <ion-item nav-clear ng-click="signOut()">
-            <i class="ion-close-circled"></i>
+          <ion-item class="bg-blue" nav-clear ng-click="signOut()">
+            <i>
+              <img class="custom-icon" src="../img/icone_saida.svg">
+            </i>
             Sair
           </ion-item>
         </ion-list>

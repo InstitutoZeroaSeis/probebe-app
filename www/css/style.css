@@ -305,3 +305,13 @@ h2{
 .new-message{
   background-color: #f69343 !important;
 }
+
+.custom-icon{
+  width: 25px;
+}
+
+.bg-blue{
+  background-color: #90CFD6;
+  color: #fff;
+  border-color: #fff;
+}

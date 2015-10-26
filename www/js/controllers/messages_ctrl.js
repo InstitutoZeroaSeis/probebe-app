@@ -30,10 +30,14 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
   }
 
   function defineStatusOfMessages () {
+    $scope.newMessagesTotal = 0;
     var readMessage = storage.get('readMessage');
     if(readMessage == null) readMessage = [];
     $scope.selectedChild.messages.forEach(function(message){
-      if(readMessage.indexOf(message.id) == -1) message.isNew = true;
+      if(readMessage.indexOf(message.id) == -1) {
+        message.isNew = true;
+        $scope.newMessagesTotal +=1;
+      }
     });
     storage.set('readMessage', readMessage);
   }
