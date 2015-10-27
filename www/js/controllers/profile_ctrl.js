@@ -5,6 +5,8 @@ angular.module("proBebe.controllers")
     sons: []
   };
 
+  $scope.showSuccessMgs = false;
+
   var loadingData = {
     noBackdrop: true
   }
@@ -60,8 +62,7 @@ angular.module("proBebe.controllers")
       var data = paramToSave();
       Profile.update(data)
       .then(function(result) {
-        showLoading($ionicLoading, "Perfil savo com sucesso");
-        $state.go('messages');
+        stateSucessMsg();
       }).catch(function(response) {
         var messageError = errorHandler.message(response);
         showLoading($ionicLoading, messageError);
@@ -83,6 +84,14 @@ angular.module("proBebe.controllers")
     return son.id ? "0" : new Date().getTime();
   }
 
+  function stateSucessMsg (){
+    $scope.showSuccessMgs = true;
+    setTimeout(function(){
+      $scope.$apply(function () {
+          $scope.showSuccessMgs = false;
+        });
+    }, 3000);
+  }
   function childrenAttributes(sons){
     var children = {};
     sons.forEach(function(son){
