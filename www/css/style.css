@@ -215,7 +215,7 @@ label.item.has-error {
 .sons-nested-list{
   margin-top: 15px;
   background-color: #f4f4f4;
-  padding-left: 1px;
+  padding: 5px;
 }
 
 .item-divider{
@@ -236,8 +236,14 @@ label.item.has-error {
 }
 
 .profile .item-input{
-  width: 95% !important;
-  margin: 0 auto !important;
+  margin-bottom: 6px;
+  padding: 0px 0px 0px 10px;
+  background-color: #f4f4f4;
+}
+
+.profile .item-input input{
+  background-color: #fff;
+  padding-left: 5px;
 }
 
 .popup-buttons > button{
@@ -314,4 +320,22 @@ h2{
   background-color: #90CFD6;
   color: #fff;
   border-color: #fff;
+}
+
+.bg-white{
+  background-color: #fff;
+}
+
+legend {
+  display: block;
+  margin-bottom: 1.42857;
+  /*padding-left: 3px;*/
+  width: 23%;
+  border: 0px;
+  color: #444;
+  font-size: 13px;
+}
+
+fieldset{
+  border: 1px dotted #ccc;
 }
