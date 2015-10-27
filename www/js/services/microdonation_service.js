@@ -43,7 +43,7 @@ angular.module("proBebe.services").factory('Microdonation', function($resource, 
     },
     popup: function(scope){
       return $ionicPopup.show({
-        title: 'QUE TAL AJUDAR OUTRAS MÃES FAZENDO UMA MICRODOAÇÃO DE SMS?',
+        templateUrl: 'templates/popup/microdonation.html',
         scope: scope,
         buttons: [
           {
