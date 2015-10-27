@@ -21,11 +21,18 @@
     <ion-side-menu-content>
 
       <ion-content class="has-header padding messages-list">
-        <!-- <child-name child="selectedChild"></child-name> -->
-        <div ng-hide="selectedChild">
-          Carregando ...
+        <div class="card" ng-show="showNoMessage" >
+
+          <div class="item item-divider" ng-class="new-message">
+            Messagens
+          </div>
+
+          <div class="item item-text-wrap">
+            Seu filho(a) ainda não possue messagens
+          </div>
         </div>
-        <div class="card" ng-repeat="message in selectedChild.messages | orderBy:'-delivery_date'">
+
+        <div ng-hide="showNoMessage" class="card" ng-repeat="message in selectedChild.messages | orderBy:'-delivery_date'">
 
           <div class="item item-divider" ng-class="{'new-message' : message.isNew }">
             {{ message.delivery_date | date }} {{message.isNew}}

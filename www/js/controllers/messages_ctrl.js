@@ -18,10 +18,13 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
       loading.hide();
       $scope.profile = response.data
       $scope.children = $scope.profile.children;
+
       if (!$scope.selectedChild) {
         $scope.selectedChild = $scope.profile.children[0];
         initDonationProcess();
       }
+
+      if($scope.selectedChild.messages.length == 0) $scope.showNoMessage = true;
       defineStatusOfMessages();
     }).catch(function(err) {
       loading.hide();
@@ -33,6 +36,7 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
     $scope.newMessagesTotal = 0;
     var readMessage = storage.get('readMessage');
     if(readMessage == null) readMessage = [];
+
     $scope.selectedChild.messages.forEach(function(message){
       if(readMessage.indexOf(message.id) == -1) {
         message.isNew = true;
