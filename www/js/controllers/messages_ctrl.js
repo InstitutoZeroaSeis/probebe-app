@@ -17,12 +17,12 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
     .then(function(response) {
       loading.hide();
       $scope.profile = response.data
-        $scope.children = $scope.profile.children;
+      $scope.children = $scope.profile.children;
       if (!$scope.selectedChild) {
         $scope.selectedChild = $scope.profile.children[0];
-        defineStatusOfMessages();
         initDonationProcess();
       }
+      defineStatusOfMessages();
     }).catch(function(err) {
       loading.hide();
       $cordovaToast.showLongBottom('Não foi possível carregar as mensagens');
@@ -63,11 +63,12 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
     $state.go('messages');
   };
 
-  $scope.openInBrowser = function(url, id) {
+  $scope.openInBrowser = function(message) {
+    message.isNew = false;
     var readMessage = storage.get('readMessage');
-    readMessage.push(id);
+    readMessage.push(message.id);
     storage.set('readMessage', readMessage);
-    $window.open(url, '_system');
+    $window.open(message.url, '_system');
     init();
   }
 
