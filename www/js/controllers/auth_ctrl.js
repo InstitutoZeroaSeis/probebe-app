@@ -49,9 +49,15 @@ angular.module("proBebe.controllers")
 
   $scope.signOut = function() {
     authentication.signOut();
-    storage.clear();
+    mantainMessageStatus();
     $state.go('sign');
   };
+
+  function mantainMessageStatus (argument) {
+    var readMessage = storage.get('readMessage');
+    storage.clear();
+    storage.set('readMessage', readMessage);
+  }
 
   function defineData(){
     return {
