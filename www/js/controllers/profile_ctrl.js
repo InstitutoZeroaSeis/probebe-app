@@ -1,5 +1,5 @@
 angular.module("proBebe.controllers")
-.controller("ProfileCtrl", function($rootScope, $scope, $ionicLoading, $filter, $state, $ionicPopup, authentication, mask, Profile, errorHandler) {
+.controller("ProfileCtrl", function($rootScope, $scope, $ionicLoading, $filter, $state, $ionicPopup, $ionicScrollDelegate, authentication, mask, Profile, errorHandler, messageHandler) {
   $scope.profile = {
     name: authentication.name(),
     sons: []
@@ -57,15 +57,16 @@ angular.module("proBebe.controllers")
   }
 
   $scope.save = function(form){
-    loadingData.duration = 2000;
+    var loading = messageHandler.showWithTemplate();
     if(form.$valid){
       var data = paramToSave();
       Profile.update(data)
       .then(function(result) {
+        loading.hide();
         stateSucessMsg();
       }).catch(function(response) {
-        var messageError = errorHandler.message(response);
-        showLoading($ionicLoading, messageError);
+        loading.hide();
+        messageHandler.show(errorHandler.message(response));
       });
     }
   }
@@ -86,11 +87,12 @@ angular.module("proBebe.controllers")
 
   function stateSucessMsg (){
     $scope.showSuccessMgs = true;
+    $ionicScrollDelegate.anchorScroll("#goMgs");
     setTimeout(function(){
       $scope.$apply(function () {
           $scope.showSuccessMgs = false;
         });
-    }, 3000);
+    }, 4000);
   }
   function childrenAttributes(sons){
     var children = {};
@@ -107,7 +109,7 @@ angular.module("proBebe.controllers")
   }
 
   function buildProfile (){
-    showLoading($ionicLoading, "Carregando...");
+    var loading = messageHandler.showWithTemplate();
     Profile.get()
     .then(function(result) {
       var profile = result.data;
@@ -116,11 +118,10 @@ angular.module("proBebe.controllers")
       $scope.profile.gender = profile.gender;
       $scope.profile.cellPhone = profile.cell_phone;
       sonsScope(profile);
-      $ionicLoading.hide();
+      loading.hide();
     }).catch(function(err) {
-      $ionicLoading.hide();
-      loadingData.duration = 2000;
-      showLoading($ionicLoading, "Ocorreu um erro em buscar o perfil");
+      loading.hide();
+      messageHandler.showWithTemplate("Ocorreu um erro em buscar o perfil");
     });
   }
 
@@ -147,20 +148,6 @@ angular.module("proBebe.controllers")
     date.setMonth(splitDate[1] -1);
     date.setYear(splitDate[0]);
     return date;
-  }
-
-  function buildProfile (){
-    Profile.get()
-    .then(function(result) {
-      var profile = result.data;
-      $scope.profile.id = profile.id;
-      $scope.profile.name = profile.name;
-      $scope.profile.gender = profile.gender;
-      $scope.profile.cellPhone = profile.cell_phone;
-      sonsScope(profile);
-    }).catch(function(err) {
-      showLoading($ionicLoading, "Ocorreu um erro em buscar o perfil");
-    });
   }
 
   function paramToSave(){

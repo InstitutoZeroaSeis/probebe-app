@@ -10,16 +10,15 @@
     </ion-nav-bar>
 
     <ion-side-menu-content>
-      <ion-content class="has-header bg-white" >
+      <ion-content class="has-header bg-white">
 
-        <div class="row" ng-class="{ 'sucessMgs' : showSuccessMgs }">
+        <div class="row" id="goMgs" ng-class="{ 'sucessMgs' : showSuccessMgs }">
           <div class="col" ng-hide="showSuccessMgs">
             Adicione filhos, edite telefone, e-mail e dados pessoais aqui
           </div>
           <div class="col" ng-show="showSuccessMgs" align="center">
             Seu perfil foi atualizado!
           </div>
-          {{showSuccessMgs}}
         </div>
 
         <div class="row">
