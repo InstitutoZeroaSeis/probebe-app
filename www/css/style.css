@@ -339,3 +339,13 @@ legend {
 fieldset{
   border: 1px dotted #ccc;
 }
+.item-radio .item-content {
+  padding: 10px 60px 10px 10px;
+}
+.item-radio .radio-icon {
+  padding: 10px;
+}
+
+.sucessMgs{
+  background-color: #f4f4f4;
+}
