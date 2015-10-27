@@ -289,6 +289,12 @@ label.item.has-error {
   width: 130px;
 }
 
+.img-popup{
+  display: block;
+  margin: auto;
+  width: 110px;
+}
+
 .box-loadding{
   height: 100%;
   background-color: #b8e3e9;

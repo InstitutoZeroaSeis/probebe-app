@@ -30,8 +30,7 @@ angular.module("proBebe.controllers")
 
   $scope.showConfirm = function(index, profile) {
    var confirmPopup = $ionicPopup.confirm({
-        title: 'Apagar filho(a)',
-        template: 'Realmente que deseja apagar?',
+        templateUrl: 'templates/popup/delete_son.html',
         scope: $scope,
         buttons: [
           {

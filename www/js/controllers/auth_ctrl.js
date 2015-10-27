@@ -1,5 +1,5 @@
 angular.module("proBebe.controllers")
-.controller("AuthCtrl", function($scope, $state, $http, Constants, authentication, storage, errorHandler, messageHandler) {
+.controller("AuthCtrl", function($scope, $state, $http, $ionicPopup, Constants, authentication, storage, errorHandler, messageHandler) {
   $scope.login_info = {};
   $scope.user = {};
   $scope.form = {
@@ -39,7 +39,7 @@ angular.module("proBebe.controllers")
         $scope.login_info.password = $scope.user.password;
         $scope.login_info.name = $scope.user.name;
         loading.hide();
-        $scope.signIn('profile');
+        thanksPopup();
       }).catch(function(response) {
         loading.hide();
         messageHandler.show(errorHandler.message(response));
@@ -51,6 +51,24 @@ angular.module("proBebe.controllers")
     authentication.signOut();
     mantainMessageStatus();
     $state.go('sign');
+  };
+
+
+  function thanksPopup() {
+   var confirmPopup = $ionicPopup.confirm({
+        templateUrl: 'templates/popup/confirm_signup.html',
+        scope: $scope,
+        buttons: [
+          {
+            text: '<b>Ok</b>',
+            type: 'button-positive',
+            onTap: function(e) {
+              $scope.signIn('profile');
+            }
+          }
+        ]
+    });
+
   };
 
   function mantainMessageStatus (argument) {
