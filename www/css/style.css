@@ -355,3 +355,28 @@ fieldset{
 .sucessMgs{
   background-color: #f4f4f4;
 }
+
+.form-donation{
+  background-color: #fff;
+  padding: 5px;
+}
+
+.title-form-donation{
+  font-weight: bold;
+  text-align: center;
+  color: #f69343;
+}
+
+.title-donation{
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
+}
+
+.form-donation .item{
+  border: 0px;
+}
+
+.icon-child-donation{
+  width: 20px;
+}
