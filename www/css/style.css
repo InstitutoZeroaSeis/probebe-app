@@ -388,3 +388,31 @@ fieldset{
 .range{
   padding: 0px;
 }
+.row-slider{
+  margin-bottom: -10px;
+}
+.col-total-child{
+  color: #666;
+  margin-top: -10px;
+}
+
+/* Style page microdonation - custom input range */
+input[type="range"]::-webkit-slider-thumb:before {
+  position: absolute;
+  top: 8px;
+  left: -2001px;
+  width: 2000px;
+  height: 4px;
+  background: #f69343;
+  content: ' ';
+}
+
+input[type=range]::-webkit-slider-thumb {
+  height: 20px;
+  width: 26px;
+  border-radius: 10%;
+  background: #f69343 url("../img/icone_mail.svg") no-repeat center;
+  margin-top: -4px;
+  color: #f69343;
+}
+

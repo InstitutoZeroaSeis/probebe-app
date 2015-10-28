@@ -35,9 +35,9 @@
 
         <form name="donationForm" class="form-donation" ng-submit="save()" accept-charset="utf-8">
 
-          <h4 class="title-form-donation">Doe agora!</h4>
+          <h4 class="title-form-donation">Escolha!</h4>
 
-          <div class="row">
+          <div class="row row-slider">
             <div class="col" ng-repeat=" child in imgChild">
               <img class="icon-child-donation" ng-src="{{pathImg($index)}}">
             </div>
@@ -49,7 +49,7 @@
           </div>
 
           <div class="row">
-            <div class="col" align="center">
+            <div class="col col-total-child" align="center">
               {{recipient.children}} mensagen(s)
             </div>
           </div>
