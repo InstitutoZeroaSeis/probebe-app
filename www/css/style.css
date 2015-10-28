@@ -309,6 +309,10 @@ h2{
   color: #fff;
 }
 
+h3{
+  padding-top: 5px;
+  color: #fff;
+}
 .logo-nav-home{
   width: 30px;
   height: 30px;
@@ -379,4 +383,8 @@ fieldset{
 
 .icon-child-donation{
   width: 20px;
+}
+
+.range{
+  padding: 0px;
 }
