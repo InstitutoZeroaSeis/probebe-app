@@ -7,17 +7,8 @@ angular.module("proBebe.controllers")
 
   $scope.showSuccessMgs = false;
 
-  var loadingData = {
-    noBackdrop: true
-  }
-
   function init(){
     buildProfile();
-  }
-
-  function showLoading(ionicLoading, text) {
-    loadingData.template = text;
-    ionicLoading.show(loadingData);
   }
 
   $scope.index = function(){
