@@ -55,9 +55,7 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
   function initDonationProcess() {
     Microdonation.setProfileType($scope.profile.profile_type);
     if(Microdonation.isProfileDonor()){
-      Microdonation.sendMessages(function(){
-
-      });
+      Microdonation.sendMessages();
     }
   }
 

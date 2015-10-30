@@ -1,4 +1,4 @@
-angular.module("proBebe.services").factory('Microdonation', function($resource, $state, $ionicPopup, Constants, storage, $ionicPopup, Profile, DonatedMessage, $q, SmsSender, RemoveAccents, ObserverMicrodonation) {
+angular.module("proBebe.services").factory('Microdonation', function($rootScope, $resource, $state, $ionicPopup, Constants, storage, $ionicPopup, Profile, DonatedMessage, $q, SmsSender, RemoveAccents, ObserverMicrodonation) {
   return {
     setProfileType: function(profileType){
       storage.set('profileType', profileType);
@@ -26,6 +26,11 @@ angular.module("proBebe.services").factory('Microdonation', function($resource, 
       self.setSendingMessages(true);
       DonatedMessage.get()
         .$promise.then(function(resp){
+          $rootScope.donation = {
+            total: resp.donated_messages.length,
+            sum: 0,
+            porcent: 0
+          };
           return $q.all(resp.donated_messages.map(function(donated_message){
             if(self._wasAlreadySent(donated_message))
               return self._markMessageAsSent(donated_message);
@@ -93,6 +98,8 @@ angular.module("proBebe.services").factory('Microdonation', function($resource, 
       return messagesSent.indexOf(donated_message.id) >= 0
     },
     _addInAlreadySentList: function(donated_message){
+      $rootScope.donation.sum += 1;
+      $rootScope.donation.porcent = parseInt(($rootScope.donation.sum * 100) / $rootScope.donation.total);
       var messagesSent = storage.get('messagesSent');
       if(!messagesSent)
         messagesSent = [];

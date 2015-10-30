@@ -22,6 +22,21 @@
     <ion-side-menu-content>
 
       <ion-content class="has-header padding messages-list">
+        <div class="row row-loading-messages">
+          <div class="col col-25">
+            <img class=" img-center border-radius" src="img/icone_microdoacao_loading.svg">
+          </div>
+
+          <div class="col col-75 col-center loading-bar">
+            <div class="loading-bar dinamic-loading" style="width: {{donation.porcent}}%;"></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <h4 class="col title-loadding" ng-hide="false"> Mandando {{donation.sum}} de {{donation.total}} mesagen(s) </h4>
+          <!-- <h4 class="col title-loadding" ng-hide="false"> Parabéns! Você fez mais mães felizes!</h4> -->
+        </div>
+
         <div class="card" ng-show="showNoMessage" >
 
           <div class="item item-divider" ng-class="new-message">
