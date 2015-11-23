@@ -92,7 +92,8 @@
                   </label>
                 </div>
               </div>
-              <button type="button" class="button button-block button-positive" ng-click="addSon()"> Adicionar outro filho </button>
+              <button type="button" class="button button-block button-positive" ng-click="addSon()" ng-if="profile.sons.length == 0"> Adicionar filho </button>
+              <button type="button" class="button button-block button-positive" ng-click="addSon()" ng-if="profile.sons.length > 0"> Adicionar outro filho </button>
             </div>
 
             <!-- CELLPHONE INFORMATION -->
