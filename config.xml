@@ -11,6 +11,19 @@
   <access origin="*"/>
   <allow-navigation href="http://*/*"/>
   <allow-navigation href="https://*/*"/>
+  <allow-navigation href="data:*" />
+  <allow-intent href="http://*/*" />
+  <allow-intent href="https://*/*" />
+  <allow-intent href="sms:*" />
+  <allow-intent href="tel:*" />
+  <allow-intent href="geo:*" />
+  <allow-intent href="*" />
+  <access origin="http://google.com" />
+  <access origin="https://google.com" />
+  <access origin="http://maps.google.com" />
+  <access origin="http://*.google.com" />
+  <access origin="content:///*" />
+  <access origin="*" />
   <preference name="webviewbounce" value="false"/>
   <preference name="UIWebViewBounce" value="false"/>
   <preference name="DisallowOverscroll" value="true"/>

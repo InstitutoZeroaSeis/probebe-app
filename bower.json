@@ -9,6 +9,7 @@
   "dependencies": {
     "ngCordova": "~0.1.7-alpha",
     "ng-cordova-mocks": "~0.7.0",
-    "angular-resource": "~1.3.6"
+    "angular-resource": "~1.3.6",
+    "ng-cordova-oauth": "~0.1.4"
   }
 }

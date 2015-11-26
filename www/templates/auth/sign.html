@@ -45,15 +45,25 @@
 
         <button type="submit" class="button button-block button-positive"> {{ signUpForm.$valid ? 'Cadastrar': 'Preencha todos os campos'}} </button>
       </form>
-      <!-- <div class='strike-parent'>
+      <div class='strike-parent'>
         <div class='strike'>
           <span>ou</span>
         </div>
       </div>
 
-      <a href="#/sign_up" class='button button-block button-positive' >
-        Cadastrar
-      </a> -->
+      <div class="row">
+        <div class="col col-50">
+          <button ng-click="signFacebook()" class="button button-fb button-block icon-left ion-social-facebook">
+          Facebook
+          </button>
+        </div>
+        <div class="col col-50">
+          <button ng-click="signGooglePlus()" class="button button-assertive button-block icon-left ion-social-googleplus">
+          Google+
+          </button>
+
+        </div>
+      </div>
     </div>
 
   </ion-content>

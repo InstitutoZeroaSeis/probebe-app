@@ -280,7 +280,7 @@ label.item.has-error {
 }
 
 .sign-tab{
-  height: 330px !important;
+  height: 440px !important;
 }
 
 .img-loadding{
@@ -458,4 +458,23 @@ input[type=range]::-webkit-slider-thumb {
 }
 .dinamic-loading{
   background-color: #f69343;
+}
+
+.icon-button-sign{
+  width: 15px;
+}
+
+.icon-button-sign-gp{
+  width: 40px;
+}
+
+.button-fb {
+  border-color: #0c63ee;
+  background-color: #387ef5;
+  color: #fff;
+}
+
+.button.icon-left:before {
+  padding-right: 0.8em;
+  border-right: 1px ridge #507786;
 }

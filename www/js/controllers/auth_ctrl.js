@@ -1,5 +1,5 @@
 angular.module("proBebe.controllers")
-.controller("AuthCtrl", function($scope, $state, $http, $ionicPopup, Constants, authentication, storage, errorHandler, messageHandler) {
+.controller("AuthCtrl", function($scope, $state, $http, $ionicPopup, $cordovaOauth, Constants, authentication, storage, errorHandler, messageHandler) {
   $scope.login_info = {};
   $scope.user = {};
   $scope.form = {
@@ -53,6 +53,38 @@ angular.module("proBebe.controllers")
     $state.go('sign');
   };
 
+  $scope.signFacebook = function(){
+    $cordovaOauth.facebook("123448778003166", ["public_profile","email"]).then(function(result) {
+      console.log("Response Object -> " + JSON.stringify(result));
+      displayData(result.access_token);
+      messageHandler.show("Autenticado com sucesso");
+    }, function(error) {
+      console.log("Error -> " + error);
+      messageHandler.show("Ocorreu um erro na autenticação");
+    });
+  };
+
+  $scope.signGooglePlus = function(){
+    $cordovaOauth.google("315459751586-34134ej3bd5gq9u3f9loubd1r8kkc3rk.apps.googleusercontent.com", ["email"]).then(function(result) {
+      console.log("Response Object -> " + JSON.stringify(result));
+      messageHandler.show("Autenticado com sucesso");
+    }, function(error) {
+      console.log("Error -> " + error);
+      messageHandler.show("Ocorreu um erro na autenticação");
+    });
+  };
+
+function displayData(access_token)
+{
+    $http.get("https://graph.facebook.com/v2.2/me", {params: {access_token: access_token, fields: "name,gender,location,picture,email", format: "json" }}).then(function(result) {
+        console.log(result);
+      $scope.user.name = result.data.name;
+      $scope.user.email = result.data.email;
+      $scope.toggleTab();
+    }, function(error) {
+        alert("Error: " + error);
+    });
+}
 
   function thanksPopup() {
    var confirmPopup = $ionicPopup.confirm({

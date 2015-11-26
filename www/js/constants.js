@@ -1,6 +1,6 @@
 (function() {
-  var API_BASE_URL = "http://www.probebe.org.br/api";
-  // var API_BASE_URL = "http://192.168.0.108:3000/api";
+  // var API_BASE_URL = "http://www.probebe.org.br/api";
+  var API_BASE_URL = "http://192.168.0.108:3000/api";
   angular.module("proBebe.constants", []).constant("Constants", Object.freeze({
     API_BASE_URL: API_BASE_URL,
     CHILDREN_URL: API_BASE_URL + "/children",
@@ -17,6 +17,8 @@
     SIGN_UP_URL: API_BASE_URL + "/users",
     PROFILE_URL: API_BASE_URL + "/profiles",
     PROFILE_TYPE_DONOR: 'donor',
-    PROFILE_TYPE_POSSIBLE_DONOR: 'possible_donor'
+    PROFILE_TYPE_POSSIBLE_DONOR: 'possible_donor',
+    SIGN_FACEBOOK: 'http://www.probebe.org.br/users/auth/facebook',
+    SIGN_GOOGLEPLUS: 'http://www.probebe.org.br/users/auth/google_oauth2'
   }));
 }());

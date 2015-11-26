@@ -45,7 +45,8 @@
     "cordova-plugin-whitelist",
     "https://github.com/phonegap-build/PushPlugin",
     "https://github.com/cordova-sms/cordova-sms-plugin.git",
-    "https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git"
+    "https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git",
+    "https://git-wip-us.apache.org/repos/asf/cordova-plugin-inappbrowser.git"
   ],
   "scripts": {
     "install": "node tasks/platforms.js"
