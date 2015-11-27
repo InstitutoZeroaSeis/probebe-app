@@ -18,7 +18,9 @@
     PROFILE_URL: API_BASE_URL + "/profiles",
     PROFILE_TYPE_DONOR: 'donor',
     PROFILE_TYPE_POSSIBLE_DONOR: 'possible_donor',
-    SIGN_FACEBOOK: 'http://www.probebe.org.br/users/auth/facebook',
-    SIGN_GOOGLEPLUS: 'http://www.probebe.org.br/users/auth/google_oauth2'
+    CLIENT_ID_FACEBOOK: '123448778003166',
+    USER_DATA_FACEBOOK: 'https://graph.facebook.com/v2.2/me',
+    CLIENT_ID_GOOGLEPLUS: '315459751586-34134ej3bd5gq9u3f9loubd1r8kkc3rk.apps.googleusercontent.com',
+    USER_DATA_GOOFLEPLUES: 'https://www.googleapis.com/plus/v1/people/me'
   }));
 }());

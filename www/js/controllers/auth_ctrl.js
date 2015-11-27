@@ -54,10 +54,8 @@ angular.module("proBebe.controllers")
   };
 
   $scope.signFacebook = function(){
-    $cordovaOauth.facebook("123448778003166", ["public_profile","email"]).then(function(result) {
-      console.log("Response Object -> " + JSON.stringify(result));
-      displayData(result.access_token);
-      messageHandler.show("Autenticado com sucesso");
+    $cordovaOauth.facebook(Constants.CLIENT_ID_FACEBOOK, ["public_profile","email"]).then(function(result) {
+      userDataFB(result.access_token);
     }, function(error) {
       console.log("Error -> " + error);
       messageHandler.show("Ocorreu um erro na autenticação");
@@ -65,26 +63,39 @@ angular.module("proBebe.controllers")
   };
 
   $scope.signGooglePlus = function(){
-    $cordovaOauth.google("315459751586-34134ej3bd5gq9u3f9loubd1r8kkc3rk.apps.googleusercontent.com", ["email"]).then(function(result) {
-      console.log("Response Object -> " + JSON.stringify(result));
-      messageHandler.show("Autenticado com sucesso");
+    $cordovaOauth.google(Constants.CLIENT_ID_GOOGLEPLUS, ["email"]).then(function(result) {
+      userDataGP(result.access_token);
     }, function(error) {
       console.log("Error -> " + error);
       messageHandler.show("Ocorreu um erro na autenticação");
     });
   };
 
-function displayData(access_token)
-{
-    $http.get("https://graph.facebook.com/v2.2/me", {params: {access_token: access_token, fields: "name,gender,location,picture,email", format: "json" }}).then(function(result) {
-        console.log(result);
+  function userDataFB(access_token){
+    messageHandler.show("Buscando dados");
+    var data = {params: {access_token: access_token, fields: "name,gender,location,picture,email", format: "json" }};
+    $http.get(Constants.USER_DATA_FACEBOOK, data )
+    .then(function(result) {
       $scope.user.name = result.data.name;
       $scope.user.email = result.data.email;
       $scope.toggleTab();
     }, function(error) {
-        alert("Error: " + error);
+      messageHandler.show("Ocorreu um erro na autenticação");
     });
-}
+  }
+
+  function userDataGP(access_token){
+    messageHandler.show("Buscando dados");
+    var data = {params: {access_token: access_token}};
+    $http.get(Constants.USER_DATA_GOOFLEPLUES, data )
+    .then(function(result) {
+      $scope.user.email = result.data.emails[0].value;
+      $scope.user.name = result.data.displayName;
+      $scope.toggleTab();
+    }, function(error) {
+      messageHandler.show("Ocorreu um erro na autenticação");
+    });
+  }
 
   function thanksPopup() {
    var confirmPopup = $ionicPopup.confirm({
