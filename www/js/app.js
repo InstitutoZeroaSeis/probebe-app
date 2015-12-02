@@ -43,7 +43,7 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services", "
     ObserverMicrodonation.start();
     if(ObserverMicrodonation.isTimeToShowPopup()) Microdonation.popup($rootScope);
 
-    if (!authentication.isAuthenticated() && (toState.name != 'sign')) {
+    if (!authentication.isAuthenticated() && toState.name != 'sign' && toState.name != 'resetPassword') {
       $state.go('sign');
       event.preventDefault();
     }
@@ -61,6 +61,11 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services", "
     url: "/sign",
     controller: "AuthCtrl",
     templateUrl: "templates/auth/sign.html"
+  })
+  .state("resetPassword", {
+    url: "/resetPassword",
+    controller: "AuthCtrl",
+    templateUrl: "templates/auth/reset_password.html"
   })
   .state("profile", {
     url: "/profile",

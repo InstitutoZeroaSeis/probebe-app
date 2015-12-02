@@ -478,3 +478,8 @@ input[type=range]::-webkit-slider-thumb {
   padding-right: 0.8em;
   border-right: 1px ridge #507786;
 }
+
+.link-password{
+  color: #fff;
+  padding: 7px;
+}

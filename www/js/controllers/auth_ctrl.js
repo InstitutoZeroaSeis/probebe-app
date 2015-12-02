@@ -47,6 +47,30 @@ angular.module("proBebe.controllers")
     }
   };
 
+  $scope.newPassword = function(form) {
+    var loading = messageHandler.showWithTemplate();
+
+    if (form.$valid) {
+      var data = {
+        user: {email: $scope.login_info.email},
+        commit: "Me envie as instruções de resetar senha"
+      };
+
+      console.log(data);
+      $http.post(Constants.RESET_PASSWORD, data).then(function(result) {
+        console.log(result);
+        loading.hide();
+        if(result.status > 200 && result.status < 300){
+          messageHandler.show("Instruções enviada para o email inserido");
+        }
+        $state.go("sign");
+      }).catch(function(response) {
+        loading.hide();
+        messageHandler.show(errorHandler.message(response));
+      });
+    }
+  };
+
   $scope.signOut = function() {
     authentication.signOut();
     mantainMessageStatus();
@@ -57,7 +81,6 @@ angular.module("proBebe.controllers")
     $cordovaOauth.facebook(Constants.CLIENT_ID_FACEBOOK, ["public_profile","email"]).then(function(result) {
       userDataFB(result.access_token);
     }, function(error) {
-      console.log("Error -> " + error);
       messageHandler.show("Ocorreu um erro na autenticação");
     });
   };
@@ -66,7 +89,6 @@ angular.module("proBebe.controllers")
     $cordovaOauth.google(Constants.CLIENT_ID_GOOGLEPLUS, ["email"]).then(function(result) {
       userDataGP(result.access_token);
     }, function(error) {
-      console.log("Error -> " + error);
       messageHandler.show("Ocorreu um erro na autenticação");
     });
   };
