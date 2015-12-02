@@ -9,7 +9,7 @@
       </ion-nav-buttons>
 
       <ion-nav-title>
-        <h3>Microdoação</h3>
+        <h3>Sobre</h3>
       </ion-nav-title>
 
       <ion-nav-buttons side="right">
@@ -23,44 +23,26 @@
 
         <div class="row bg-blue">
           <div class="col">
-            <h4 class="title-donation">Faça uma microdoação</h4>
+            <h4 class="title-donation">ProBebê</h4>
           </div>
        </div>
 
         <div class="row bg-blue">
           <div class="col">
-            <p align="center">Selecione a quantidade de crianças que deseja ajudar doando SMS</p>
+            <p align="center">
+              É um aplicativo que vai ajudar você a entender melhor tudo o que é bom para o seu bebê.
+            </p>
+
+            <p align="center">
+              Desde o inicio da gravidez até os 18 meses você receberá mensagens e orientações de especialistas sobre saúde, educação, desenvolvimento, segurança e finanças, sempre acompanhando a evolução de seu bebê.
+            </p>
+
+            <p align="center">
+              São informações importantes e surpreendentes sobre os cuidados para que o bebê tenha uma vida feliz e saudável.
+            </p>
           </div>
        </div>
 
-        <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/wyVM1evRxNw" frameborder="0" width="560" height="315"></iframe>
-        </div>
-
-        <form name="donationForm" class="form-donation" ng-submit="save()" accept-charset="utf-8">
-
-          <h4 class="title-form-donation">Escolha!</h4>
-
-          <div class="row row-slider">
-            <div class="col" ng-repeat=" child in imgChild">
-              <img class="icon-child-donation" ng-src="{{pathImg($index)}}">
-            </div>
-
-          </div>
-
-          <div class="item range">
-            <input type="range" name="volume" min="1" max="5" ng-model="recipient.children">
-          </div>
-
-          <div class="row">
-            <div class="col col-total-child" align="center">
-              {{recipient.children}} mensagen(s)
-            </div>
-          </div>
-
-          <input type="submit" class="button button-block button-positive" value="Doar agora" />
-
-        </form>
       </ion-content>
     </ion-side-menu-content>
 

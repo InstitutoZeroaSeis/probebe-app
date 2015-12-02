@@ -72,6 +72,11 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services", "
     controller: "ProfileCtrl",
     templateUrl: "templates/profile.html"
   })
+  .state("about", {
+    url: "/about",
+    controller: "AboutCtrl",
+    templateUrl: "templates/about.html"
+  })
   .state("microdonation", {
     url: "/microdonation",
     controller: "MicroDonationCtrl",

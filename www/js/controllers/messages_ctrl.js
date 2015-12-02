@@ -7,6 +7,12 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
     $cordovaToast.showLongBottom('Sem conexão');
   });
 
+  $rootScope.$on('showBadge', function() {
+    $scope.donation = {
+      showBadge: true
+    }
+  });
+
   var loadingData = {
     noBackdrop: true
   }

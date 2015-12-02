@@ -1,5 +1,5 @@
 angular.module("proBebe.services")
-.factory('ObserverMicrodonation', function(storage) {
+.factory('ObserverMicrodonation', function($rootScope, storage) {
 
   function Observer() {}
 
@@ -16,6 +16,7 @@ angular.module("proBebe.services")
     var current = new Date;
     current.setDate(current.getDate() + 14); // 2 weeks
     storage.set('dateShowPopup',current);
+    $rootScope.$emit('showBadge');
   }
 
   Observer._isTimeToShow = function(current){
