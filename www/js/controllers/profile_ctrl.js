@@ -154,4 +154,3 @@ angular.module("proBebe.controllers")
 
   init();
 });
-
