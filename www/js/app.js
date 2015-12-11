@@ -6,7 +6,7 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services", "
 
   $ionicPlatform.ready(function() {
     // $state.go('messages');
-    Microdonation.setSendingMessages(false);
+    // Microdonation.setSendingMessages(false);
 
     var isIOS = ionic.Platform.isIOS();
     var isAndroid = ionic.Platform.isAndroid();
@@ -16,7 +16,7 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services", "
     if(isIOS) $rootScope.systemType = '0';
     if(isAndroid) $rootScope.systemType = '1';
 
-    Microdonation.setSendingMessages(false);
+    // Microdonation.setSendingMessages(false);
 
     try {
       window.cordova.plugins.Keyboard.hideKeyboardAccessoryBar();
@@ -40,8 +40,8 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services", "
   });
 
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-    ObserverMicrodonation.start();
-    if(ObserverMicrodonation.isTimeToShowPopup()) Microdonation.popup($rootScope);
+    // ObserverMicrodonation.start();
+    // if(ObserverMicrodonation.isTimeToShowPopup()) Microdonation.popup($rootScope);
 
     if (!authentication.isAuthenticated() && toState.name != 'sign' && toState.name != 'resetPassword') {
       $state.go('sign');

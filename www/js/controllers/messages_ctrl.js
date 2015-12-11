@@ -27,7 +27,7 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
 
       if (!$scope.selectedChild) {
         $scope.selectedChild = $scope.profile.children[0];
-        initDonationProcess();
+        // initDonationProcess();
       }
 
       if($scope.selectedChild.messages.length == 0) $scope.showNoMessage = true;
