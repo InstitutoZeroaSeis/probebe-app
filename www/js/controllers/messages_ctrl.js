@@ -2,16 +2,16 @@ var controllers;
 
 controllers = angular.module("proBebe.controllers");
 
-controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, $rootScope, $ionicPopup, $ionicModal, $cordovaToast, $window, $cordovaSocialSharing, $ionicLoading, Child, Profile, Constants, Microdonation, storage, messageHandler) {
+controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, $rootScope, $ionicPopup, $ionicModal, $cordovaToast, $window, $cordovaSocialSharing, $ionicLoading, Child, Profile, ChildAgePresenter, Constants, Microdonation, storage, messageHandler) {
   $rootScope.$on('networkOffline', function(event, networkState) {
     $cordovaToast.showLongBottom('Sem conexão');
   });
 
-  $rootScope.$on('showBadge', function() {
-    $scope.donation = {
-      showBadge: true
-    }
-  });
+  // $rootScope.$on('showBadge', function() {
+  //   $scope.donation = {
+  //     showBadge: true
+  //   }
+  // });
 
   var loadingData = {
     noBackdrop: true
@@ -23,7 +23,7 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
     .then(function(response) {
       loading.hide();
       $scope.profile = response.data
-      $scope.children = $scope.profile.children;
+      $scope.children = ChildAgePresenter.build($scope.profile.children);
 
       if (!$scope.selectedChild) {
         $scope.selectedChild = $scope.profile.children[0];

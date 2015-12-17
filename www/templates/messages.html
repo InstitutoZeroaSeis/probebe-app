@@ -52,7 +52,7 @@
         <div ng-hide="showNoMessage" class="card" ng-repeat="message in selectedChild.messages | orderBy:'-delivery_date'">
 
           <div class="item item-divider" ng-class="{'new-message' : message.isNew }">
-            {{ message.delivery_date | date }} {{message.isNew}}
+            {{ message.delivery_date | date }} {{message.child_age_in_week_at_delivery}}
           </div>
 
           <div class="item item-text-wrap">
