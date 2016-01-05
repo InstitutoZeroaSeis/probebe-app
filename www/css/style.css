@@ -56,7 +56,7 @@ label.item.has-error {
 .item.tabs.tabs-secondary.tabs-icon-left {
   /*border-bottom: 5px solid #F9B47D !important;*/
   /*border-radius: 0px 0px 6px 6px !important;*/
-  border-top: 1px solid #F9B47D !important;
+  border-top: 1px solid #ddd !important;
 }
 
 .tabs-icon-left.tabs .tab-item .icon:before, .tabs-icon-left > .tabs .tab-item .icon:before, .tabs-icon-right.tabs .tab-item .icon:before, .tabs-icon-right > .tabs .tab-item .icon:before {
@@ -318,8 +318,24 @@ h3{
   height: 30px;
 }
 
-.new-message{
+.category-1{
+  background-color: #ca3343 !important;
+}
+
+.category-2{
   background-color: #f69343 !important;
+}
+
+.category-3{
+  background-color: #6859aa !important;
+}
+
+.category-4{
+  background-color: #39868c !important;
+}
+
+.category-5{
+  background-color: #00aeef !important;
 }
 
 .custom-icon{
@@ -487,4 +503,41 @@ input[type=range]::-webkit-slider-thumb {
 .icon-info{
   font-size: 30px;
   padding-right: 5px;
+}
+
+.flag-new{
+  width: 48px;
+  position: absolute;
+  top:0;
+  right: 0;
+}
+
+.item-divider-custom{
+  padding-left: 0;
+  padding-top: 0;
+  padding-bottom:0;
+  height: 44px;
+}
+
+.icon-category{
+  position: absolute;
+  top: 6px;
+  padding: 0px;
+  width: 30px;
+  height: 30px;
+}
+
+.icon-category-box{
+  margin-right: 18px;
+}
+
+.age-in-week{
+  font-size: 20px;
+  padding-top: 5px !important;
+}
+
+.date-message{
+  padding-top: 5px !important;
+  font-size: 15px;
+  margin-right: 20px;
 }

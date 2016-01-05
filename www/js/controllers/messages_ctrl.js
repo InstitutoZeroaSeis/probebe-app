@@ -93,6 +93,10 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
     });
   }
 
+  $scope.srcImg = function(category){
+    return "img/"+ category + ".png";
+  }
+
   $scope.$on('childSelected', function(child) {
     $scope.selectedChild = child;
   });
