@@ -22,6 +22,7 @@
     USER_DATA_FACEBOOK: 'https://graph.facebook.com/v2.2/me',
     CLIENT_ID_GOOGLEPLUS: '315459751586-34134ej3bd5gq9u3f9loubd1r8kkc3rk.apps.googleusercontent.com',
     USER_DATA_GOOFLEPLUES: 'https://www.googleapis.com/plus/v1/people/me',
-    RESET_PASSWORD: API_BASE_URL + "/users/reset_password"
+    RESET_PASSWORD: API_BASE_URL + "/users/reset_password",
+    BIRTHDAY_CARD: API_BASE_URL + "/birthday_cards/show"
   }));
 }());

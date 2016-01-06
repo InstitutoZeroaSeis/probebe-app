@@ -2,7 +2,7 @@ var controllers;
 
 controllers = angular.module("proBebe.controllers");
 
-controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, $rootScope, $ionicPopup, $ionicModal, $cordovaToast, $window, $cordovaSocialSharing, $ionicLoading, Child, Profile, ChildAgePresenter, Constants, Microdonation, storage, messageHandler) {
+controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, $rootScope, $ionicPopup, $ionicModal, $cordovaToast, $window, $cordovaSocialSharing, $ionicLoading, Child, Profile, ChildAgePresenter, Constants, Microdonation, storage, messageHandler, BirthdayCard) {
   $rootScope.$on('networkOffline', function(event, networkState) {
     $cordovaToast.showLongBottom('Sem conexão');
   });
@@ -32,10 +32,26 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
 
       if($scope.selectedChild.messages.length == 0) $scope.showNoMessage = true;
       defineStatusOfMessages();
+      getBirthdayCard($scope.selectedChild);
     }).catch(function(err) {
       loading.hide();
       $cordovaToast.showLongBottom('Não foi possível carregar as mensagens');
     });
+  }
+
+  function getBirthdayCard(child){
+    //0 week and 1 month
+    var type = child.pregnancy ? "0": "1";
+    var params = {
+      type: type,
+      age: child.age_in_weeks
+    }
+    BirthdayCard.get(params)
+    .then(function(response){
+      console.log(response);
+    }).catch(function(error){
+      console.log(error);
+    })
   }
 
   function defineStatusOfMessages () {

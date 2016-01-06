@@ -10,10 +10,13 @@ angular.module("proBebe.services")
         if(child.pregnancy){
           message.child_age_in_week_at_delivery += " semana(s)"
           message.pregnancy = true;
+          message.type = "week";
         }else{
           var age = message.child_age_in_week_at_delivery;
           var month = parseInt(age / 4);
           var week = age % 4;
+          message.age = age;
+          message.type = "month";
           message.child_age_in_week_at_delivery = month;
           month > 1 ? message.child_age_in_week_at_delivery += " meses" : message.child_age_in_week_at_delivery += " mês";
           message.category = messageCategory(message, month);
