@@ -12,9 +12,9 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services", "
     var isAndroid = ionic.Platform.isAndroid();
     var currentPlatform = ionic.Platform.platform();
 
-    if(!isIOS && !isAndroid) $rootScope.systemType = '2';
-    if(isIOS) $rootScope.systemType = '0';
-    if(isAndroid) $rootScope.systemType = '1';
+    if(!isIOS && !isAndroid) $rootScope.systemType = 'other';
+    if(isIOS) $rootScope.systemType = 'ios';
+    if(isAndroid) $rootScope.systemType = 'android';
 
     // Microdonation.setSendingMessages(false);
 
