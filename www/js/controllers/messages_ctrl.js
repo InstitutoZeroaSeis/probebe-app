@@ -33,6 +33,7 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
       if($scope.selectedChild.messages.length == 0) $scope.showNoMessage = true;
       defineStatusOfMessages();
       getBirthdayCard($scope.selectedChild);
+
     }).catch(function(err) {
       loading.hide();
       $cordovaToast.showLongBottom('Não foi possível carregar as mensagens');
@@ -45,12 +46,21 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
     var params = {
       type: type,
       age: child.age_in_weeks
-    }
+    };
+
     BirthdayCard.get(params)
     .then(function(response){
-      console.log(response);
+      $scope.birthdayCard = response.data;
+
+      if(!params.type){
+        $scope.birthdayCard.age_text = "completou " + $scope.birthdayCard.age + " semana(s)";
+      }else{
+        var month = $scope.birthdayCard.age / 4;
+        month > 1 ? $scope.birthdayCard.age_text = "completou " + month + " meses!" : $scope.birthdayCard.age_text = month + " mês!";
+      }
+
     }).catch(function(error){
-      console.log(error);
+      showLoading($ionicLoading, "Não foi possível buscar cartão de aniversário");
     })
   }
 
