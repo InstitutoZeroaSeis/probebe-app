@@ -366,7 +366,7 @@ fieldset{
   border: 1px dotted #ccc;
 }
 .item-radio .item-content {
-  padding: 10px 60px 10px 10px;
+  padding: 10px 10px 10px 10px;
 }
 .item-radio .radio-icon {
   padding: 10px;
@@ -550,4 +550,29 @@ input[type=range]::-webkit-slider-thumb {
   font-size: 18px;
   padding-top: 5px !important;
   overflow: hidden;
+}
+
+.text-info-profile{
+  color: #656;
+  padding-left: 12px !important;
+}
+
+.title-profile{
+  padding-left: 12px;
+}
+
+.input-label-custom{
+  font-size: 11px !important;
+}
+.custom-input{
+  font-size: 13px !important;
+}
+
+.label-radio-f{
+  width: 84px;
+}
+
+.label-radio-m{
+  position: absolute;
+  right: 0;
 }

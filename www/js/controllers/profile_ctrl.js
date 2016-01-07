@@ -2,6 +2,7 @@ angular.module("proBebe.controllers")
 .controller("ProfileCtrl", function($rootScope, $scope, $ionicLoading, $filter, $state, $ionicPopup, $ionicScrollDelegate, authentication, mask, Profile, errorHandler, messageHandler) {
   $scope.profile = {
     name: authentication.name(),
+    email: authentication.email(),
     sons: []
   };
 
