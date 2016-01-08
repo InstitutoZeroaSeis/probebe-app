@@ -1,0 +1,39 @@
+<ion-view title="">
+
+  <ion-side-menus enable-menu-with-back-views="false">
+    <ion-nav-bar class="bar-light">
+
+      <ion-nav-buttons side="left" >
+        <button class="button button-icon button-clear ion-chevron-left" ng-click="messages()"> Voltar</button>
+      </ion-nav-buttons>
+
+      <ion-nav-title>
+        <h3>Artigo</h3>
+      </ion-nav-title>
+
+      <ion-nav-buttons side="right">
+        <img class="logo-nav-home" src="img/logo_nav.png">
+      </ion-nav-buttons>
+
+    </ion-nav-bar>
+
+    <ion-side-menu-content>
+
+      <ion-content class="has-header padding bg-white" scroll='true'>
+
+        <div class="row">
+          <div class="col" align="center">
+            <h4>{{article.title}}</h4>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <p ng-bind-html="article.text"></p>
+          </div>
+        </div>
+      </ion-content>
+    </ion-side-menu-content>
+
+  </ion-side-menus>
+</ion-view>

@@ -19,6 +19,7 @@ angular.module("proBebe.services")
           message.type = "month";
           message.child_age_in_week_at_delivery = month;
           month > 1 ? message.child_age_in_week_at_delivery += " meses" : message.child_age_in_week_at_delivery += " mês";
+          if (month == 0) message.child_age_in_week_at_delivery = week + " semana(s)";
           message.category = messageCategory(message, month);
         }
       })

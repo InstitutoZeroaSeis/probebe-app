@@ -50,14 +50,18 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
 
     BirthdayCard.get(params)
     .then(function(response){
-      $scope.birthdayCard = response.data;
+      $scope.birthdayCard = { age_text: 1, age: 0}
 
-      if(!params.type){
-        $scope.birthdayCard.age_text = "completou " + $scope.birthdayCard.age + " semana(s)";
-      }else{
-        var month = $scope.birthdayCard.age / 4;
-        month > 1 ? $scope.birthdayCard.age_text = "completou " + month + " meses!" : $scope.birthdayCard.age_text = month + " mês!";
-      }
+      // if(response.date != null){
+      //   $scope.birthdayCard = response.data;
+
+      //   if(!params.type){
+      //     $scope.birthdayCard.age_text = "completou " + $scope.birthdayCard.age + " semana(s)";
+      //   }else{
+      //     var month = $scope.birthdayCard.age / 4;
+      //     month > 1 ? $scope.birthdayCard.age_text = "completou " + month + " meses!" : $scope.birthdayCard.age_text = month + " mês!";
+      //   }
+      // }
 
     }).catch(function(error){
       showLoading($ionicLoading, "Não foi possível buscar cartão de aniversário");
@@ -97,13 +101,17 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
     $state.go('messages');
   };
 
-  $scope.openInBrowser = function(message) {
+  $scope.openInNewPage = function(message) {
     message.isNew = false;
     var readMessage = storage.get('readMessage');
     readMessage.push(message.id);
     storage.set('readMessage', readMessage);
-    $window.open(message.url, '_system');
-    init();
+    // $window.open(message.url, '_system');
+    $scope.article ={
+      text: message.article_text,
+      title: message.article_title
+    }
+    $state.go('article', $scope.article);
   }
 
   $scope.shareMessage = function(message, link){
