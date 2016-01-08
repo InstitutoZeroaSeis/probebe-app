@@ -109,7 +109,6 @@ angular.module("proBebe.controllers")
       $scope.profile.gender = profile.gender;
       $scope.profile.cellPhone = profile.cell_phone;
       sonsScope(profile);
-      console.log(profile);
       loading.hide();
     }).catch(function(err) {
       loading.hide();
