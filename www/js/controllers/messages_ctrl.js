@@ -41,28 +41,32 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
   }
 
   function getBirthdayCard(child){
+    $scope.birthdayCard = {show:false};
     //0 week and 1 month
-    var type = child.pregnancy ? "0": "1";
+    var type = "1";
     var params = {
       type: type,
-      age: child.age_in_weeks
+      age: child.age_in_weeks / 4
     };
+    if(child.pregnancy){
+      params.type = "0";
+      params.age = child.age_in_weeks
+    }
 
     BirthdayCard.get(params)
     .then(function(response){
-      $scope.birthdayCard = { age_text: 1, age: 0}
 
-      // if(response.date != null){
-      //   $scope.birthdayCard = response.data;
+      if(response.data != null){
+        $scope.birthdayCard = response.data;
+        $scope.birthdayCard.show = true;
 
-      //   if(!params.type){
-      //     $scope.birthdayCard.age_text = "completou " + $scope.birthdayCard.age + " semana(s)";
-      //   }else{
-      //     var month = $scope.birthdayCard.age / 4;
-      //     month > 1 ? $scope.birthdayCard.age_text = "completou " + month + " meses!" : $scope.birthdayCard.age_text = month + " mês!";
-      //   }
-      // }
-
+        if(!params.type){
+          $scope.birthdayCard.age_text = "completou " + $scope.birthdayCard.age + " semana(s)";
+        }else{
+          var month = $scope.birthdayCard.age;
+          month > 1 ? $scope.birthdayCard.age_text = "completou " + month + " meses!" : $scope.birthdayCard.age_text = month + " mês!";
+        }
+      }
     }).catch(function(error){
       showLoading($ionicLoading, "Não foi possível buscar cartão de aniversário");
     })
