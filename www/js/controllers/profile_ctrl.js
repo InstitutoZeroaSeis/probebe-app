@@ -1,14 +1,15 @@
 angular.module("proBebe.controllers")
 .controller("ProfileCtrl", function($rootScope, $scope, $ionicLoading, $filter, $state, $ionicPopup, $ionicScrollDelegate, authentication, mask, Profile, errorHandler, messageHandler) {
-  $scope.profile = {
-    name: authentication.name(),
-    email: authentication.email(),
-    sons: []
-  };
 
-  $scope.showSuccessMgs = false;
+
 
   function init(){
+    $scope.profile = {
+      name: authentication.name(),
+      email: authentication.email(),
+      sons: []
+    };
+    $scope.showSuccessMgs = false;
     buildProfile();
   }
 
@@ -54,6 +55,7 @@ angular.module("proBebe.controllers")
       Profile.update(data)
       .then(function(result) {
         loading.hide();
+        init();
         stateSucessMsg();
       }).catch(function(response) {
         loading.hide();
