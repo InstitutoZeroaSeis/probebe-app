@@ -318,23 +318,30 @@ h3{
 }
 
 .category-1{
-  background-color: #ca3343 !important;
+  background-color: #30b050 !important;
 }
 
 .category-2{
-  background-color: #f69343 !important;
+  background-color: #F69343 !important;
 }
 
 .category-3{
-  background-color: #6859aa !important;
+  background-color: #6859AA !important;
 }
 
 .category-4{
-  background-color: #39868c !important;
+  background-color: #a112a1 !important;
 }
 
 .category-5{
   background-color: #00aeef !important;
+}
+
+.category-6{
+  background-color: #bf0b0b !important;
+}
+.category-7{
+  background-color: #f0d330 !important;
 }
 
 .custom-icon{
