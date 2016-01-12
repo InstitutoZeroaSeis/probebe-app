@@ -99,11 +99,12 @@ angular.module("proBebe.controllers")
       setLoginData(googleData);
       $scope.signIn('messages');
     }else{
-    $cordovaOauth.google(Constants.CLIENT_ID_GOOGLEPLUS, ["email"]).then(function(result) {
-      userDataGP(result.access_token);
-    }, function(error) {
-      messageHandler.show("Ocorreu um erro na autenticação");
-    });
+      $cordovaOauth.google(Constants.CLIENT_ID_GOOGLEPLUS, ["email"]).then(function(result) {
+        userDataGP(result.access_token);
+      }, function(error) {
+        messageHandler.show("Ocorreu um erro na autenticação");
+      });
+    }
   };
 
   function userDataFB(access_token){
