@@ -2,7 +2,7 @@ var controllers;
 
 controllers = angular.module("proBebe.controllers");
 
-controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, $rootScope, $ionicPopup, $ionicModal, $cordovaToast, $window, $cordovaSocialSharing, $ionicLoading, Child, Profile, ChildAgePresenter, Constants, Microdonation, storage, messageHandler, BirthdayCard) {
+controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, $rootScope, $ionicPopup, $ionicModal, $cordovaToast, $window, $cordovaSocialSharing, Child, Profile, ChildAgePresenter, Constants, Microdonation, storage, messageHandler, BirthdayCard) {
   $rootScope.$on('networkOffline', function(event, networkState) {
     $cordovaToast.showLongBottom('Sem conexão');
   });
@@ -18,10 +18,10 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
   }
 
   function init() {
-    var loading = messageHandler.showWithTemplate();
+    console.log("call");
+    messageHandler.show('Carregando...');
     Profile.get()
     .then(function(response) {
-      loading.hide();
       $scope.profile = response.data
       $scope.children = ChildAgePresenter.build($scope.profile.children);
 
@@ -35,8 +35,7 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
       getBirthdayCard($scope.selectedChild);
 
     }).catch(function(err) {
-      loading.hide();
-      $cordovaToast.showLongBottom('Não foi possível carregar as mensagens');
+      messageHandler.show('Não foi possível carregar as mensagens');
     });
   }
 
@@ -68,7 +67,7 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
         }
       }
     }).catch(function(error){
-      showLoading($ionicLoading, "Não foi possível buscar cartão de aniversário");
+      messageHandler.show("Não foi possível buscar cartão de aniversário");
     })
   }
 
@@ -85,12 +84,6 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
     });
     storage.set('readMessage', readMessage);
   }
-
-  function showLoading(ionicLoading, text) {
-    loadingData.template = text;
-    ionicLoading.show(loadingData);
-  }
-
 
   function initDonationProcess() {
     Microdonation.setProfileType($scope.profile.profile_type);
@@ -110,11 +103,11 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
     var readMessage = storage.get('readMessage');
     readMessage.push(message.id);
     storage.set('readMessage', readMessage);
-    // $window.open(message.url, '_system');
     $scope.article ={
       text: message.article_text,
       title: message.article_title
     }
+    messageHandler.show("Carregando")
     $state.go('article', $scope.article);
   }
 
@@ -123,11 +116,9 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
     $cordovaSocialSharing
     .share(message, subject, null, link) // Share via native share sheet
     .then(function(result) {
-      showLoading($ionicLoading, "Mesagem compartilhada :)");
-       $ionicLoading.hide();
+      messageHandler.show("Mesagem compartilhada :)");
     }, function(err) {
-      showLoading($ionicLoading, "Erro em compartilhar messagem.");
-       $ionicLoading.hide();
+      messageHandler.show("Erro em compartilhar messagem.");
     });
   }
 
@@ -140,5 +131,6 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
   });
 
   $scope.$on('pushMessageReceived', init);
+
   init();
 });
