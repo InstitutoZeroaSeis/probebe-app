@@ -158,7 +158,7 @@ angular.module("proBebe.controllers")
   };
 
   function mantainStatus (argument) {
-    var readMessage = storage.get('readMessage');
+    var lastMessage = storage.get('lastMessage');
     var facebookData = storage.get("facebookData");
     var googleData = storage.get("googleData");
 
@@ -166,7 +166,7 @@ angular.module("proBebe.controllers")
 
     storage.set("facebookData",facebookData);
     storage.set("googleData",googleData);
-    storage.set('readMessage', readMessage);
+    storage.set('lastMessage', lastMessage);
   }
 
   function defineData(){

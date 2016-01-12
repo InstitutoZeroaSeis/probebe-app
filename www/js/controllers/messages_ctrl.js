@@ -18,7 +18,6 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
   }
 
   function init() {
-    console.log("call");
     messageHandler.show('Carregando...');
     Profile.get()
     .then(function(response) {
@@ -30,7 +29,7 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
         // initDonationProcess();
       }
 
-      if($scope.selectedChild == undefined) $scope.showNoMessage = true;
+      if($scope.selectedChild.messages.length == 0) $scope.showNoMessage = true;
       defineStatusOfMessages();
       getBirthdayCard($scope.selectedChild);
 
@@ -72,17 +71,23 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
   }
 
   function defineStatusOfMessages () {
-    $scope.newMessagesTotal = 0;
-    var readMessage = storage.get('readMessage');
-    if(readMessage == null) readMessage = [];
 
-    $scope.selectedChild.messages.forEach(function(message){
-      if(readMessage.indexOf(message.id) == -1) {
-        message.isNew = true;
-        $scope.newMessagesTotal +=1;
-      }
+    var lastMessage = storage.get('lastMessage');
+    if(lastMessage == null) lastMessage = "0";
+
+    $scope.profile.children.forEach(function(child){
+      var newMessagesTotal = 0;
+      child.messages.forEach(function(message){
+        if(lastMessage < message.id) {
+          message.isNew = true;
+          newMessagesTotal +=1;
+          lastMessage = message.id;
+        }
+      });
+      child.newMessagesTotal = newMessagesTotal;
     });
-    storage.set('readMessage', readMessage);
+
+    storage.set('lastMessage', lastMessage);
   }
 
   function initDonationProcess() {
@@ -95,14 +100,11 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
   $scope.selectChild = function(child) {
     $scope.selectedChild = child;
     $rootScope.$emit('childSelected', child);
-    $state.go('messages');
+    init()
   };
 
   $scope.openInNewPage = function(message) {
     message.isNew = false;
-    var readMessage = storage.get('readMessage');
-    readMessage.push(message.id);
-    storage.set('readMessage', readMessage);
     $scope.article ={
       text: message.article_text,
       title: message.article_title
