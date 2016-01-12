@@ -1,5 +1,6 @@
 angular.module("proBebe.controllers")
 .controller("AuthCtrl", function($scope, $state, $http, $ionicPopup, $cordovaOauth, Constants, authentication, storage, errorHandler, messageHandler) {
+
   $scope.login_info = {};
   $scope.user = {};
   $scope.form = {
@@ -109,7 +110,9 @@ angular.module("proBebe.controllers")
 
   function userDataFB(access_token){
     messageHandler.show("Buscando dados");
+
     var data = {params: {access_token: access_token, fields: "name,gender,location,picture,email", format: "json" }};
+
     $http.get(Constants.USER_DATA_FACEBOOK, data )
     .then(function(result) {
       $scope.user.name = result.data.name;
@@ -123,7 +126,9 @@ angular.module("proBebe.controllers")
 
   function userDataGP(access_token){
     messageHandler.show("Buscando dados");
+
     var data = {params: {access_token: access_token}};
+
     $http.get(Constants.USER_DATA_GOOFLEPLUES, data )
     .then(function(result) {
       $scope.user.email = result.data.emails[0].value;
@@ -156,7 +161,9 @@ angular.module("proBebe.controllers")
     var readMessage = storage.get('readMessage');
     var facebookData = storage.get("facebookData");
     var googleData = storage.get("googleData");
+
     storage.clear();
+
     storage.set("facebookData",facebookData);
     storage.set("googleData",googleData);
     storage.set('readMessage', readMessage);
@@ -176,6 +183,7 @@ angular.module("proBebe.controllers")
     $scope.login_info.email = user.email;
     $scope.login_info.password = user.password;
     $scope.login_info.name = user.name;
+
     if($scope.user.type == "fb"){
       storage.set("facebookData",user);
     }else if($scope.user.type == "gp"){

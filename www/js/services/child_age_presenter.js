@@ -28,12 +28,13 @@ angular.module("proBebe.services")
   }
 
   function messageCategory(message, month){
-    return "category-3";
-    if(message.pregnancy) return "category-1";
-    if (month <= 4) return "category-2";
-    if (month <= 8) return "category-3";
-    if (month <= 12) return "category-4";
-    if (month <= 18) return "category-5";
+    if(message.article_category.toLowerCase() == "saúde") return "category-1";
+    if(message.article_category.toLowerCase() == "educação") return "category-2";
+    if(message.article_category.toLowerCase() == "desenvolvimento") return "category-3";
+    if(message.article_category.toLowerCase() == "segurança") return "category-4";
+    if(message.article_category.toLowerCase() == "finanças") return "category-5";
+    if(message.article_category.toLowerCase() == "jurídico") return "category-6";
+    if(message.article_category.toLowerCase() == "comportamento") return "category-7";
   }
 
   return Presenter;
