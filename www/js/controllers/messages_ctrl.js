@@ -2,7 +2,7 @@ var controllers;
 
 controllers = angular.module("proBebe.controllers");
 
-controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, $rootScope, $ionicPopup, $ionicModal, $cordovaToast, $window, $cordovaSocialSharing, Child, Profile, ChildAgePresenter, Constants, Microdonation, storage, messageHandler, BirthdayCard) {
+controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootScope, $state, $rootScope, $ionicPopup, $ionicModal, $cordovaToast, $window, $cordovaSocialSharing, Child, Profile, ChildAgePresenter, Constants, Microdonation, storage, messageHandler, BirthdayCard) {
   $rootScope.$on('networkOffline', function(event, networkState) {
     $cordovaToast.showLongBottom('Sem conexão');
   });
@@ -18,20 +18,21 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
   }
 
   function init() {
+    $scope.showNoMessage = false;
     messageHandler.show('Carregando...');
     Profile.get()
     .then(function(response) {
       $scope.profile = response.data
       $scope.children = ChildAgePresenter.build($scope.profile.children);
 
-      if (!$scope.selectedChild) {
-        $scope.selectedChild = $scope.profile.children[0];
+      if ($rootScope.selectedChild == undefined) {
+        $rootScope.selectedChild = $scope.profile.children[0];
         // initDonationProcess();
       }
 
-      if($scope.selectedChild.messages.length == 0) $scope.showNoMessage = true;
+      if($rootScope.selectedChild.messages.length == 0) $scope.showNoMessage = true;
       defineStatusOfMessages();
-      getBirthdayCard($scope.selectedChild);
+      getBirthdayCard($rootScope.selectedChild);
 
     }).catch(function(err) {
       messageHandler.show('Não foi possível carregar as mensagens');
@@ -98,8 +99,8 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
   }
 
   $scope.selectChild = function(child) {
-    $scope.selectedChild = child;
-    $rootScope.$emit('childSelected', child);
+    $rootScope.selectedChild = child;
+    $state.go("messages");
     init()
   };
 
@@ -127,10 +128,6 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
   $scope.srcImg = function(category){
     return "img/"+ category + ".png";
   }
-
-  $scope.$on('childSelected', function(child) {
-    $scope.selectedChild = child;
-  });
 
   $scope.$on('pushMessageReceived', init);
 
