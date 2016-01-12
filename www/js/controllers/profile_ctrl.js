@@ -84,6 +84,7 @@ angular.module("proBebe.controllers")
     setTimeout(function(){
       $scope.$apply(function () {
           $scope.showSuccessMgs = false;
+          $state.go('messages');
         });
     }, 4000);
   }

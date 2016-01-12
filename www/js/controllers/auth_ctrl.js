@@ -13,8 +13,8 @@ angular.module("proBebe.controllers")
   }
 
   $scope.signIn = function(state) {
-    var authPromise = authentication.authenticate($scope.login_info.email, $scope.login_info.password, $scope.login_info.name);
     var loading = messageHandler.showWithTemplate();
+    var authPromise = authentication.authenticate($scope.login_info.email, $scope.login_info.password, $scope.login_info.name);
 
     return authPromise.then(function(result) {
       loading.hide();
@@ -25,6 +25,7 @@ angular.module("proBebe.controllers")
         messageHandler.show("Credenciais inválidas");
       }
     }).catch(function(error) {
+      loading.hide();
       messageHandler.show("Ocorreu um erro na autenticação");
     });
   };
@@ -35,15 +36,16 @@ angular.module("proBebe.controllers")
     if (form.$valid) {
       var data = defineData();
       $http.post(Constants.SIGN_UP_URL, data).then(function(result) {
-        $scope.login_info.email = $scope.user.email;
-        $scope.login_info.password = $scope.user.password;
-        $scope.login_info.name = $scope.user.name;
+        setLoginData($scope.user);
         loading.hide();
         thanksPopup();
       }).catch(function(response) {
         loading.hide();
         messageHandler.show(errorHandler.message(response));
       });
+    }else{
+      loading.hide();
+      messageHandler.show("Dados inválidos");
     }
   };
 
@@ -65,24 +67,38 @@ angular.module("proBebe.controllers")
         loading.hide();
         messageHandler.show(errorHandler.message(response));
       });
+    }else{
+      loading.hide();
+      messageHandler.show("Dados inválidos");
     }
   };
 
   $scope.signOut = function() {
     authentication.signOut();
-    mantainMessageStatus();
+    mantainStatus();
     $state.go('sign');
   };
 
   $scope.signFacebook = function(){
-    $cordovaOauth.facebook(Constants.CLIENT_ID_FACEBOOK, ["public_profile","email"]).then(function(result) {
-      userDataFB(result.access_token);
-    }, function(error) {
-      messageHandler.show("Ocorreu um erro na autenticação");
-    });
+    var facebookData = storage.get("facebookData");
+    if(facebookData != null){
+      setLoginData(facebookData);
+      $scope.signIn('messages');
+    }else{
+      $cordovaOauth.facebook(Constants.CLIENT_ID_FACEBOOK, ["public_profile","email"]).then(function(result) {
+        userDataFB(result.access_token);
+      }, function(error) {
+        messageHandler.show("Ocorreu um erro na autenticação");
+      });
+    }
   };
 
   $scope.signGooglePlus = function(){
+    var googleData = storage.get("googleData");
+    if(googleData != null){
+      setLoginData(googleData);
+      $scope.signIn('messages');
+    }else{
     $cordovaOauth.google(Constants.CLIENT_ID_GOOGLEPLUS, ["email"]).then(function(result) {
       userDataGP(result.access_token);
     }, function(error) {
@@ -97,6 +113,7 @@ angular.module("proBebe.controllers")
     .then(function(result) {
       $scope.user.name = result.data.name;
       $scope.user.email = result.data.email;
+      $scope.user.type = 'fb';
       $scope.toggleTab();
     }, function(error) {
       messageHandler.show("Ocorreu um erro na autenticação");
@@ -110,6 +127,7 @@ angular.module("proBebe.controllers")
     .then(function(result) {
       $scope.user.email = result.data.emails[0].value;
       $scope.user.name = result.data.displayName;
+      $scope.user.type = 'gp';
       $scope.toggleTab();
     }, function(error) {
       messageHandler.show("Ocorreu um erro na autenticação");
@@ -133,9 +151,13 @@ angular.module("proBebe.controllers")
 
   };
 
-  function mantainMessageStatus (argument) {
+  function mantainStatus (argument) {
     var readMessage = storage.get('readMessage');
+    var facebookData = storage.get("facebookData");
+    var googleData = storage.get("googleData");
     storage.clear();
+    storage.set("facebookData",facebookData);
+    storage.set("googleData",googleData);
     storage.set('readMessage', readMessage);
   }
 
@@ -149,5 +171,15 @@ angular.module("proBebe.controllers")
     }
   }
 
+  function setLoginData(user){
+    $scope.login_info.email = user.email;
+    $scope.login_info.password = user.password;
+    $scope.login_info.name = user.name;
+    if($scope.user.type == "fb"){
+      storage.set("facebookData",user);
+    }else if($scope.user.type == "gp"){
+       storage.set("googleData",user);
+    }
+  }
 });
 

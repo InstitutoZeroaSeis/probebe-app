@@ -285,9 +285,7 @@ label.item.has-error {
 }
 
 .img-loadding{
-  display: block;
-  margin: auto;
-  width: 130px;
+  width: 300px;
 }
 
 .img-popup{

@@ -30,7 +30,7 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $state, 
         // initDonationProcess();
       }
 
-      if($scope.selectedChild.messages.length == 0) $scope.showNoMessage = true;
+      if($scope.selectedChild == undefined) $scope.showNoMessage = true;
       defineStatusOfMessages();
       getBirthdayCard($scope.selectedChild);
 
