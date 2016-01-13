@@ -24,7 +24,7 @@ angular.module("proBebe.controllers")
         messageHandler.show("Credenciais inválidas");
       }
     }).catch(function(error) {
-      messageHandler.show("Ocorreu um erro na autenticação");
+      messageHandler.show("Impossível comunicar com o ProBebe. Favor verificar sua conexão com a internet");
     });
   };
 
