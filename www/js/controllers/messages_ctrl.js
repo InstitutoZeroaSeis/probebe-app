@@ -2,7 +2,7 @@ var controllers;
 
 controllers = angular.module("proBebe.controllers");
 
-controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootScope, $state, $rootScope, $ionicPopup, $ionicModal, $cordovaToast, $window, $cordovaSocialSharing, Child, Profile, ChildAgePresenter, Constants, Microdonation, storage, messageHandler, BirthdayCard) {
+controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootScope, $state, $ionicPopup, $ionicModal, $cordovaToast, $window, $cordovaSocialSharing, Child, Profile, ChildAgePresenter, Constants, Microdonation, storage, messageHandler, BirthdayCard) {
   $rootScope.$on('networkOffline', function(event, networkState) {
     $cordovaToast.showLongBottom('Sem conexão');
   });
@@ -17,9 +17,8 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
     noBackdrop: true
   }
 
-  function init() {
+  function init(loading) {
     $scope.showNoMessage = false;
-    messageHandler.show('Carregando...');
     Profile.get()
     .then(function(response) {
       $scope.profile = response.data
@@ -33,8 +32,9 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
       if($rootScope.selectedChild.messages.length == 0) $scope.showNoMessage = true;
       defineStatusOfMessages();
       getBirthdayCard($rootScope.selectedChild);
-
+      if(loading) loading.hide();
     }).catch(function(err) {
+      if(loading) loading.hide();
       messageHandler.show('Não foi possível carregar as mensagens');
     });
   }
@@ -99,19 +99,18 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
   }
 
   $scope.selectChild = function(child) {
+    var loading = messageHandler.show("Carregando...");
     $rootScope.selectedChild = child;
+    init(loading);
     $state.go("messages");
-    init()
   };
 
   $scope.openInNewPage = function(message) {
-    message.isNew = false;
-    $scope.article ={
+    $rootScope.article ={
       text: message.article_text,
       title: message.article_title
     }
-    messageHandler.show("Carregando")
-    $state.go('article', $scope.article);
+    $state.go('article');
   }
 
   $scope.shareMessage = function(message, link){

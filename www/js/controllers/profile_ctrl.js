@@ -1,5 +1,5 @@
 angular.module("proBebe.controllers")
-.controller("ProfileCtrl", function($rootScope, $scope, $ionicLoading, $filter, $state, $ionicPopup, $ionicScrollDelegate, authentication, mask, Profile, errorHandler, messageHandler) {
+.controller("ProfileCtrl", function($rootScope, $scope, $ionicLoading, $timeout, $filter, $state, $ionicPopup, $ionicScrollDelegate, authentication, mask, Profile, errorHandler, messageHandler) {
 
   function init(){
     $scope.profile = {
@@ -7,7 +7,6 @@ angular.module("proBebe.controllers")
       email: authentication.email(),
       sons: []
     };
-    $scope.showSuccessMgs = false;
     buildProfile();
   }
 
@@ -47,18 +46,22 @@ angular.module("proBebe.controllers")
   }
 
   $scope.save = function(form){
-    var loading = messageHandler.showWithTemplate();
     if(form.$valid){
       var data = paramToSave();
       Profile.update(data)
       .then(function(result) {
-        loading.hide();
-        init();
-        stateSucessMsg();
+
+        messageHandler.show("Dados salvos!");
+
+        $timeout(function(){
+          $state.go('messages');
+        },2000);
+
       }).catch(function(response) {
-        loading.hide();
         messageHandler.show(errorHandler.message(response));
       });
+    }else{
+      messageHandler.show("Dados inválidos");
     }
   }
 
@@ -72,25 +75,14 @@ angular.module("proBebe.controllers")
     $scope.profile.cellPhone = cellPhone;
   }
 
-  function getId(son){
-    return son.id ? "0" : new Date().getTime();
-  }
-
-  function stateSucessMsg (){
-    $scope.showSuccessMgs = true;
-    $ionicScrollDelegate.anchorScroll("#goMgs");
-    setTimeout(function(){
-      $scope.$apply(function () {
-          $scope.showSuccessMgs = false;
-          $state.go('messages');
-        });
-    }, 4000);
+  function getId(son, index){
+    return son.id ? index.toString() : new Date().getTime();
   }
 
   function childrenAttributes(sons){
     var children = {};
-    sons.forEach(function(son){
-      children[getId(son)] = {
+    sons.forEach(function(son, index){
+      children[getId(son, index)] = {
         id: son.id,
         name: son.name,
         birth_date: $filter('date')(son.bornDate, "dd/MM/yyyy"),
@@ -102,7 +94,6 @@ angular.module("proBebe.controllers")
   }
 
   function buildProfile (){
-    messageHandler.show("Carregando...");
     Profile.get()
     .then(function(result) {
       var profile = result.data;

@@ -1,7 +1,5 @@
 angular.module("proBebe.controllers")
-.controller("ArticleCtrl", function($scope, $state) {
-
-  $scope.article = $state.params;
+.controller("ArticleCtrl", function($scope, $rootScope, $state) {
 
   $scope.messages = function(){
     $state.go('messages');

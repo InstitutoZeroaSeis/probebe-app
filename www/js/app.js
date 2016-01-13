@@ -2,7 +2,7 @@ function onNotification(e){
   console.log('NOTIFICATION', e);
 }
 
-angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services", "ngCordovaOauth"]).run(function($ionicPlatform, $rootScope, $state, authentication, pushProcessing, Microdonation, ObserverMicrodonation) {
+angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services", "ngCordovaOauth"]).run(function($timeout, $ionicPlatform, $rootScope, $state, $ionicLoading, authentication, pushProcessing, Microdonation, ObserverMicrodonation, messageHandler) {
 
   $ionicPlatform.ready(function() {
     // $state.go('messages');
@@ -40,6 +40,7 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services", "
   });
 
   $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+    $ionicLoading.show({template: 'Carregando...'});
     // ObserverMicrodonation.start();
     // if(ObserverMicrodonation.isTimeToShowPopup()) Microdonation.popup($rootScope);
 
@@ -49,7 +50,14 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services", "
     }
   });
 
-}).config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider) {
+  $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
+      $timeout(function(){
+        $ionicLoading.hide()
+      },2000);
+    });
+
+}).config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider) {
+
   $ionicConfigProvider.views.maxCache(0);
 
   $stateProvider.state("messages", {
@@ -84,7 +92,7 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services", "
   })
 
   .state("article", {
-    url: "/article/:text/:title",
+    url: "/article/",
     controller: "ArticleCtrl",
     templateUrl: "templates/article.html"
   });

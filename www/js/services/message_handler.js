@@ -6,8 +6,7 @@ angular.module("proBebe.services")
   Handler.show = function(message){
     $ionicLoading.show({
       template: message,
-      noBackdrop: true,
-      duration: 4000
+      duration: 2000
     });
     return $ionicLoading;
   }

@@ -14,11 +14,9 @@ angular.module("proBebe.controllers")
   }
 
   $scope.signIn = function(state) {
-    var loading = messageHandler.showWithTemplate();
     var authPromise = authentication.authenticate($scope.login_info.email, $scope.login_info.password, $scope.login_info.name);
 
     return authPromise.then(function(result) {
-      loading.hide();
       if (result) {
         messageHandler.show("Autenticado com sucesso");
         $state.go(state);
@@ -26,50 +24,39 @@ angular.module("proBebe.controllers")
         messageHandler.show("Credenciais inválidas");
       }
     }).catch(function(error) {
-      loading.hide();
       messageHandler.show("Ocorreu um erro na autenticação");
     });
   };
 
   $scope.signUp = function(form) {
-    var loading = messageHandler.showWithTemplate();
-
     if (form.$valid) {
       var data = defineData();
       $http.post(Constants.SIGN_UP_URL, data).then(function(result) {
         setLoginData($scope.user);
-        loading.hide();
         thanksPopup();
       }).catch(function(response) {
-        loading.hide();
         messageHandler.show(errorHandler.message(response));
       });
     }else{
-      loading.hide();
       messageHandler.show("Dados inválidos");
     }
   };
 
   $scope.newPassword = function(form) {
-    var loading = messageHandler.showWithTemplate();
-
     if (form.$valid) {
       var data = {
         user: {email: $scope.login_info.email},
         commit: "Me envie as instruções de resetar senha"
       };
       $http.post(Constants.RESET_PASSWORD, data).then(function(result) {
-        loading.hide();
         if(result.status > 200 && result.status < 300){
           messageHandler.show("Instruções enviada para o email inserido");
         }
         $state.go("sign");
       }).catch(function(response) {
-        loading.hide();
         messageHandler.show(errorHandler.message(response));
       });
     }else{
-      loading.hide();
       messageHandler.show("Dados inválidos");
     }
   };
@@ -109,8 +96,6 @@ angular.module("proBebe.controllers")
   };
 
   function userDataFB(access_token){
-    messageHandler.show("Buscando dados");
-
     var data = {params: {access_token: access_token, fields: "name,gender,location,picture,email", format: "json" }};
 
     $http.get(Constants.USER_DATA_FACEBOOK, data )
@@ -125,8 +110,6 @@ angular.module("proBebe.controllers")
   }
 
   function userDataGP(access_token){
-    messageHandler.show("Buscando dados");
-
     var data = {params: {access_token: access_token}};
 
     $http.get(Constants.USER_DATA_GOOFLEPLUES, data )
