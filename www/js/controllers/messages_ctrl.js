@@ -21,7 +21,8 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
     $scope.showNoMessage = false;
     Profile.get()
     .then(function(response) {
-      $scope.profile = response.data
+      $scope.profile = response.data;
+      console.log($scope.profile)
       $scope.children = ChildAgePresenter.build($scope.profile.children);
 
       if ($rootScope.selectedChild == undefined) {
@@ -29,14 +30,24 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
         // initDonationProcess();
       }
 
-      if($rootScope.selectedChild.messages.length == 0) $scope.showNoMessage = true;
+      defineShowNoMessage()
       defineStatusOfMessages();
       getBirthdayCard($rootScope.selectedChild);
+
       if(loading) loading.hide();
+
     }).catch(function(err) {
       if(loading) loading.hide();
       messageHandler.show('Não foi possível carregar as mensagens');
     });
+  }
+
+  function defineShowNoMessage(){
+    try{
+      if($rootScope.selectedChild.messages.length == 0) $scope.showNoMessage = true;
+    }catch(error){
+      $scope.showNoMessage = true;
+    }
   }
 
   function getBirthdayCard(child){
@@ -47,28 +58,30 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
       type: type,
       age: child.age_in_weeks / 4
     };
-    if(child.pregnancy){
-      params.type = "0";
-      params.age = child.age_in_weeks
-    }
-
-    BirthdayCard.get(params)
-    .then(function(response){
-
-      if(response.data != null){
-        $scope.birthdayCard = response.data;
-        $scope.birthdayCard.show = true;
-
-        if(!params.type){
-          $scope.birthdayCard.age_text = "completou " + $scope.birthdayCard.age + " semana(s)";
-        }else{
-          var month = $scope.birthdayCard.age;
-          month > 1 ? $scope.birthdayCard.age_text = "completou " + month + " meses!" : $scope.birthdayCard.age_text = month + " mês!";
-        }
+    if(child){
+      if(child.pregnancy){
+        params.type = "0";
+        params.age = child.age_in_weeks
       }
-    }).catch(function(error){
-      messageHandler.show("Não foi possível buscar cartão de aniversário");
-    })
+
+      BirthdayCard.get(params)
+      .then(function(response){
+
+        if(response.data != null){
+          $scope.birthdayCard = response.data;
+          $scope.birthdayCard.show = true;
+
+          if(!params.type){
+            $scope.birthdayCard.age_text = "completou " + $scope.birthdayCard.age + " semana(s)";
+          }else{
+            var month = $scope.birthdayCard.age;
+            month > 1 ? $scope.birthdayCard.age_text = "completou " + month + " meses!" : $scope.birthdayCard.age_text = month + " mês!";
+          }
+        }
+      }).catch(function(error){
+        messageHandler.show("Não foi possível buscar cartão de aniversário");
+      })
+    }
   }
 
   function defineStatusOfMessages () {
