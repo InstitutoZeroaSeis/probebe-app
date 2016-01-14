@@ -8,7 +8,7 @@
   </div>
 
   <ion-content class='signin-content' class="has-header padding signin-style" scroll="false">
-    <div class='signin-content signin-style  sign-tab'>
+    <div class='signin-content signin-style  sign-tab' ng-hide="authSocial">
       <!-- NAV BUTTONS -->
       <div class="row">
         <div class="col button-tab-sign" ng-class="{'button-tab-sign-active' : form.signin }" ng-click="toggleTab()">Login</div>
@@ -16,6 +16,7 @@
       </div>
 
       <form ng-show="form.signin" class="animate-hide" ng-submit="signIn('messages')" method="get" accept-charset="utf-8">
+
         <div class="list list-inset">
           <label class="item item-input">
             <input type="email" placeholder="Email" ng-model="login_info.email">
@@ -50,13 +51,13 @@
 
         <button type="submit" class="button button-block button-positive"> {{ signUpForm.$valid ? 'Cadastrar': 'Preencha todos os campos'}} </button>
       </form>
-      <div ng-show="form.signup" class='strike-parent'>
+      <div class='strike-parent'>
         <div class='strike'>
           <span>ou</span>
         </div>
       </div>
 
-      <div ng-show="form.signup" class="row">
+      <div class="row">
         <div class="col col-50">
           <button ng-click="signFacebook()" class="button button-fb button-block icon-left ion-social-facebook">
           Facebook
