@@ -3,28 +3,26 @@ angular.module("proBebe.services")
 
   function Presenter() {}
 
-  Presenter.build = function(children){
-    children.forEach(function(child){
-      child.messages.forEach(function(message){
-        message.category = "category-1";
-        if(message.mon_is_pregnant){
-          message.child_age_in_week_at_delivery += " semana(s)"
-          message.pregnancy = true;
-          message.type = "week";
-        }else{
-          var age = message.child_age_in_week_at_delivery;
-          var month = parseInt(age / 4);
-          var week = age % 4;
-          message.age = age;
-          message.type = "month";
-          message.child_age_in_week_at_delivery = month;
-          month > 1 ? message.child_age_in_week_at_delivery += " meses" : message.child_age_in_week_at_delivery += " mês";
-          if (month == 0) message.child_age_in_week_at_delivery = week + " semana(s)";
-        }
-        message.category = messageCategory(message);
-      })
+  Presenter.build = function(messages){
+    messages.forEach(function(message){
+      message.category = "category-1";
+      if(message.mon_is_pregnant){
+        message.child_age_in_week_at_delivery += " semana(s)"
+        message.pregnancy = true;
+        message.type = "week";
+      }else{
+        var age = message.child_age_in_week_at_delivery;
+        var month = parseInt(age / 4);
+        var week = age % 4;
+        message.age = age;
+        message.type = "month";
+        message.child_age_in_week_at_delivery = month;
+        month > 1 ? message.child_age_in_week_at_delivery += " meses" : message.child_age_in_week_at_delivery += " mês";
+        if (month == 0) message.child_age_in_week_at_delivery = week + " semana(s)";
+      }
+      message.category = messageCategory(message);
     })
-    return children;
+    return messages;
   }
 
   function messageCategory(message){

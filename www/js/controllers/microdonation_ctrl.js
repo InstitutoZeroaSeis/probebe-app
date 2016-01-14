@@ -11,7 +11,7 @@ angular.module("proBebe.controllers")
     Profile.maxRecipientChildren($scope.recipient.children)
     .then(function(response){
       messageHandler.show("Doação realizada com sucesso");
-      $state.go("messages");
+      $state.go("app.messages");
     }).catch(function(err){
        messageHandler.show("Ocorreu um erro na tentativa de doação");
     });

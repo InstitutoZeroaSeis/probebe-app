@@ -1,93 +1,27 @@
-<ion-view>
+<ion-view title="Sobre">
+  <ion-content class="has-header bg-blue" scroll="false">
 
-  <ion-side-menus enable-menu-with-back-views="false">
-    <ion-nav-bar class="bar-light">
+    <div class="row bg-blue">
+      <div class="col">
+        <h4 class="title-donation">ProBebê</h4>
+      </div>
+   </div>
 
-      <ion-nav-buttons side="left">
-        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
-        </button>
-      </ion-nav-buttons>
+    <div class="row bg-blue">
+      <div class="col">
+        <p align="center">
+          É um aplicativo que vai ajudar você a entender melhor tudo o que é bom para o seu bebê.
+        </p>
 
-      <ion-nav-title>
-        <h3>Sobre</h3>
-      </ion-nav-title>
+        <p align="center">
+          Desde o inicio da gravidez até os 18 meses você receberá mensagens e orientações de especialistas sobre saúde, educação, desenvolvimento, segurança e finanças, sempre acompanhando a evolução de seu bebê.
+        </p>
 
-      <ion-nav-buttons side="right">
-        <img class="logo-nav-home" src="img/logo_nav.png">
-      </ion-nav-buttons>
+        <p align="center">
+          São informações importantes e surpreendentes sobre os cuidados para que o bebê tenha uma vida feliz e saudável.
+        </p>
+      </div>
+   </div>
 
-    </ion-nav-bar>
-
-    <ion-side-menu-content>
-      <ion-content class="has-header bg-blue">
-
-        <div class="row bg-blue">
-          <div class="col">
-            <h4 class="title-donation">ProBebê</h4>
-          </div>
-       </div>
-
-        <div class="row bg-blue">
-          <div class="col">
-            <p align="center">
-              É um aplicativo que vai ajudar você a entender melhor tudo o que é bom para o seu bebê.
-            </p>
-
-            <p align="center">
-              Desde o inicio da gravidez até os 18 meses você receberá mensagens e orientações de especialistas sobre saúde, educação, desenvolvimento, segurança e finanças, sempre acompanhando a evolução de seu bebê.
-            </p>
-
-            <p align="center">
-              São informações importantes e surpreendentes sobre os cuidados para que o bebê tenha uma vida feliz e saudável.
-            </p>
-          </div>
-       </div>
-
-      </ion-content>
-    </ion-side-menu-content>
-
-    <!-- SIDE MENU -->
-    <ion-side-menu side="left">
-      <ion-content class='has-header bg-blue' scroll='false'>
-
-        <ion-list ng-controller="MessagesCtrl">
-          <ion-item class="bg-blue" nav-clear menu-close ng-click="selectChild(child)" ng-repeat="child in children">
-            <i>
-              <img class="custom-icon" src="img/icone_bebe.svg">
-            </i>
-            {{child.name}}
-            <span class="badge badge-assertive">{{child.newMessagesTotal}}</span>
-          </ion-item>
-        </ion-list>
-
-        <ion-list ng-controller="ProfileCtrl">
-          <ion-item class="bg-blue" nav-clear ng-click="index()">
-            <i>
-              <img class="custom-icon" src="img/icone_perfil.svg">
-            </i>
-            Perfil
-          </ion-item>
-        </ion-list>
-
-        <ion-list ng-controller="AboutCtrl">
-          <ion-item class="bg-blue active" nav-clear ng-click="index()">
-            <i>
-              <img class="custom-icon" src="img/icone_info.svg">
-            </i>
-            Sobre
-          </ion-item>
-        </ion-list>
-
-        <ion-list ng-controller="AuthCtrl">
-          <ion-item class="bg-blue" nav-clear ng-click="signOut()">
-            <i>
-              <img class="custom-icon" src="img/icone_saida.svg">
-            </i>
-            Sair
-          </ion-item>
-        </ion-list>
-      </ion-content>
-    </ion-side-menu>
-
-  </ion-side-menus>
+  </ion-content>
 </ion-view>

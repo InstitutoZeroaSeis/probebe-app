@@ -2,49 +2,50 @@ var controllers;
 
 controllers = angular.module("proBebe.controllers");
 
-controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootScope, $state, $ionicPopup, $ionicModal, $cordovaToast, $window, $cordovaSocialSharing, Child, Profile, ChildAgePresenter, Constants, Microdonation, storage, messageHandler, BirthdayCard) {
+controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootScope, $state, $ionicPopup, $ionicModal, $cordovaToast, $window, $cordovaSocialSharing, Child, Profile, ChildAgePresenter, Constants, Microdonation, storage, messageHandler, BirthdayCard, Message) {
   $rootScope.$on('networkOffline', function(event, networkState) {
     $cordovaToast.showLongBottom('Sem conexão');
   });
 
-  // $rootScope.$on('showBadge', function() {
-  //   $scope.donation = {
-  //     showBadge: true
-  //   }
-  // });
-
-  var loadingData = {
-    noBackdrop: true
-  }
 
   function init(loading) {
+    $scope.$emit('allMessages');
     $scope.showNoMessage = false;
-    Profile.get()
-    .then(function(response) {
-      $scope.profile = response.data;
-      console.log($scope.profile)
-      $scope.children = ChildAgePresenter.build($scope.profile.children);
+    defineMessage(loading);
+  }
 
-      if ($rootScope.selectedChild == undefined) {
-        $rootScope.selectedChild = $scope.profile.children[0];
-        // initDonationProcess();
+  function defineMessage(loading){
+    var profile = storage.get("profile");
+    child();
+    profile.children.forEach(function(child){
+      if(child.id == childId()){
+        $scope.messages = child.messages
+        defineShowNoMessage()
+        getBirthdayCard($scope.selectedChild);
+        if(isNotEvent(loading)) loading.hide();
       }
+    })
 
-      defineShowNoMessage()
-      defineStatusOfMessages();
-      getBirthdayCard($rootScope.selectedChild);
+  }
 
-      if(loading) loading.hide();
+  function childId(){
+    if($state.params.childId) return $state.params.childId;
+    return storage.get("profile").children[0].id
+  }
 
-    }).catch(function(err) {
-      if(loading) loading.hide();
-      messageHandler.show('Não foi possível carregar as mensagens');
+  function child(){
+    storage.get("profile").children.forEach(function(child){
+      if(child.id == childId()) $scope.selectedChild = child;
     });
+  }
+
+  function isNotEvent(loading){
+    return loading != undefined && loading.name != 'finishRequest'
   }
 
   function defineShowNoMessage(){
     try{
-      if($rootScope.selectedChild.messages.length == 0) $scope.showNoMessage = true;
+      if($scope.messages.length == 0) $scope.showNoMessage = true;
     }catch(error){
       $scope.showNoMessage = true;
     }
@@ -84,26 +85,6 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
     }
   }
 
-  function defineStatusOfMessages () {
-
-    var lastMessage = storage.get('lastMessage');
-    if(lastMessage == null) lastMessage = "0";
-
-    $scope.profile.children.forEach(function(child){
-      var newMessagesTotal = 0;
-      child.messages.forEach(function(message){
-        if(lastMessage < message.id) {
-          message.isNew = true;
-          newMessagesTotal +=1;
-          lastMessage = message.id;
-        }
-      });
-      child.newMessagesTotal = newMessagesTotal;
-    });
-
-    storage.set('lastMessage', lastMessage);
-  }
-
   function initDonationProcess() {
     Microdonation.setProfileType($scope.profile.profile_type);
     if(Microdonation.isProfileDonor()){
@@ -111,19 +92,12 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
     }
   }
 
-  $scope.selectChild = function(child) {
-    var loading = messageHandler.show("Carregando...");
-    $rootScope.selectedChild = child;
-    init(loading);
-    $state.go("messages");
-  };
-
   $scope.openInNewPage = function(message) {
     $rootScope.article ={
       text: message.article_text,
       title: message.article_title
     }
-    $state.go('article');
+    $state.go('app.article');
   }
 
   $scope.shareMessage = function(message, link){
@@ -142,6 +116,6 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
   }
 
   $scope.$on('pushMessageReceived', init);
-
+  $rootScope.$on('finishRequest', defineMessage);
   init();
 });

@@ -77,7 +77,7 @@ angular.module("proBebe.controllers")
     if(facebookData != null){
       var loading = messageHandler.show("Carregando...");
       setLoginData(facebookData);
-      $scope.signIn('messages',loading);
+      $scope.signIn('app.messages',loading);
     }else{
       $cordovaOauth.facebook(Constants.CLIENT_ID_FACEBOOK, ["public_profile","email"]).then(function(result) {
         userDataFB(result.access_token);
@@ -94,7 +94,7 @@ angular.module("proBebe.controllers")
     if(googleData != null){
       var loading = messageHandler.show("Carregando...");
       setLoginData(googleData);
-      $scope.signIn('messages', loading);
+      $scope.signIn('app.messages', loading);
     }else{
       $cordovaOauth.google(Constants.CLIENT_ID_GOOGLEPLUS, ["email"]).then(function(result) {
         userDataGP(result.access_token);
@@ -131,7 +131,7 @@ angular.module("proBebe.controllers")
     var loading = messageHandler.show("Carregando...");
     var data = defineData();
     $http.post(Constants.SIGN_UP_URL, data).then(function(result) {
-      $scope.signIn('profile', loading);
+      $scope.signIn('app.profile', loading);
     }).catch(function(response) {
       $scope.authSocial = false;
       messageHandler.show(errorHandler.message(response));
@@ -165,7 +165,7 @@ angular.module("proBebe.controllers")
             text: '<b>Ok</b>',
             type: 'button-positive',
             onTap: function(e) {
-              $scope.signIn('profile');
+              $scope.signIn('app.profile');
             }
           }
         ]

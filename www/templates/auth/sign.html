@@ -1,5 +1,5 @@
 
-<ion-view title="">
+<ion-view hide-nav-bar="true">
 
   <div class="row sign-logo">
     <div class="col col-center">
@@ -7,7 +7,7 @@
     </div>
   </div>
 
-  <ion-content class='signin-content' class="has-header padding signin-style" scroll="false">
+  <ion-content class='signin-content' class=" padding signin-style" scroll="false">
     <div class='signin-content signin-style  sign-tab' ng-hide="authSocial">
       <!-- NAV BUTTONS -->
       <div class="row">
@@ -15,7 +15,7 @@
         <div class="col button-tab-sign" ng-class="{'button-tab-sign-active' : form.signup }" ng-click="toggleTab()">Cadastrar</div>
       </div>
 
-      <form ng-show="form.signin" class="animate-hide" ng-submit="signIn('messages')" method="get" accept-charset="utf-8">
+      <form ng-show="form.signin" class="animate-hide" ng-submit="signIn('app.messages')" method="get" accept-charset="utf-8">
 
         <div class="list list-inset">
           <label class="item item-input">

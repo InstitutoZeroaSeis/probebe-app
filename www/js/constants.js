@@ -1,13 +1,13 @@
 (function() {
   // var API_BASE_URL = "http://www.probebe.org.br/api";
-  var API_BASE_URL = "http://192.168.0.106:3000/api";
+  var API_BASE_URL = "http://10.0.0.73:3000/api";
   angular.module("proBebe.constants", []).constant("Constants", Object.freeze({
     API_BASE_URL: API_BASE_URL,
     CHILDREN_URL: API_BASE_URL + "/children",
     CREDENTIALS_URL: API_BASE_URL + "/credentials",
     DONATED_MESSAGES_URL: API_BASE_URL + "/donated_messages",
     DEVICE_REGISTRATION_URL: API_BASE_URL + "/device_registrations/:platform_code",
-    MESSAGE_URL: API_BASE_URL + "/messages/:id",
+    MESSAGE_URL: API_BASE_URL + "/messages/",
     PUSH_NOTIFICATION: {
       GCM: {
         SENDER_ID: "315459751586"

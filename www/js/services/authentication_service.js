@@ -21,6 +21,8 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
           self.setAuthenticationHeaders();
           $rootScope.$emit('authenticate');
         }
+        console.log("hash=======", result.data)
+        self.setProfile(result.data);
         deferred.resolve(result.data.valid);
       }).catch(function(err) {
         deferred.reject("Não foi possível autenticar");
@@ -32,6 +34,10 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
       if (this.deviceRegistrationId()) {
         DeviceRegistration.remove({ platform_code: this.deviceRegistrationId() });
       }
+    },
+
+    profile: function(){
+      return storage.get('profile');
     },
 
     email: function() {
@@ -85,6 +91,10 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
 
     setIsAuthenticated: function(authenticated) {
       storage.set('authenticated', authenticated);
+    },
+
+    setProfile: function(profile){
+      storage.set('profile', profile);
     },
 
     setEmail: function(email) {

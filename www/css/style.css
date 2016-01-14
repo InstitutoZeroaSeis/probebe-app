@@ -1,10 +1,10 @@
 a {
   color: blue;
-  height: 25px;
+/*  height: 25px;*/
 }
 
 label.item.has-error {
-  border-left: 2px solid red;
+  border-left: 3px solid red;
 }
 
 .pane {
@@ -589,4 +589,8 @@ input[type=range]::-webkit-slider-thumb {
 
 .header-bd-card{
   background-color: #d3a5a9 !important;
+}
+
+.item-menu{
+  color: #FFF !important;
 }

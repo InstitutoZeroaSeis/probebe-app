@@ -10,10 +10,6 @@ angular.module("proBebe.controllers")
     buildProfile();
   }
 
-  $scope.index = function(){
-    $state.go('profile');
-  }
-
   $scope.addSon = function(){
     $scope.profile.sons.push({name: "", bornDate: "", gender: ""})
   }
@@ -54,7 +50,7 @@ angular.module("proBebe.controllers")
         messageHandler.show("Dados salvos!");
 
         $timeout(function(){
-          $state.go('messages');
+          $state.go('app.messages');
         },2000);
 
       }).catch(function(response) {

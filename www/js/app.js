@@ -63,10 +63,12 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services", "
   $stateProvider.state('app', {
     url: "/app",
     abstract: true,
-    templateUrl: "templates/app-menu.html"
+    templateUrl: "templates/app-menu.html",
+    controller: "AppCtrl",
   })
+
   .state("app.messages", {
-    url: "/messages",
+    url: "/messages/:childId",
     views: {
       'appContent': {
         controller: "MessagesCtrl",
@@ -74,37 +76,54 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services", "
       }
     }
   })
+
   .state("sign", {
     url: "/sign",
     controller: "AuthCtrl",
     templateUrl: "templates/auth/sign.html"
   })
+
   .state("resetPassword", {
     url: "/resetPassword",
     controller: "AuthCtrl",
     templateUrl: "templates/auth/reset_password.html"
   })
-  .state("profile", {
+
+  .state("app.profile", {
     url: "/profile",
-    controller: "ProfileCtrl",
-    templateUrl: "templates/profile.html"
+    views: {
+      'appContent': {
+        controller: "ProfileCtrl",
+        templateUrl: "templates/profile.html"
+      }
+    }
   })
-  .state("about", {
+
+  .state("app.about", {
     url: "/about",
-    controller: "AboutCtrl",
-    templateUrl: "templates/about.html"
+    views: {
+      'appContent': {
+        controller: "AboutCtrl",
+        templateUrl: "templates/about.html"
+      }
+    }
   })
+
   .state("microdonation", {
     url: "/microdonation",
     controller: "MicroDonationCtrl",
     templateUrl: "templates/microdonation.html"
   })
 
-  .state("article", {
+  .state("app.article", {
     url: "/article/",
-    controller: "ArticleCtrl",
-    templateUrl: "templates/article.html"
+    views: {
+      'appContent': {
+        controller: "ArticleCtrl",
+        templateUrl: "templates/article.html"
+      }
+    }
   });
 
-  $urlRouterProvider.otherwise("/app/messages");
+  $urlRouterProvider.otherwise("/app/messages/null");
 });
