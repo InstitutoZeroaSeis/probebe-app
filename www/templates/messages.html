@@ -1,27 +1,7 @@
 
-<ion-view title="" ng-controller="MessagesCtrl" cache-view="false">
+<ion-view title="{{selectedChild.name}}" ng-controller="MessagesCtrl" cache-view="false">
 
-  <ion-side-menus enable-menu-with-back-views="false">
-    <ion-nav-bar class="bar-light">
-
-      <ion-nav-buttons side="left">
-        <button class="button button-icon button-clear ion-navicon" menu-toggle="left">
-        </button>
-      </ion-nav-buttons>
-
-      <ion-nav-title>
-        <h3>{{selectedChild.name}}</h3>
-      </ion-nav-title>
-
-      <ion-nav-buttons side="right">
-        <img class="logo-nav-home" src="img/logo_nav.png">
-      </ion-nav-buttons>
-
-    </ion-nav-bar>
-
-    <ion-side-menu-content>
-
-      <ion-content class="has-header padding messages-list">
+      <ion-content class="has-header padding messages-list" overflow-sroll="true">
       <!-- MICRODONATION MESSAGE SENDING -->
 <!--         <div class="row row-loading-messages">
           <div class="col col-25">
@@ -127,48 +107,4 @@
           </div>
         </div>
       </ion-content>
-    </ion-side-menu-content>
-
-    <ion-side-menu side="left">
-      <ion-content class='has-header bg-blue' scroll='false'>
-
-        <ion-list>
-          <ion-item class="bg-blue" nav-clear ng-class="{active: selectedChild.id == child.id}" menu-close ng-click="selectChild(child)" ng-repeat="child in children">
-            <i>
-              <img class="custom-icon" src="img/icone_bebe.svg">
-            </i>
-            {{child.name}} {{parent.selectedChild.age}}
-            <span class="badge badge-assertive">{{child.newMessagesTotal}}</span>
-          </ion-item>
-        </ion-list>
-
-        <ion-list ng-controller="ProfileCtrl">
-          <ion-item class="bg-blue" nav-clear ng-click="index()">
-            <i>
-              <img class="custom-icon" src="img/icone_perfil.svg">
-            </i>
-            Perfil
-          </ion-item>
-        </ion-list>
-
-        <ion-list ng-controller="AboutCtrl">
-          <ion-item class="bg-blue" nav-clear ng-click="index()">
-            <i>
-              <img class="custom-icon" src="img/icone_info.svg">
-            </i>
-            Sobre
-          </ion-item>
-        </ion-list>
-
-        <ion-list ng-controller="AuthCtrl">
-          <ion-item class="bg-blue" nav-clear ng-click="signOut()">
-            <i>
-              <img class="custom-icon" src="img/icone_saida.svg">
-            </i>
-            Sair
-          </ion-item>
-        </ion-list>
-      </ion-content>
-    </ion-side-menu>
-  </ion-side-menus>
 </ion-view>

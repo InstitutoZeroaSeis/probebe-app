@@ -29,7 +29,7 @@
  * @param {string=} direction Which way to scroll. 'x' or 'y' or 'xy'. Default 'y'.
  * @param {boolean=} locking Whether to lock scrolling in one direction at a time. Useful to set to false when zoomed in or scrolling in two directions. Default true.
  * @param {boolean=} padding Whether to add padding to the content.
- * of the content.  Defaults to true on iOS, false on Android.
+ * Defaults to true on iOS, false on Android.
  * @param {boolean=} scroll Whether to allow scrolling of content.  Defaults to true.
  * @param {boolean=} overflow-scroll Whether to use overflow-scrolling instead of
  * Ionic scroll. See {@link ionic.provider:$ionicConfigProvider} to set this as the global default.
@@ -71,13 +71,12 @@ function($timeout, $controller, $ionicBind, $ionicConfig) {
         element.addClass('scroll-content-false');
       }
 
-      var nativeScrolling = attr.overflowScroll === "true" || !$ionicConfig.scrolling.jsScrolling();
+      var nativeScrolling = attr.overflowScroll !== "false" && (attr.overflowScroll === "true" || !$ionicConfig.scrolling.jsScrolling());
 
       // collection-repeat requires JS scrolling
       if (nativeScrolling) {
         nativeScrolling = !element[0].querySelector('[collection-repeat]');
       }
-
       return { pre: prelink };
       function prelink($scope, $element, $attr) {
         var parentScope = $scope.$parent;
@@ -159,6 +158,8 @@ function($timeout, $controller, $ionicBind, $ionicConfig) {
             $scope: $scope,
             scrollViewOptions: scrollViewOptions
           });
+
+          $scope.scrollCtrl = scrollCtrl;
 
           $scope.$on('$destroy', function() {
             if (scrollViewOptions) {

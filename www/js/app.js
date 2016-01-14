@@ -53,17 +53,26 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services", "
   $rootScope.$on('$stateChangeSuccess', function(event, toState, toParams, fromState, fromParams) {
       $timeout(function(){
         $ionicLoading.hide()
-      },2000);
+      },100);
     });
 
 }).config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider) {
 
   $ionicConfigProvider.views.maxCache(0);
 
-  $stateProvider.state("messages", {
+  $stateProvider.state('app', {
+    url: "/app",
+    abstract: true,
+    templateUrl: "templates/app-menu.html"
+  })
+  .state("app.messages", {
     url: "/messages",
-    controller: "MessagesCtrl",
-    templateUrl: "templates/messages.html"
+    views: {
+      'appContent': {
+        controller: "MessagesCtrl",
+        templateUrl: "templates/messages.html"
+      }
+    }
   })
   .state("sign", {
     url: "/sign",
