@@ -106,5 +106,5 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services", "
     templateUrl: "templates/article.html"
   });
 
-  $urlRouterProvider.otherwise("/messages");
+  $urlRouterProvider.otherwise("/app/messages");
 });
