@@ -1,11 +1,12 @@
 var services = angular.module("proBebe.services");
 services.service("authentication", function($q, $http, $rootScope, $cordovaDevice, Constants, storage, DeviceRegistration) {
   return {
-    authenticate: function(email, password, name) {
+    authenticate: function(email, password, name, social_network_id) {
       var deferred = $q.defer();
       var authentication_data = {
         email: email,
-        password: password
+        password: password,
+        social_network_id: social_network_id
       };
 
       this.setEmail(email);
@@ -20,14 +21,18 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
         if (result.data.valid) {
           self.setAuthenticationHeaders();
           $rootScope.$emit('authenticate');
+          $rootScope.$emit('allMessages');
         }
-        console.log("hash=======", result.data)
         self.setProfile(result.data);
         deferred.resolve(result.data.valid);
       }).catch(function(err) {
         deferred.reject("Não foi possível autenticar");
       });
       return deferred.promise;
+    },
+
+    updateSocialNetworkId: function(data){
+      return $http.post(Constants.CREDENCIALS_SOCIAL_NETWORK_ID, { social_network_id: data.social_network_id, email: data.email});
     },
 
     signOut: function() {

@@ -2,6 +2,7 @@ angular.module("proBebe.services")
 .factory('errorHandler', function() {
 
   var message;
+  var keyValue;
   function Handler() {}
 
   Handler._itContainsKey = function(response){
@@ -11,7 +12,8 @@ angular.module("proBebe.services")
   Handler._messageByKey = function(response){
     var errors = response.data.errors;
     for(key in errors){
-      var attribute = this._defineAttribute(key) ;
+      var attribute = this._defineAttribute(key);
+      keyValue = attribute;
       message += attribute+": "+ errors[key]+" <br>";
     }
   }
@@ -35,11 +37,15 @@ angular.module("proBebe.services")
   Handler.message = function(response){
     message = "";
     if(this._itContainsKey(response)){
-      message = "Ocorreu um erro no cadastro";
+      message = "Impossível comunicar com o ProBebe. Favor verificar sua conexão com a internet";
     }else{
       this._messageByKey(response);
     }
     return message;
+  }
+
+  Handler.key = function(){
+    return keyValue;
   }
 
   return Handler;

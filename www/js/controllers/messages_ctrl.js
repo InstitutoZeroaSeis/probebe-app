@@ -10,11 +10,11 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
 
   function init(loading) {
     $scope.$emit('allMessages');
-    $scope.showNoMessage = false;
     defineMessage(loading);
   }
 
   function defineMessage(loading){
+    $scope.showNoMessage = false;
     var profile = storage.get("profile");
     child();
     profile.children.forEach(function(child){

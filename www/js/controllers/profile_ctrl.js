@@ -46,7 +46,7 @@ angular.module("proBebe.controllers")
       var data = paramToSave();
       Profile.update(data)
       .then(function(result) {
-
+        $scope.$emit('allMessages');
         messageHandler.show("Dados salvos!");
 
         $timeout(function(){
