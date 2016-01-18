@@ -81,13 +81,13 @@ angular.module("proBebe.controllers")
   // ------- FACEBOOK
   $scope.signFacebook = function(){
     $scope.authSocial = true;
-    var facebookData = storage.get("facebookData");
+    var socialNetworkInfo = storage.get("socialNetworkInfo");
 
     //if already login with facebook
-    if(facebookData != null){
+    if(socialNetworkInfo != null && socialNetworkInfo.typeFb){
 
       var loading = messageHandler.show("Carregando...");
-      setLoginData(facebookData);
+      setLoginData(socialNetworkInfo);
       $scope.signIn('app.messages',loading);
 
     }else{
@@ -120,7 +120,7 @@ angular.module("proBebe.controllers")
         return
       }
 
-      $scope.user.type = 'fb';
+      $scope.user.typeFb = true;;
       $scope.user.password = randomPassword();
       setLoginData($scope.user);
       signUpSocialUser($scope.user);
@@ -134,13 +134,13 @@ angular.module("proBebe.controllers")
   // ------- GOOGLE PLUS
   $scope.signGooglePlus = function(){
     $scope.authSocial = true;
-    var googleData = storage.get("googleData");
+    var socialNetworkInfo = storage.get("socialNetworkInfo");
 
     //if already login with google plus
-    if(googleData != null){
+    if(socialNetworkInfo != null && socialNetworkInfo.typeGp){
 
       var loading = messageHandler.show("Carregando...");
-      setLoginData(googleData);
+      setLoginData(socialNetworkInfo);
       $scope.signIn('app.messages', loading);
 
     }else{
@@ -168,7 +168,7 @@ angular.module("proBebe.controllers")
       $scope.user.name = result.data.displayName;
       $scope.user.social_network_id = result.data.id;
 
-      $scope.user.type = 'gp';
+      $scope.user.typeGp = true;
       $scope.user.password = randomPassword();
       setLoginData($scope.user);
       signUpSocialUser($scope.user);
@@ -243,13 +243,11 @@ angular.module("proBebe.controllers")
 
   function mantainStatus (argument) {
     var lastMessage = storage.get('lastMessage');
-    var facebookData = storage.get("facebookData");
-    var googleData = storage.get("googleData");
+    var socialNetworkInfo = storage.get("socialNetworkInfo");
 
     storage.clear();
 
-    storage.set("facebookData",facebookData);
-    storage.set("googleData",googleData);
+    storage.set("socialNetworkInfo",socialNetworkInfo);
     storage.set('lastMessage', lastMessage);
   }
 
@@ -272,12 +270,18 @@ angular.module("proBebe.controllers")
   }
 
   function saveDataSocial(){
-    if($scope.user.type == "fb"){
-      storage.set("facebookData",$scope.user);
-    }else if($scope.user.type == "gp"){
-      storage.set("googleData",$scope.user);
+    var socialNetworkInfo = storage.get("socialNetworkInfo");
+    if(socialNetworkInfo != null){
+      socialNetworkInfo.name = $scope.user.name;
+      socialNetworkInfo.email = $scope.user.email;
+      socialNetworkInfo.password = $scope.user.password;
+      socialNetworkInfo.social_network_id = $scope.user.social_network_id;
+      if($scope.user.typeGp) socialNetworkInfo.typeGp = $scope.user.typeGp;
+      if($scope.user.typeFb) socialNetworkInfo.typeFb = $scope.user.typeFb;
+      storage.set("socialNetworkInfo", socialNetworkInfo);
+    }else{
+      storage.set("socialNetworkInfo", $scope.user);
     }
-
   }
 
   function randomPassword(){
