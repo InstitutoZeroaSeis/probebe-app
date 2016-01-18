@@ -3,7 +3,18 @@
 
   <ion-content class="has-header padding messages-list">
 
-    <div class="card" ng-show="showNoMessage" >
+    <div class="card" ng-show="loadingMessages" >
+
+      <div class="item item-divider" ng-class="new-message">
+        Messagens
+      </div>
+
+      <div class="item item-text-wrap">
+        Carregando...
+      </div>
+    </div>
+
+    <div class="card" ng-show="showNoMessage && messages.length === 0" >
 
       <div class="item item-divider" ng-class="new-message">
         Messagens
