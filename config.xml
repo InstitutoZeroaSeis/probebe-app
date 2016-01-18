@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="br.org.probebe" version="1.0.3" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <name>Pro Bebe</name>
+    <name>ProBebê</name>
     <description>
     ProBebê é um aplicativo que vai ajudar você a entender melhor tudo o que é bom para o seu bebê. Desde o inicio da gravidez até os 18 meses você receberá mensagens e orientações de especialistas sobre saúde, educação, desenvolvimento, segurança e finanças, sempre acompanhando a evolução de seu bebê. São informações importantes e surpreendentes sobre os cuidados para que o bebê tenha uma vida feliz e saudável.
   </description>
