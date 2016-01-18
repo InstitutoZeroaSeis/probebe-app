@@ -13,6 +13,7 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
       this.setPassword(password);
       this.setIsAuthenticated(false);
       this.setName(name);
+      this.setSocialNetworkId(social_network_id);
 
       var self = this;
 
@@ -67,6 +68,10 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
       return storage.get('name');
     },
 
+    socialNetworkId: function(){
+      return storage.get('social_network_id');
+    },
+
     registered: function() {
       return storage.get('registered') === 'true';
     },
@@ -92,6 +97,7 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
     setAuthenticationHeaders: function() {
       $http.defaults.headers.common['X-User-Email'] = this.email;
       $http.defaults.headers.common['X-User-Password'] = this.password;
+      $http.defaults.headers.common['X-Social-NetworkId'] = this.socialNetworkId;
     },
 
     setIsAuthenticated: function(authenticated) {
@@ -108,6 +114,10 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
 
     setName: function(name){
       storage.set('name',name);
+    },
+
+    setSocialNetworkId: function(social_network_id){
+      storage.set('social_network_id', social_network_id);
     },
 
     setPassword: function(password) {

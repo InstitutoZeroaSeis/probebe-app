@@ -57,7 +57,7 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
     var type = "1";
     var params = {
       type: type,
-      age: child.age_in_weeks / 4
+      age: parseInt(child.age_in_weeks / 4)
     };
     if(child){
       if(child.pregnancy){
