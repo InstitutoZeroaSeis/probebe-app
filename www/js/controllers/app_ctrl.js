@@ -16,8 +16,8 @@ angular.module("proBebe.controllers")
     $scope.children.forEach(function(child, index){
       Message.all({id: child.id})
       .then(function(messages){
-        $scope.messages = ChildAgePresenter.build( messages.data);
-        $scope.children[index].messages = messages.data;
+        $scope.messages = ChildAgePresenter.build(messages.data);
+        $scope.children[index].messages = $scope.messages;
         $scope.children[index] = badgeMenu($scope.children[index])
         profile.children = $scope.children;
         storage.set("profile", profile);

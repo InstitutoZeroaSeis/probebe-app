@@ -10,7 +10,7 @@
       </div>
 
       <div class="item item-text-wrap">
-        Seu filho(a) ainda não possue messagens
+        Seu filho(a) ainda não possui messagens
       </div>
     </div>
     <!-- ================ BIRTHDAY CARD ===================== -->
@@ -55,6 +55,7 @@
     <div ng-hide="showNoMessage" class="card" ng-repeat="message in messages | orderBy:'-delivery_date'">
 
       <div class="item item-divider item-divider-custom {{message.category}}" >
+        {{message.id}}
         <div class="row">
 
           <div class="col col-30 age-in-week">
