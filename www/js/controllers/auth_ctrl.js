@@ -24,7 +24,7 @@ angular.module("proBebe.controllers")
       if(loading) loading.hide();
       if (result) {
         messageHandler.show("Autenticado com sucesso");
-        $state.go(state);
+        $state.go(state, {childId: "null"});
       } else {
         messageHandler.show("Credenciais inválidas");
         $scope.authSocial = false;
@@ -88,7 +88,7 @@ angular.module("proBebe.controllers")
 
       var loading = messageHandler.show("Carregando...");
       setLoginData(socialNetworkInfo);
-      $scope.signIn('app.messages',loading);
+      $scope.signIn("/app/messages/null",loading);
 
     }else{
       $cordovaOauth.facebook(Constants.CLIENT_ID_FACEBOOK, ["public_profile","email"]).then(function(result) {

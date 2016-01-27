@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <div class="card" ng-show="showNoMessage && messages.length === 0" >
+    <div class="card" ng-show="showNoMessage && messages.length === 0 || messages == undefined" >
 
       <div class="item item-divider" ng-class="new-message">
         Messagens
@@ -66,7 +66,6 @@
     <div ng-hide="showNoMessage" class="card" ng-repeat="message in messages | orderBy:'-delivery_date'">
 
       <div class="item item-divider item-divider-custom {{message.category}}" >
-        {{message.id}}
         <div class="row">
 
           <div class="col col-30 age-in-week">

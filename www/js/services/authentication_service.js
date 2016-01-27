@@ -23,8 +23,8 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
           self.setAuthenticationHeaders();
           $rootScope.$emit('authenticate');
           $rootScope.$emit('allMessages');
+          self.setProfile(result.data);
         }
-        self.setProfile(result.data);
         deferred.resolve(result.data.valid);
       }).catch(function(err) {
         deferred.reject("Não foi possível autenticar");

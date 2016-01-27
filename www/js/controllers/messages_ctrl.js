@@ -30,7 +30,7 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
   }
 
   function childId(){
-    if($state.params.childId) return $state.params.childId;
+    if(!isNaN($state.params.childId)) return $state.params.childId;
     return storage.get("profile").children[0].id
   }
 

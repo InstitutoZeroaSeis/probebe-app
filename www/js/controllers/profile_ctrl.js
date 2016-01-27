@@ -1,5 +1,5 @@
 angular.module("proBebe.controllers")
-.controller("ProfileCtrl", function($rootScope, $scope, $ionicLoading, $timeout, $filter, $state, $ionicPopup, $ionicScrollDelegate, authentication, mask, Profile, errorHandler, messageHandler) {
+.controller("ProfileCtrl", function($rootScope, $scope, $ionicLoading, $timeout, $filter, $state, $ionicPopup, $ionicScrollDelegate, authentication, mask, Profile, errorHandler, messageHandler, storage) {
 
   function init(){
     $scope.profile = {
@@ -46,13 +46,7 @@ angular.module("proBebe.controllers")
       var data = paramToSave();
       Profile.update(data)
       .then(function(result) {
-        $scope.$emit('allMessages');
-        messageHandler.show("Dados salvos!");
-
-        $timeout(function(){
-          $state.go('app.messages');
-        },2000);
-
+        reloadProfile();
       }).catch(function(response) {
         messageHandler.show(errorHandler.message(response));
       });
@@ -69,6 +63,27 @@ angular.module("proBebe.controllers")
       cellPhone = mask.dashBetweenFourAndFiveDigit(cellPhone);
     }
     $scope.profile.cellPhone = cellPhone;
+  }
+
+  function reloadProfile(){
+    if($scope.profile.sons.length != storage.get("profile").children.length){
+      Profile.reloadChild()
+      .then(function(result) {
+        if (result) messageHandler.show("Dados salvos!");
+        else messageHandler.show("Não foi possível recarregar os dados!");
+
+        $timeout(function(){
+          $state.go('app.messages', {childId: "null"});
+        },2000);
+      }).catch(function(error) {
+        messageHandler.show("Impossível comunicar com o ProBebe. Favor verificar sua conexão com a internet");
+      });
+    }else{
+      messageHandler.show("Dados salvos!");
+      $timeout(function(){
+        $state.go('app.messages', {childId: "null"});
+      },2000);
+    }
   }
 
   function getId(son, index){
