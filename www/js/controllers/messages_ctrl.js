@@ -15,6 +15,7 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
 
   function defineMessage(loading){
     $scope.showNoMessage = false;
+    $scope.loadingMessages = true;
     var profile = storage.get("profile");
     child();
     profile.children.forEach(function(child){
@@ -46,6 +47,7 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
   function defineShowNoMessage(){
     try{
       if($scope.messages.length == 0) $scope.showNoMessage = true;
+      $scope.loadingMessages = false;
     }catch(error){
       $scope.showNoMessage = true;
     }

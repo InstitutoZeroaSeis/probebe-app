@@ -217,7 +217,7 @@ angular.module("proBebe.controllers")
 
       messageHandler.show("Dados salvos!");
       saveDataSocial();
-      $scope.signIn('app.profile', loading);
+      $scope.signIn('app.messages', loading);
 
     }).catch(function(response) {
       $scope.authSocial = false;
@@ -288,4 +288,3 @@ angular.module("proBebe.controllers")
     return Math.random().toString(36).slice(-8);
   }
 });
-
