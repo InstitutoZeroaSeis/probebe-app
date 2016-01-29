@@ -88,7 +88,7 @@ angular.module("proBebe.controllers")
 
       var loading = messageHandler.show("Carregando...");
       setLoginData(socialNetworkInfo);
-      $scope.signIn("/app/messages/null",loading);
+      $scope.signIn("app.messages",loading);
 
     }else{
       $cordovaOauth.facebook(Constants.CLIENT_ID_FACEBOOK, ["public_profile","email"]).then(function(result) {

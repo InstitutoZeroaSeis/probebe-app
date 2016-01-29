@@ -1,5 +1,5 @@
 angular.module("proBebe.controllers")
-.controller("ProfileCtrl", function($rootScope, $scope, $ionicLoading, $timeout, $filter, $state, $ionicPopup, $ionicScrollDelegate, authentication, mask, Profile, errorHandler, messageHandler, storage) {
+.controller("ProfileCtrl", function($rootScope, $scope, $timeout, $filter, $state, $ionicPopup, $ionicScrollDelegate, authentication, mask, Profile, errorHandler, messageHandler, storage) {
 
   function init(){
     $scope.profile = {
@@ -105,6 +105,7 @@ angular.module("proBebe.controllers")
   }
 
   function buildProfile (){
+    var loading = messageHandler.show("Carregando...");
     Profile.get()
     .then(function(result) {
       var profile = result.data;
@@ -113,7 +114,9 @@ angular.module("proBebe.controllers")
       $scope.profile.gender = profile.gender;
       $scope.profile.cellPhone = profile.cell_phone;
       sonsScope(profile);
+      loading.hide();
     }).catch(function(err) {
+      loading.hide();
       messageHandler.show("Ocorreu um erro em buscar o perfil");
     });
   }
