@@ -151,12 +151,6 @@ label.item.has-error {
   background-color: rgba(255, 255, 255, 0);
 }
 
-.signin-content {
-  position: absolute;
-  width: 100%;
-  bottom: 5px;
-}
-
 .side-menu{
   top: 40px;
 }
@@ -257,14 +251,8 @@ label.item.has-error {
   right: 5px;
 }
 
-.sign-logo{
-  margin-top: 30px;
-}
-
 .img-logo{
-  height: 80px;
-  display: block;
-  margin: auto;
+  max-width:100%;
 }
 
 .button-tab-sign{
@@ -278,10 +266,6 @@ label.item.has-error {
 .button-tab-sign-active{
   border-bottom: 3px solid #F69343;
   color: #f69343;
-}
-
-.sign-tab{
-  height: 440px !important;
 }
 
 .img-loadding{
@@ -593,4 +577,26 @@ input[type=range]::-webkit-slider-thumb {
 
 .item-menu{
   color: #FFF !important;
+}
+
+.col-parent-img{
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -moz-box-orient: horizontal;
+  box-orient: horizontal;
+  flex-direction: row;
+
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  box-pack: center;
+  justify-content: center;
+
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  box-align: center;
+  align-items: center;
+}
+
+.button-social{
+  font-size: 1em;
 }
