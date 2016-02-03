@@ -12,13 +12,17 @@ angular.module("proBebe.services")
         message.type = "week";
       }else{
         var age = message.child_age_in_week_at_delivery;
-        var month = parseInt(age / 4);
-        var week = age % 4;
+        var month = parseInt(age * 7 / 30);
         message.age = age;
         message.type = "month";
-        message.child_age_in_week_at_delivery = month;
-        month > 1 ? message.child_age_in_week_at_delivery += " meses" : message.child_age_in_week_at_delivery += " mês";
-        if (month == 0) message.child_age_in_week_at_delivery = week + " semana(s)";
+        if(month != 0) {
+          message.child_age_in_week_at_delivery = month + " meses";
+        }else if(month == 1){
+          message.child_age_in_week_at_delivery = month + " mês";
+        }
+        if(month == 0){
+          message.child_age_in_week_at_delivery = age + " semana(s)";
+        }
       }
       message.category = messageCategory(message);
     })

@@ -130,7 +130,7 @@ angular.module("proBebe.controllers")
           bornDate: bornDate(son.birth_date),
           gender: son.gender,
           _destroy: false
-        })
+        });
       })
     }else{
       $scope.profile.sons.push({name: "", bornDate: "", gender: ""});
@@ -138,11 +138,8 @@ angular.module("proBebe.controllers")
   }
 
   function bornDate(birthDate){
-    var date = new Date();
     var splitDate = birthDate.split("-");
-    date.setDate(splitDate[2]);
-    date.setMonth(splitDate[1] -1);
-    date.setYear(splitDate[0]);
+    var date = new Date(splitDate[0],(splitDate[1] -1), splitDate[2]);
     return date;
   }
 
