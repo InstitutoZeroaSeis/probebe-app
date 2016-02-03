@@ -9,48 +9,17 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
 
 
   function init(loading) {
-    $scope.$emit('allMessages');
-    defineMessage(loading);
-  }
-
-  function defineMessage(loading){
-    $scope.showNoMessage = false;
     $scope.loadingMessages = true;
-    var profile = storage.get("profile");
-    child();
-    profile.children.forEach(function(child){
-      if(child.id == childId()){
-        $scope.messages = child.messages
-        defineShowNoMessage()
-        getBirthdayCard($scope.selectedChild);
-        if(isNotEvent(loading)) loading.hide();
-      }
-    })
-
-  }
-
-  function childId(){
-    if(!isNaN($state.params.childId)) return $state.params.childId;
-    return storage.get("profile").children[0].id
-  }
-
-  function child(){
-    storage.get("profile").children.forEach(function(child){
-      if(child.id == childId()) $scope.selectedChild = child;
-    });
-  }
-
-  function isNotEvent(loading){
-    return loading != undefined && loading.name != 'finishRequest'
-  }
-
-  function defineShowNoMessage(){
-    try{
-      if($scope.messages.length == 0) $scope.showNoMessage = true;
+    $scope.messages = storage.get("messages_" + $state.params.childId);
+    Message.all({id: $state.params.childId}).then(function(messages){
+      storage.set("messages_" + $state.params.childId, ChildAgePresenter.build(messages.data));
+      $scope.messages = storage.get("messages_" + $state.params.childId);
+      getBirthdayCard();
       $scope.loadingMessages = false;
-    }catch(error){
-      $scope.showNoMessage = true;
-    }
+    },function(error){
+      $scope.loadingMessages = false;
+      messageHandler.show('Não foi possível carregar as mensagens');
+    });
   }
 
   function getBirthdayCard(child){
@@ -97,7 +66,9 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
   $scope.openInNewPage = function(message) {
     $rootScope.article ={
       text: message.article_text,
-      title: message.article_title
+      title: message.article_title,
+      category: message.article_category,
+      category_id: message.category
     }
     $state.go('app.article');
   }
@@ -118,6 +89,5 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
   }
 
   $scope.$on('pushMessageReceived', init);
-  $rootScope.$on('finishRequest', defineMessage);
   init();
 });

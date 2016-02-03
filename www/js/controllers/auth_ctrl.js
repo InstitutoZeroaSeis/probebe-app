@@ -60,7 +60,7 @@ angular.module("proBebe.controllers")
       };
       $http.post(Constants.RESET_PASSWORD, data).then(function(result) {
         if(result.status > 200 && result.status < 300){
-          messageHandler.show("Instruções enviada para o email inserido");
+          messageHandler.show("Instruções enviada para o email informado");
         }
         $state.go("sign");
       }).catch(function(response) {

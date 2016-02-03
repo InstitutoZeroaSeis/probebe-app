@@ -14,18 +14,18 @@ angular.module("proBebe.controllers")
 
   function builInfoToMenu(){
     $scope.children.forEach(function(child, index){
-      Message.all({id: child.id})
-      .then(function(messages){
-        $scope.messages = ChildAgePresenter.build(messages.data);
-        $scope.children[index].messages = $scope.messages;
-        $scope.children[index] = badgeMenu($scope.children[index])
-        profile.children = $scope.children;
-        storage.set("profile", profile);
-        if(getAllRequests(index)) $rootScope.$broadcast('finishRequest', undefined);
-
-      },function(error){
-        messageHandler.show('Não foi possível carregar as mensagens');
-      });
+      // Message.all({id: child.id})
+      // .then(function(messages){
+      //   $scope.messages = ChildAgePresenter.build(messages.data);
+      //   $scope.children[index].messages = $scope.messages;
+      //   $scope.children[index] = badgeMenu($scope.children[index])
+      //   profile.children = $scope.children;
+      //   storage.set("profile", profile);
+      //   if(getAllRequests(index)) $rootScope.$broadcast('finishRequest', undefined);
+      //
+      // },function(error){
+      //   messageHandler.show('Não foi possível carregar as mensagens');
+      // });
     })
   }
 
@@ -45,6 +45,7 @@ angular.module("proBebe.controllers")
     storage.set('lastMessage', lastMessage);
     return child;
   }
+  
   function getAllRequests(index){
     return $scope.children.length == index+1;
   }
@@ -53,6 +54,5 @@ angular.module("proBebe.controllers")
   }
 
   init();
-  $scope.$on('allMessages', init);
+  //$scope.$on('allMessages', init);
 });
-
