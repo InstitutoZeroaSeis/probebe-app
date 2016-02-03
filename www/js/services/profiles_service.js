@@ -25,8 +25,6 @@ angular.module("proBebe.services").factory('Profile', function($q, $rootScope, $
     $http.post(Constants.CREDENTIALS_URL, authentication_data).then(function(result) {
       if (result.data.valid) {
         storage.set('profile',result.data);
-        $rootScope.$emit('authenticate');
-        $rootScope.$emit('allMessages');
       }
       deferred.resolve(result.data.valid);
     }).catch(function(err) {

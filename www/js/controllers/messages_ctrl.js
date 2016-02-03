@@ -8,7 +8,6 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
     $cordovaToast.showLongBottom('Sem conexão');
   });
 
-
   function init() {
     var childIdParams = $state.params.childId;
     if(noChildId(childIdParams)){

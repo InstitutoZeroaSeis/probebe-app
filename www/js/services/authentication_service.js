@@ -22,7 +22,6 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
         if (result.data.valid) {
           self.setAuthenticationHeaders();
           $rootScope.$emit('authenticate');
-          $rootScope.$emit('allMessages');
           self.setProfile(result.data);
         }
         deferred.resolve(result.data.valid);
