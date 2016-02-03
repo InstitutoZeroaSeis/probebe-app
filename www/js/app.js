@@ -2,7 +2,7 @@ function onNotification(e){
   console.log('NOTIFICATION', e);
 }
 
-angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services", "ngCordovaOauth"]).run(function($timeout, $ionicPlatform, $rootScope, $state, $ionicLoading, authentication, pushProcessing, Microdonation, ObserverMicrodonation, messageHandler) {
+angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services", "ngCordovaOauth"]).run(function($timeout, $ionicPlatform, $rootScope, $state, $ionicLoading, authentication, pushProcessing, Microdonation, ObserverMicrodonation, messageHandler, storage) {
 
   $ionicPlatform.ready(function() {
     // $state.go('messages');
@@ -20,12 +20,19 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services", "
 
     try {
       window.cordova.plugins.Keyboard.hideKeyboardAccessoryBar();
-      window.StatusBar.styleDefault();
+      if(window.StatusBar) window.StatusBar.styleDefault();
       window.open = window.cordova.InAppBrowser.open;
     } catch(error) {
       console.log(error);
     }
+
+
   });
+  // to old version of app
+  if(!storage.get('profile')){
+    authentication.signOut();
+    storage.clear();
+  }
 
   if (authentication.isAuthenticated()) {
     pushProcessing.initialize();

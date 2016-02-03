@@ -10,7 +10,6 @@ angular.module("proBebe.controllers")
   }
 
   function getChildren(){
-    console.log("get")
     profile = storage.get("profile");
     $scope.children = profile.children;
   }

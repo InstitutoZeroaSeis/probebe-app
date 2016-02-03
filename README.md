@@ -2,6 +2,8 @@
 
 ## Release
 
+- Update version at config.xml and constants.js
+
 - Build the app
 
 `cordova build --release android`
@@ -15,3 +17,4 @@
 - Run zipalign tool
 
 `[ANDREOID_SKD_PATH]/build-tools/22.0.1/zipalign -v 4 android-release-unsigned.apk probebe-release.apk`
+
