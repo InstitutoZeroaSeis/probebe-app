@@ -3,26 +3,62 @@ var controllers;
 controllers = angular.module("proBebe.controllers");
 
 controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootScope, $state, $ionicPopup, $ionicModal, $cordovaToast, $window, $cordovaSocialSharing, Child, Profile, ChildAgePresenter, Constants, Microdonation, storage, messageHandler, BirthdayCard, Message) {
+
   $rootScope.$on('networkOffline', function(event, networkState) {
     $cordovaToast.showLongBottom('Sem conexão');
   });
 
 
-  function init(loading) {
+  function init() {
+    var childIdParams = $state.params.childId;
+    if(noChildId(childIdParams)){
+      defineOptionsChild();
+    }else{
+      $scope.messages = storage.get("messages_" + childIdParams);
+      getMessage(childIdParams);
+    }
+  }
+
+  function getMessage (childId) {
     $scope.loadingMessages = true;
-    $scope.messages = storage.get("messages_" + $state.params.childId);
-    Message.all({id: $state.params.childId}).then(function(messages){
-      storage.set("messages_" + $state.params.childId, ChildAgePresenter.build(messages.data));
-      $scope.messages = storage.get("messages_" + $state.params.childId);
-      getBirthdayCard();
+    Message.all({id: childId}).then(function(messages){
+      storage.set("messages_" + childId, ChildAgePresenter.build(messages.data));
+      $scope.messages = storage.get("messages_" + childId);
+      getBirthdayCard(childId);
       $scope.loadingMessages = false;
+      messageState();
     },function(error){
       $scope.loadingMessages = false;
       messageHandler.show('Não foi possível carregar as mensagens');
     });
   }
 
-  function getBirthdayCard(child){
+  function noChildId (childIdParams) {
+    return isNaN(childIdParams);
+  }
+
+  function messageState () {
+    $scope.messageState = $scope.messages == undefined || $scope.messages.length === 0;
+  }
+
+  function defineOptionsChild () {
+    $scope.childrenOptions = true;
+    $scope.children = storage.get("profile").children;
+    $scope.messageState = false;
+    if($scope.children.length == 1){
+      $scope.childrenOptions = false;
+      getMessage($scope.children[0].id);
+    }
+  }
+
+  function getChild(childId){
+    return storage.get("profile").children.filter(function(child){
+      return child.id == childId;
+    })[0];
+  }
+
+  function getBirthdayCard(childId){
+    var child =  getChild(childId);
     $scope.birthdayCard = {show:false};
     //0 week and 1 month
     var type = "1";
@@ -88,6 +124,12 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
     return "img/"+ category + ".png";
   }
 
+  $scope.loadMessageBy = function(childId) {
+    $scope.childrenOptions = false;
+    getMessage(childId);
+  }
+
   $scope.$on('pushMessageReceived', init);
+
   init();
 });

@@ -1,8 +1,12 @@
 angular.module("proBebe.controllers")
 .controller("AppCtrl", function($scope, $rootScope, storage, $state, Message, storage, ChildAgePresenter, messageHandler) {
+
+  $scope.$on('$ionicView.enter', init);
+
   var profile;
 
   function init(){
+    console.log("appctrl")
     getChildren();
     builInfoToMenu()
   }
@@ -45,7 +49,7 @@ angular.module("proBebe.controllers")
     storage.set('lastMessage', lastMessage);
     return child;
   }
-  
+
   function getAllRequests(index){
     return $scope.children.length == index+1;
   }
@@ -54,5 +58,4 @@ angular.module("proBebe.controllers")
   }
 
   init();
-  //$scope.$on('allMessages', init);
 });

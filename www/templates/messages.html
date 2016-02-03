@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <div class="card" ng-show="messages.length === 0 || messages == undefined" >
+    <div class="card" ng-show="messageState" >
 
       <div class="item item-divider" ng-class="new-message">
         Messagens
@@ -24,6 +24,21 @@
         Seu filho(a) ainda não possui messagens
       </div>
     </div>
+
+    <!-- CHILDREN'S OPTIONS -->
+
+    <div class="card" ng-show="childrenOptions">
+      <div class="item item-text-wrap">
+        Escolha um filho(a) para ver as menssagens
+      </div>
+    </div>
+
+    <div class="row" ng-repeat="child in children" ng-show="childrenOptions">
+      <button class="button button-light button-block" ng-click="loadMessageBy(child.id)" >
+        {{child.name}}
+      </button>
+    </div>
+
     <!-- ================ BIRTHDAY CARD ===================== -->
     <!-- was necessary css inline to set dynamic path image style -->
     <div ng-if="birthdayCard.show" class="card card-back" style="background: url('{{birthdayCard.url}}');
