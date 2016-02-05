@@ -1,6 +1,6 @@
 (function() {
-  var API_BASE_URL = "http://www.probebe.org.br/api";
-  // var API_BASE_URL = "http://192.168.10.30:3000/api";
+  // var API_BASE_URL = "http://www.probebe.org.br/api";
+  var API_BASE_URL = "http://localhost:3000/api";
   angular.module("proBebe.constants", []).constant("Constants", Object.freeze({
     API_BASE_URL: API_BASE_URL,
     CHILDREN_URL: API_BASE_URL + "/children",
@@ -24,6 +24,7 @@
     CLIENT_ID_GOOGLEPLUS: '315459751586-34134ej3bd5gq9u3f9loubd1r8kkc3rk.apps.googleusercontent.com',
     USER_DATA_GOOFLEPLUES: 'https://www.googleapis.com/plus/v1/people/me',
     RESET_PASSWORD: API_BASE_URL + "/users/reset_password",
-    BIRTHDAY_CARD: API_BASE_URL + "/birthday_cards/show"
+    BIRTHDAY_CARD: API_BASE_URL + "/birthday_cards/show",
+    CATEGORIES: API_BASE_URL + "/categories"
   }));
 }());
