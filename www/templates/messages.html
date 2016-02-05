@@ -95,7 +95,7 @@
     </div>
 
     <!-- ================ MESSAGE CARD ===================== -->
-    <div ng-hide="showNoMessage" class="card" ng-repeat="message in messages | orderBy:'-delivery_date'">
+    <div ng-hide="showNoMessage" class="card" collection-repeat="message in messages track by message.id | orderBy:'-delivery_date'">
 
       <div class="item item-divider item-divider-custom {{message.category}}" >
         <div class="row">
