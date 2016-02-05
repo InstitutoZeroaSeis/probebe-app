@@ -31,8 +31,9 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
   function getMessage (childId) {
     $scope.loadingMessages = true;
     Message.all({id: childId}).then(function(messages){
-      storage.set("messages_" + childId, ChildAgePresenter.build(messages.data));
-      $scope.messages = storage.get("messages_" + childId);
+      var msgs = ChildAgePresenter.build(messages.data);
+      storage.set("messages_" + childId, msgs);
+      $scope.messages = msgs;
       getBirthdayCard(childId);
       $scope.loadingMessages = false;
       messageState();
