@@ -2,13 +2,14 @@ var controllers;
 
 controllers = angular.module("proBebe.controllers");
 
-controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootScope, $state, $ionicPopup, $ionicModal, $cordovaToast, $window, $cordovaSocialSharing, Child, Profile, ChildAgePresenter, Constants, Microdonation, storage, messageHandler, BirthdayCard, Message) {
+controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootScope, $state, $ionicPopup, $ionicModal, $cordovaToast, $window, $cordovaSocialSharing, Child, Profile, ChildAgePresenter, Constants, Microdonation, storage, messageHandler, BirthdayCard, Message, Category) {
 
   $rootScope.$on('networkOffline', function(event, networkState) {
     $cordovaToast.showLongBottom('Sem conexão');
   });
 
   function init() {
+    $scope.infoApp = storage.get("infoApp");
     var childIdParams = $state.params.childId;
     if(noChildId(childIdParams)){
       defineOptionsChild();
@@ -16,6 +17,15 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
       $scope.messages = storage.get("messages_" + childIdParams);
       getMessage(childIdParams);
     }
+    loadCategories();
+  }
+
+  function loadCategories () {
+    Category.all()
+    .then(function(categories){
+    }, function (error) {
+      console.log(error);
+    })
   }
 
   function getMessage (childId) {
@@ -126,6 +136,11 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
   $scope.loadMessageBy = function(childId) {
     $scope.childrenOptions = false;
     getMessage(childId);
+  }
+
+  $scope.closeInfoApp = function () {
+    storage.set("infoApp", false);
+    $scope.displayNone = {display:'none'}
   }
 
   $scope.$on('pushMessageReceived', init);

@@ -41,7 +41,8 @@ angular.module("proBebe.controllers")
       var data = defineData();
       $http.post(Constants.SIGN_UP_URL, data).then(function(result) {
         setLoginData($scope.user);
-        thanksPopup();
+        statusInfoApp()
+        $scope.signIn('app.profile');
       }).catch(function(response) {
         $scope.user = null;
         $scope.authSocial = false;
@@ -190,6 +191,7 @@ angular.module("proBebe.controllers")
     $http.post(Constants.SIGN_UP_URL, data).then(function(result) {
 
       saveDataSocial();
+      statusInfoApp();
       $scope.signIn('app.profile', loading);
 
     }).catch(function(response) {
@@ -286,5 +288,9 @@ angular.module("proBebe.controllers")
 
   function randomPassword(){
     return Math.random().toString(36).slice(-8);
+  }
+
+  function statusInfoApp() {
+    storage.set("infoApp", true);
   }
 });

@@ -1,6 +1,23 @@
 
 <ion-view title="{{selectedChild.name}}" cache-view="false" >
 
+  <div class="info-app loading-container active" ng-class="{visible: infoApp}" ng-show="infoApp" ng-click="closeInfoApp()" ng-style="displayNone">
+    <div class="card">
+      <div class="item item-divider info-app-title">
+       BEM VINDA!
+      </div>
+
+      <div class="item item-text-wrap info-app-text">
+       <p>
+        A partir de agora você tem acesso a informações sobre cada momento da gestação ou da fase do seu filho.
+        Você receberá três mensagens novas por semana.
+       </p>
+      </div>
+      <button class="button button-positive button-block">Ok entendi</button>
+    </div>
+
+  </div>
+
   <ion-content class="has-header padding messages-list">
 
     <div class="card" ng-show="loadingMessages" >
@@ -27,14 +44,14 @@
 
     <!-- CHILDREN'S OPTIONS -->
 
-    <div class="card" ng-show="childrenOptions">
-      <div class="item item-text-wrap">
+    <div class="row box-children-option" ng-show="childrenOptions">
+      <div class="col">
         Escolha um filho(a) para ver as menssagens
       </div>
     </div>
 
     <div class="row" ng-repeat="child in children" ng-show="childrenOptions">
-      <button class="button button-light button-block" ng-click="loadMessageBy(child.id)" >
+      <button class="button button-positive button-block" ng-click="loadMessageBy(child.id)" >
         {{child.name}}
       </button>
     </div>
