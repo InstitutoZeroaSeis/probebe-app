@@ -17,7 +17,7 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
       $scope.messages = storage.get("messages_" + childIdParams);
       getMessage(childIdParams);
     }
-    loadCategories();
+    // loadCategories();
   }
 
   function loadCategories () {
@@ -68,6 +68,7 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
 
   function getBirthdayCard(childId){
     var child =  getChild(childId);
+    $scope.selectedChild = child;
     $scope.birthdayCard = {show:false};
     //0 week and 1 month
     var type = "1";
