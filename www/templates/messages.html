@@ -17,7 +17,6 @@
     </div>
 
   </div>
-
   <ion-content class="has-header padding messages-list">
 
     <div class="card" ng-show="loadingMessages" >
@@ -95,44 +94,45 @@
     </div>
 
     <!-- ================ MESSAGE CARD ===================== -->
-    <div ng-hide="showNoMessage" class="card" collection-repeat="message in messages | orderBy:'-delivery_date'">
+    <div ng-hide="showNoMessage" collection-repeat="message in messages | orderBy:'-delivery_date' track by message.id">
+      <div class="card">
+        <div class="item item-divider item-divider-custom {{message.category}}" >
+          <div class="row">
 
-      <div class="item item-divider item-divider-custom {{message.category}}" >
-        <div class="row">
+            <div class="col col-30 age-in-week">
+              {{message.child_age_in_week_at_delivery.toUpperCase()}} - {{message.article_category}}
 
-          <div class="col col-30 age-in-week">
-            {{message.child_age_in_week_at_delivery.toUpperCase()}} - {{message.article_category}}
+            </div>
+
+
+            <div class="col col-10 date-message">
+              {{ message.delivery_date | date: 'd MMM' }}
+
+            </div>
+
+            <div class="col col-10">
+              <img ng-show="{{message.isNew}}" class="flag-new" src="img/flag_novo.svg">
+            </div>
 
           </div>
-
-
-          <div class="col col-10 date-message">
-            {{ message.delivery_date | date: 'd MMM' }}
-
-          </div>
-
-          <div class="col col-10">
-            <img ng-show="{{message.isNew}}" class="flag-new" src="img/flag_novo.svg">
-          </div>
-
-        </div>
-      </div>
-
-      <div class="item item-text-wrap padding-text">
-        {{ message.text }}
-      </div>
-
-      <div class="item tabs tabs-secondary tabs-icon-left" ng-if="message.url">
-
-        <a class="tab-item" ng-click="openInNewPage(message)" href="#">
-          <i class="icon ion-plus-circled"></i>
-          Leia Mais
-        </a>
-        <div ng-click="shareMessage(message.text, message.url)" class="tab-item item-share-social">
-          <i class="icon ion-android-share-alt"> </i>
         </div>
 
+        <div class="item item-text-wrap padding-text card-body">
+          {{ message.text }}
+        </div>
+
+        <div class="item tabs tabs-secondary tabs-icon-left" ng-if="message.url">
+
+          <a class="tab-item" ng-click="openInNewPage(message)" href="#">
+            <i class="icon ion-plus-circled"></i>
+            Leia Mais
+          </a>
+          <div ng-click="shareMessage(message.text, message.url)" class="tab-item item-share-social">
+            <i class="icon ion-android-share-alt"> </i>
+          </div>
+        </div>
       </div>
+      <div class="card-footer"></div>
     </div>
   </ion-content>
 </ion-view>
