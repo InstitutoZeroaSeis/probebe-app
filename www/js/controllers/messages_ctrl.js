@@ -2,7 +2,7 @@ var controllers;
 
 controllers = angular.module("proBebe.controllers");
 
-controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootScope, $state, $ionicPopup, $ionicModal, $cordovaToast, $window, $cordovaSocialSharing, Child, Profile, ChildAgePresenter, Constants, Microdonation, storage, messageHandler, BirthdayCard, Message, Category) {
+controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootScope, $state, $ionicPopup, $ionicModal, $cordovaToast, $window, $cordovaSocialSharing, Child, Profile, ChildAgePresenter, Constants, Microdonation, storage, messageHandler, BirthdayCard, Message, Category, $ionicViewService, ScrollPositions, $ionicScrollDelegate) {
 
   $rootScope.$on('networkOffline', function(event, networkState) {
     $cordovaToast.showLongBottom('Sem conexão');
@@ -17,7 +17,7 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
       $scope.messages = storage.get("messages_" + childIdParams);
       getMessage(childIdParams);
     }
-    // loadCategories();
+    //loadCategories();
   }
 
   function loadCategories () {
@@ -30,6 +30,7 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
 
   function getMessage (childId) {
     $scope.loadingMessages = true;
+
     Message.all({id: childId}).then(function(messages){
       var msgs = ChildAgePresenter.build(messages.data);
       storage.set("messages_" + childId, msgs);
@@ -56,8 +57,7 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
     $scope.children = storage.get("profile").children;
     $scope.messageState = false;
     if($scope.children.length == 1){
-      $scope.childrenOptions = false;
-      getMessage($scope.children[0].id);
+      $scope.goToChild($scope.children[0].id);
     }
   }
 
@@ -110,7 +110,21 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
     }
   }
 
+  function disableBackButton(){
+    $ionicViewService.nextViewOptions({
+      disableBack: true
+    });
+  }
+
+  $scope.goToChild = function(childId){
+    $scope.childrenOptions = false;
+    disableBackButton();
+    ScrollPositions['maintain_scroll'] = false;
+    $state.go('app.messages', {childId: childId}, {location: 'replace'});
+  }
+
   $scope.openInNewPage = function(message) {
+    ScrollPositions['maintain_scroll'] = true
     $rootScope.article ={
       text: message.article_text,
       title: message.article_title,
@@ -133,11 +147,6 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
 
   $scope.srcImg = function(category){
     return "img/"+ category + ".png";
-  }
-
-  $scope.loadMessageBy = function(childId) {
-    $scope.childrenOptions = false;
-    getMessage(childId);
   }
 
   $scope.closeInfoApp = function () {

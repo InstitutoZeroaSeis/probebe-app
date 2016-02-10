@@ -2,7 +2,7 @@ function onNotification(e){
   console.log('NOTIFICATION', e);
 }
 
-angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services", "ngCordovaOauth"]).run(function($timeout, $ionicPlatform, $rootScope, $state, $ionicLoading, authentication, pushProcessing, Microdonation, ObserverMicrodonation, messageHandler, storage) {
+angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services", "proBebe.factories",  "proBebe.directives", "ngCordovaOauth"]).run(function($timeout, $ionicPlatform, $rootScope, $state, $ionicLoading, authentication, pushProcessing, Microdonation, ObserverMicrodonation, messageHandler, storage) {
 
   $ionicPlatform.ready(function() {
     // $state.go('messages');

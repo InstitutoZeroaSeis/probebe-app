@@ -17,7 +17,7 @@
     </div>
 
   </div>
-  <ion-content class="has-header padding messages-list">
+  <ion-content class="has-header padding messages-list" keep-scroll>
 
     <div class="card" ng-show="loadingMessages" >
 
@@ -50,7 +50,7 @@
     </div>
 
     <div class="row" ng-repeat="child in children" ng-show="childrenOptions">
-      <button class="button button-positive button-block" ng-click="loadMessageBy(child.id)" >
+      <button class="button button-positive button-block" ng-click="goToChild(child.id)" >
         {{child.name}}
       </button>
     </div>

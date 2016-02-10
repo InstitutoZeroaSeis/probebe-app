@@ -1,5 +1,5 @@
 angular.module("proBebe.controllers")
-.controller("AppCtrl", function($scope, $rootScope, storage, $state, Profile) {
+.controller("AppCtrl", function($scope, $rootScope, storage, $state, Profile, ScrollPositions) {
 
   $scope.$on('$ionicView.enter', init);
 
@@ -21,5 +21,9 @@ angular.module("proBebe.controllers")
     }).catch(function(error) {
       messageHandler.show("Impossível recarregar o perfil");
     });
+  }
+
+  $scope.clearScroll = function(){
+    ScrollPositions['maintain_scroll'] = false;
   }
 });

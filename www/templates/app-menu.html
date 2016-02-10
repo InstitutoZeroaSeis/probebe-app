@@ -31,7 +31,7 @@
     <ion-content scroll="false">
 
       <ion-list>
-        <a class="bg-blue item item-menu" nav-clear menu-close href="#/app/messages/{{child.id}}" ng-repeat="child in children">
+        <a class="bg-blue item item-menu" nav-clear menu-close ng-click="clearScroll()" ui-sref="app.messages({childId: child.id})" ng-repeat="child in children">
           <i>
             <img class="custom-icon" src="img/icone_bebe.svg">
           </i>
@@ -39,14 +39,14 @@
           <span class="badge badge-assertive">{{child.newMessagesTotal}}</span>
         </a>
 
-        <a class="bg-blue item item-menu" nav-clear menu-close  href="#/app/profile" >
+        <a class="bg-blue item item-menu" nav-clear menu-close   ui-sref="app.profile" >
           <i>
             <img class="custom-icon" src="img/icone_perfil.svg">
           </i>
           Perfil
         </a>
 
-        <a class="bg-blue item item-menu" nav-clear menu-close href="#/app/about">
+        <a class="bg-blue item item-menu" nav-clear menu-close  ui-sref="app.about">
           <i>
             <img class="custom-icon" src="img/icone_info.svg">
           </i>
