@@ -22,22 +22,24 @@ angular.module("proBebe.services").factory('pushProcessing', function($rootScope
         };
       } else if(ionic.Platform.isAndroid()){
         pushConfig = {
-          senderID: Constants.PUSH_NOTIFICATION.GCM.SENDER_ID,
-          ecb: 'onNotification'
+          senderID: Constants.PUSH_NOTIFICATION.GCM.SENDER_ID
         };
       }
 
-      $ionicPlatform.ready(function() {
+      document.addEventListener("deviceready", function(){
         $cordovaPush.register(pushConfig).then(function(deviceToken) {
           console.info("Push registered, result = " + deviceToken);
           if(ionic.Platform.isIOS()){
             authentication.registerDeviceNotificationId(deviceToken);
           }
         }, function(err) {
-          console.error("Registration failed, error = " + error);
+          console.error("Registration failed, error = " + err);
         });
-      });
-      $rootScope.$on('pushNotificationReceived', pushNotification);
+        $rootScope.$on('pushNotificationReceived', function(event, notification) {
+          console.log("pushNotificationReceived", event);
+          pushNotification(event, notification);
+        });
+      }, false);
     };
   };
 
