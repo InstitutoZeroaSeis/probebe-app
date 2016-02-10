@@ -43,12 +43,13 @@
     "org.apache.cordova.network-information",
     "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git",
     "cordova-plugin-whitelist",
-    "https://github.com/phonegap-build/PushPlugin",
     "https://github.com/cordova-sms/cordova-sms-plugin.git",
     "https://github.com/EddyVerbruggen/SocialSharing-PhoneGap-Plugin.git",
     "https://git-wip-us.apache.org/repos/asf/cordova-plugin-inappbrowser.git",
     "cordova-plugin-crosswalk-webview",
-    "cordova-plugin-splashscreen"
+    "cordova-plugin-splashscreen",
+    "https://github.com/phonegap-build/PushPlugin.git",
+    "https://github.com/phonegap-build/PushPlugin"
   ],
   "scripts": {
     "install": "node tasks/platforms.js"

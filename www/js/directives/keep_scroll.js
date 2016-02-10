@@ -9,8 +9,6 @@ angular.module('proBebe.directives').directive('keepScroll', [
         return $timeout(function() {
           var offset;
           offset = ScrollPositions[$state.current.name];
-          console.log(offset)
-          console.log(ScrollPositions['maintain_scroll'])
           if (offset != null && ScrollPositions['maintain_scroll']) {
             return $ionicScrollDelegate.scrollTo(offset.left, offset.top);
           }

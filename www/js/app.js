@@ -25,8 +25,6 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services", "
     } catch(error) {
       console.log(error);
     }
-
-
   });
   // to old version of app
   if(!storage.get('profile')){
