@@ -1,45 +1,33 @@
 angular.module("proBebe.services").factory('pushProcessing', function($rootScope, $cordovaPush, $ionicPlatform, Constants, authentication) {
   var PushProcessing = function() {
-    var pushNotification = function(event, notification) {
-      var elem, injector, myService;
-      console.info("pushNotificationReceived. Notification argument: " + JSON.stringify(notification));
-
-      if (notification.event === 'registered') {
-        authentication.registerDeviceNotificationId(notification.regid);
-      } else
-      if (notification.event === 'message') {
-        $rootScope.$broadcast('pushMessageReceived', notification.message);
-      }
-    };
-
     this.initialize = function() {
-      var pushConfig = {};
-      if(ionic.Platform.isIOS()){
-        pushConfig = {
+      $ionicPlatform.ready( function(){
+        var push = PushNotification.init({
+          android: {
+            senderID: Constants.PUSH_NOTIFICATION.GCM.SENDER_ID,
+            "icon": "push_logo",
+            "iconColor": "#f69343"
+          },
+          ios: {
+            alert: "true",
             badge: true,
-            sound: true,
-            alert: true,
-        };
-      } else if(ionic.Platform.isAndroid()){
-        pushConfig = {
-          senderID: Constants.PUSH_NOTIFICATION.GCM.SENDER_ID
-        };
-      }
-
-      document.addEventListener("deviceready", function(){
-        $cordovaPush.register(pushConfig).then(function(deviceToken) {
-          console.info("Push registered, result = " + deviceToken);
-          if(ionic.Platform.isIOS()){
-            authentication.registerDeviceNotificationId(deviceToken);
+            sound: 'false'
           }
-        }, function(err) {
-          console.error("Registration failed, error = " + err);
         });
-        $rootScope.$on('pushNotificationReceived', function(event, notification) {
-          console.log("pushNotificationReceived", event);
-          pushNotification(event, notification);
+
+        push.on('registration', function(data){
+          console.log("Push Registration:", data)
+          authentication.registerDeviceNotificationId(data.registrationId);
         });
-      }, false);
+        push.on('notification', function(data){
+          console.log("Push Notification:", data)
+          $rootScope.$broadcast('pushMessageReceived', notification.message);
+        });
+
+        push.on('error', function(error){
+          console.log("Push Error:", error)
+        });
+      });
     };
   };
 

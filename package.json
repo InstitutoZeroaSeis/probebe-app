@@ -48,8 +48,7 @@
     "https://git-wip-us.apache.org/repos/asf/cordova-plugin-inappbrowser.git",
     "cordova-plugin-crosswalk-webview",
     "cordova-plugin-splashscreen",
-    "https://github.com/phonegap-build/PushPlugin.git",
-    "https://github.com/phonegap-build/PushPlugin"
+    "phonegap-plugin-push"
   ],
   "scripts": {
     "install": "node tasks/platforms.js"
