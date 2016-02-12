@@ -1,5 +1,5 @@
 angular.module("proBebe.controllers")
-.controller("AppCtrl", function($scope, $rootScope, storage, $state, Profile, ScrollPositions) {
+.controller("AppCtrl", function($scope, storage, messageHandler, Profile, ScrollPositions) {
 
   $scope.$on('$ionicView.enter', init);
 
