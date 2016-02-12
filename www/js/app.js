@@ -64,6 +64,7 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services", "
 }).config(function($stateProvider, $urlRouterProvider, $ionicConfigProvider, $httpProvider) {
 
   $ionicConfigProvider.views.maxCache(0);
+  $ionicConfigProvider.backButton.text('Voltar');
 
   $stateProvider.state('app', {
     url: "/app",

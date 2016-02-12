@@ -60,7 +60,7 @@ angular.module("proBebe.controllers")
         commit: "Me envie as instruções de resetar senha"
       };
       $http.post(Constants.RESET_PASSWORD, data).then(function(result) {
-        if(result.status > 200 && result.status < 300){
+        if(result.status > 200 && result.status < 302){
           messageHandler.show("Instruções enviada para o email informado");
         }
         $state.go("sign");
