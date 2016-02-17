@@ -12,7 +12,8 @@
       </ion-nav-buttons>
 
       <ion-nav-buttons side="right">
-        <img class="logo-nav-home" src="img/logo_nav.png">
+        <img class="logo-nav-home" ng-hide="filterMenu.show" src="img/logo_nav.png">
+        <img class="logo-nav-home" ng-show="filterMenu.show" src="img/icone_filtro.svg">
       </ion-nav-buttons>
 
     </ion-nav-bar>
