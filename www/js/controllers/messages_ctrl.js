@@ -8,7 +8,14 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
     $cordovaToast.showLongBottom('Sem conexão');
   });
 
+  $rootScope.$on("openFilter", function(){
+    console.log("listen")
+    $scope.filterMenu = true;
+    $scope.noFilter = {visibility: 'visible'};
+  });
+
   function init() {
+    $scope.filterMenu = false;
     $scope.infoApp = storage.get("infoApp");
     var childIdParams = $state.params.childId;
     if(noChildId(childIdParams)){
@@ -17,14 +24,16 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
       $scope.messages = storage.get("messages_" + childIdParams);
       getMessage(childIdParams);
     }
-    //loadCategories();
+    loadCategories();
   }
 
   function loadCategories () {
     Category.all()
-    .then(function(categories){
+    .then(function(response){
+      $scope.categories = response.data;
+      console.log($scope.categories)
     }, function (error) {
-      console.log(error);
+      messageHandler.show('Não foi possível carregar as categorias');
     })
   }
 
@@ -151,7 +160,25 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
 
   $scope.closeInfoApp = function () {
     storage.set("infoApp", false);
-    $scope.displayNone = {display:'none'}
+    $scope.displayNone = {display:'none'};
+  }
+
+  $scope.closeFilter = function(){
+    $scope.noFilter = {visibility: 'hidden'};
+    $scope.filterMenu = false;
+  }
+
+  $scope.filterMessages = function(category_id){
+    if( category_id != 'all'){
+      $scope.messages = storage.get("messages_" + $scope.selectedChild.id)
+      .filter(function(message){
+        return message.parent_category_id == category_id;
+      });
+    }else{
+      $scope.messages = storage.get("messages_" + $scope.selectedChild.id);
+    }
+    messageState();
+    $scope.closeFilter();
   }
 
   $scope.$on('pushMessageReceived', init);

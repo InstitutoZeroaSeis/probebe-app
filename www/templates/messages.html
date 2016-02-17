@@ -1,6 +1,6 @@
 
 <ion-view title="{{selectedChild.name}}" cache-view="false" >
-
+  <!-- ================= MESSAGE TO WHEN USER SIGNUP ===================== -->
   <div class="info-app loading-container active" ng-class="{visible: infoApp}" ng-show="infoApp" ng-click="closeInfoApp()" ng-style="displayNone">
     <div class="card">
       <div class="item item-divider info-app-title">
@@ -17,6 +17,30 @@
     </div>
 
   </div>
+
+  <!-- ======== CATEGORY FILTER =========== -->
+  <div class="filter-list loading-container active" ng-class="{visible: filterMenu}" ng-show="filterMenu" ng-style="noFilter">
+    <div class="row">
+      <ul class="list col">
+        <li class="item" ng-click="closeFilter()">
+            <b>Filtrar</b>
+            <i class="icon ion-close icon-list-filter-close"></i>
+        </li>
+
+        <li class="item" ng-click="filterMessages('all')">
+          Todos
+        </li>
+
+        <li class="item" ng-repeat="category in categories track by category.id" ng-click="filterMessages(category.id)">
+          <i class="icon ion-record icon-list-filter" style="color: {{category.color}}"></i>{{category.name}}
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+
+  <!-- =============== STATUS LOADING OR NO MESSAGE ============== -->
   <ion-content class="has-header padding messages-list" keep-scroll>
 
     <div class="card" ng-show="loadingMessages" >
@@ -41,7 +65,7 @@
       </div>
     </div>
 
-    <!-- CHILDREN'S OPTIONS -->
+    <!-- ============== CHILDREN'S OPTIONS ===============-->
 
     <div class="row box-children-option" ng-show="childrenOptions">
       <div class="col">
@@ -57,7 +81,9 @@
 
     <!-- ================ BIRTHDAY CARD ===================== -->
     <!-- was necessary css inline to set dynamic path image style -->
-    <div ng-if="birthdayCard.show" class="card card-back" style="background: url('{{birthdayCard.url}}');
+    <div ng-if="birthdayCard.show" class="card card-back"
+      style="
+      background: url('{{birthdayCard.url}}');
       position: static;
       width: 100%;
       height: 100%;
@@ -93,10 +119,10 @@
       </div>
     </div>
 
-    <!-- ================ MESSAGE CARD ===================== -->
+    <!-- ================ MESSAGES CARD ===================== -->
     <div ng-hide="showNoMessage" collection-repeat="message in messages | orderBy:'-delivery_date' track by message.id">
       <div class="card">
-        <div class="item item-divider item-divider-custom {{message.category}}" >
+        <div class="item item-divider item-divider-custom" style="background-color: {{message.category_color}}" >
           <div class="row">
 
             <div class="col col-30 age-in-week">

@@ -11,7 +11,6 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services", "
     var isIOS = ionic.Platform.isIOS();
     var isAndroid = ionic.Platform.isAndroid();
     var currentPlatform = ionic.Platform.platform();
-    $rootScope.filterMenu = { show: false };
 
     if(!isIOS && !isAndroid) $rootScope.systemType = 'other';
     if(isIOS) $rootScope.systemType = 'ios';
@@ -49,6 +48,7 @@ angular.module("proBebe", ["ionic", "proBebe.controllers", "proBebe.services", "
     $ionicLoading.show({template: 'Carregando...'});
     // ObserverMicrodonation.start();
     // if(ObserverMicrodonation.isTimeToShowPopup()) Microdonation.popup($rootScope);
+    $rootScope.filterMenu = { show: false };
     if(toState.name == 'app.messages') $rootScope.filterMenu = { show: true };
     if (!authentication.isAuthenticated() && toState.name != 'sign' && toState.name != 'resetPassword') {
       $state.go('sign');
