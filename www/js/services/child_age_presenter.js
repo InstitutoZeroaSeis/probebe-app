@@ -5,7 +5,6 @@ angular.module("proBebe.services")
 
   Presenter.build = function(messages){
     messages.forEach(function(message){
-      message.category = "category-1";
       if(message.mon_is_pregnant){
         message.child_age_in_week_at_delivery += " semana(s)"
         message.pregnancy = true;
