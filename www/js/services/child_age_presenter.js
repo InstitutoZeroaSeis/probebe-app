@@ -24,19 +24,8 @@ angular.module("proBebe.services")
           message.child_age_in_week_at_delivery = age + " semana(s)";
         }
       }
-      message.category = messageCategory(message);
     })
     return messages;
-  }
-
-  function messageCategory(message){
-    if(message.article_category.toLowerCase() == "saúde") return "category-1";
-    if(message.article_category.toLowerCase() == "educação") return "category-2";
-    if(message.article_category.toLowerCase() == "desenvolvimento") return "category-3";
-    if(message.article_category.toLowerCase() == "segurança") return "category-4";
-    if(message.article_category.toLowerCase() == "finanças") return "category-5";
-    if(message.article_category.toLowerCase() == "jurídico") return "category-6";
-    if(message.article_category.toLowerCase() == "comportamento") return "category-7";
   }
 
   return Presenter;
