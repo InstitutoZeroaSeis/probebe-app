@@ -1,5 +1,5 @@
 angular.module("proBebe.controllers")
-.controller("AppCtrl", function($scope, storage, messageHandler, Profile, ScrollPositions) {
+.controller("AppCtrl", function($scope, $rootScope, storage, messageHandler, Profile, ScrollPositions) {
 
   $scope.$on('$ionicView.enter', init);
 
@@ -25,5 +25,10 @@ angular.module("proBebe.controllers")
 
   $scope.clearScroll = function(){
     ScrollPositions['maintain_scroll'] = false;
+  }
+
+  $scope.openFilter = function(){
+    console.log("calll")
+    $rootScope.$emit("openFilter");
   }
 });
