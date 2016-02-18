@@ -28,7 +28,6 @@ angular.module("proBebe.controllers")
   }
 
   $scope.openFilter = function(){
-    console.log("calll")
     $rootScope.$emit("openFilter");
   }
 });

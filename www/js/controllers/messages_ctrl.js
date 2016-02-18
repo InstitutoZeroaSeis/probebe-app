@@ -9,7 +9,6 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
   });
 
   $rootScope.$on("openFilter", function(){
-    console.log("listen")
     $scope.filterMenu = true;
     $scope.noFilter = {visibility: 'visible'};
   });
@@ -17,24 +16,35 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
   var categoryDefault = {id: 0, name: 'Todos', color: "#f69343"};
 
   function init() {
-    $scope.filter = { category: categoryDefault };
     $scope.filterMenu = false;
     $scope.infoApp = storage.get("infoApp");
     var childIdParams = $state.params.childId;
     if(noChildId(childIdParams)){
       defineOptionsChild();
     }else{
+      $scope.selectedChild = getChild(childIdParams);
       $scope.messages = storage.get("messages_" + childIdParams);
       getMessage(childIdParams);
+      loadCategories();
     }
-    loadCategories();
+  }
+
+  function defineCategory () {
+    $scope.filter = { category: categoryDefault };
+    if($rootScope.article){
+      var category = $scope.categories.filter(function(category){
+        return category.id == $rootScope.article.category_id;
+      })[0];
+      $scope.filterMessages(category);
+      $scope.filter.category = category;
+    }
   }
 
   function loadCategories () {
     Category.all()
     .then(function(response){
       $scope.categories = response.data;
-      console.log($scope.categories)
+      defineCategory();
     }, function (error) {
       messageHandler.show('Não foi possível carregar as categorias');
     })
@@ -81,7 +91,6 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
 
   function getBirthdayCard(childId){
     var child =  getChild(childId);
-    $scope.selectedChild = child;
     $scope.birthdayCard = {show:false};
     //0 week and 1 month
     var type = "1";
@@ -141,7 +150,7 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
       text: message.article_text,
       title: message.article_title,
       category: message.article_category,
-      category_id: message.category
+      category_id: message.parent_category_id
     }
     $state.go('app.article');
   }
