@@ -711,3 +711,13 @@ input[type=range]::-webkit-slider-thumb {
 .icon-list-filter-close{
   float: right;
 }
+
+.box-status-filter{
+  margin-top: 15px !important;
+  font-weight: 500;
+}
+
+.box-status-filter #category-selected{
+  padding: 2px 6px 2px 6px;
+  color: #fff;
+}
