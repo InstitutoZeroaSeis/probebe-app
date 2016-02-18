@@ -23,21 +23,21 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
       defineOptionsChild();
     }else{
       $scope.selectedChild = getChild(childIdParams);
-      $scope.messages = storage.get("messages_" + childIdParams);
+      // $scope.messages = storage.get("messages_" + childIdParams);
       getMessage(childIdParams);
       loadCategories();
     }
   }
 
   function defineCategory () {
-    $scope.filter = { category: categoryDefault };
-    if($rootScope.article){
+    if( $rootScope.article && ($rootScope.article.filter.category.id == $rootScope.article.category_id)){
       var category = $scope.categories.filter(function(category){
         return category.id == $rootScope.article.category_id;
       })[0];
+      $rootScope.article = undefined;
       $scope.filterMessages(category);
       $scope.filter.category = category;
-    }
+    }else $scope.filter = { category: categoryDefault };
   }
 
   function loadCategories () {
@@ -150,7 +150,8 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
       text: message.article_text,
       title: message.article_title,
       category: message.article_category,
-      category_id: message.parent_category_id
+      category_id: message.parent_category_id,
+      filter: $scope.filter
     }
     $state.go('app.article');
   }
@@ -181,7 +182,7 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
   }
 
   $scope.filterMessages = function(category){
-    $scope.filter.category = category;
+    $scope.filter = {category: category};
     if( category != 'all'){
       $scope.messages = storage.get("messages_" + $scope.selectedChild.id)
       .filter(function(message){
