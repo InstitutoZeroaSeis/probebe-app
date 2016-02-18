@@ -14,7 +14,10 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
     $scope.noFilter = {visibility: 'visible'};
   });
 
+  var categoryDefault = {id: 0, name: 'Todos', color: "#f69343"};
+
   function init() {
+    $scope.filter = { category: categoryDefault };
     $scope.filterMenu = false;
     $scope.infoApp = storage.get("infoApp");
     var childIdParams = $state.params.childId;
@@ -168,13 +171,15 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
     $scope.filterMenu = false;
   }
 
-  $scope.filterMessages = function(category_id){
-    if( category_id != 'all'){
+  $scope.filterMessages = function(category){
+    $scope.filter.category = category;
+    if( category != 'all'){
       $scope.messages = storage.get("messages_" + $scope.selectedChild.id)
       .filter(function(message){
-        return message.parent_category_id == category_id;
+        return message.parent_category_id == category.id;
       });
     }else{
+      $scope.filter.category = categoryDefault;
       $scope.messages = storage.get("messages_" + $scope.selectedChild.id);
     }
     messageState();
