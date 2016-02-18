@@ -23,14 +23,13 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
       defineOptionsChild();
     }else{
       $scope.selectedChild = getChild(childIdParams);
-      // $scope.messages = storage.get("messages_" + childIdParams);
       getMessage(childIdParams);
       loadCategories();
     }
   }
 
   function defineCategory () {
-    if( $rootScope.article && ($rootScope.article.filter.category.id == $rootScope.article.category_id)){
+    if( fromArticlePage()){
       var category = $scope.categories.filter(function(category){
         return category.id == $rootScope.article.category_id;
       })[0];
@@ -38,6 +37,10 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
       $scope.filterMessages(category);
       $scope.filter.category = category;
     }else $scope.filter = { category: categoryDefault };
+  }
+
+  function fromArticlePage(){
+    return $rootScope.article && ($rootScope.article.filter.category.id == $rootScope.article.category_id)
   }
 
   function loadCategories () {
@@ -52,11 +55,12 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
 
   function getMessage (childId) {
     $scope.loadingMessages = true;
-
+    var noFilter = !fromArticlePage();
+    if(noFilter) $scope.messages = storage.get("messages_" + childId);
     Message.all({id: childId}).then(function(messages){
       var msgs = ChildAgePresenter.build(messages.data);
       storage.set("messages_" + childId, msgs);
-      $scope.messages = msgs;
+      if(noFilter) $scope.messages = msgs;
       getBirthdayCard(childId);
       $scope.loadingMessages = false;
       messageState();

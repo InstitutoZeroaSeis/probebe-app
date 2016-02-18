@@ -122,9 +122,9 @@
     <!-- ================ MESSAGES CARD ===================== -->
 
     <!-- ================ CURRENT FILTER ================ -->
-    <div class="row box-status-filter" ng-hide="childrenOptions || loadingMessages || messageState">
+    <div class="row box-status-filter" ng-hide="childrenOptions || loadingMessages || messageState || (filter.category.id == 0)">
 
-      <div class="col col-25">Filtrado por:</div>
+      <div class="col col-30">Filtrado por:</div>
 
       <div class="col col-50" id="category-selected"
             style="background-color: {{filter.category.color}}"
