@@ -2,7 +2,7 @@ var controllers;
 
 controllers = angular.module("proBebe.controllers");
 
-controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootScope, $state, $ionicPopup, $ionicModal, $cordovaToast, $window, $cordovaSocialSharing, Child, Profile, ChildAgePresenter, Constants, Microdonation, storage, messageHandler, BirthdayCard, Message, Category, $ionicViewService, ScrollPositions, $ionicScrollDelegate) {
+controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootScope, $state, $ionicPopup, $ionicModal, $cordovaToast, $window, $cordovaSocialSharing, Child, Profile, Constants, Microdonation, storage, messageHandler, BirthdayCard, Message, Category, $ionicViewService, ScrollPositions, $ionicScrollDelegate) {
 
   $rootScope.$on('networkOffline', function(event, networkState) {
     $cordovaToast.showLongBottom('Sem conexão');
@@ -56,14 +56,25 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
   function getMessage (childId) {
     $scope.loadingMessages = true;
     var noFilter = !fromArticlePage();
-    if(noFilter) $scope.messages = storage.get("messages_" + childId);
-    Message.all({id: childId}).then(function(messages){
-      var msgs = ChildAgePresenter.build(messages.data);
-      storage.set("messages_" + childId, msgs);
+    var lastMessage = Message.getLastMessage(childId);
+    var msgs = Message.getMessages(childId);
+    if(noFilter) $scope.messages = msgs;
+
+    Message.onlyNewMessages({id: childId, lastMessage: lastMessage.id }).then(function(messages){
+      Message.defineOldMessages(msgs, lastMessage, childId);
+
+      if(messages.data.length > 0){
+        msgs = msgs.concat(messages.data);
+        msgs = Message.configAgeChild(msgs, lastMessage);
+        Message.setMessages(childId, msgs);
+        Message.setLastMessage(msgs, childId);
+      }
+
       if(noFilter) $scope.messages = msgs;
       getBirthdayCard(childId);
       $scope.loadingMessages = false;
       messageState();
+
     },function(error){
       $scope.loadingMessages = false;
       messageHandler.show('Não foi possível carregar as mensagens');
@@ -188,13 +199,13 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
   $scope.filterMessages = function(category){
     $scope.filter = {category: category};
     if( category != 'all'){
-      $scope.messages = storage.get("messages_" + $scope.selectedChild.id)
+      $scope.messages = Message.getMessages($scope.selectedChild.id)
       .filter(function(message){
         return message.parent_category_id == category.id;
       });
     }else{
       $scope.filter.category = categoryDefault;
-      $scope.messages = storage.get("messages_" + $scope.selectedChild.id);
+      $scope.messages = Message.getMessages($scope.selectedChild.id);
     }
     messageState();
     $scope.closeFilter();
