@@ -244,13 +244,11 @@ angular.module("proBebe.controllers")
   };
 
   function mantainStatus (argument) {
-    var lastMessage = storage.get('lastMessage');
     var socialNetworkInfo = storage.get("socialNetworkInfo");
 
-    storage.clear();
+    // storage.clear();
 
     storage.set("socialNetworkInfo",socialNetworkInfo);
-    storage.set('lastMessage', lastMessage);
   }
 
   function defineData(){

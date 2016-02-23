@@ -72,7 +72,6 @@ angular.module("proBebe.services").factory('Message', function($http, Constants,
   }
 
   function defineStatusOfMessages(message, lastMessage) {
-    console.log(message.id > lastMessage.id, message.id, lastMessage.id)
     if(message.id > lastMessage.id) {
       message.isNew = true;
     }
