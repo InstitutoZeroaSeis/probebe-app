@@ -9,6 +9,7 @@
     DONATED_MESSAGES_URL: API_BASE_URL + "/donated_messages",
     DEVICE_REGISTRATION_URL: API_BASE_URL + "/device_registrations/:platform_code",
     MESSAGE_URL: API_BASE_URL + "/messages/",
+    ONLY_NEW_MESSAGE_URL: API_BASE_URL + "/only_new_messages",
     PUSH_NOTIFICATION: {
       GCM: {
         SENDER_ID: "315459751586"
