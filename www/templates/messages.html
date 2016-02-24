@@ -147,7 +147,7 @@
       </div>
     </div>
 
-    <div ng-hide="showNoMessage" collection-repeat="message in messages | orderBy:'-delivery_date' track by message.id">
+    <div id="messages-container" ng-hide="showNoMessage" collection-repeat="message in messages | orderBy:'-delivery_date' track by message.id">
       <div class="card">
         <div class="item item-divider item-divider-custom" style="background-color: {{message.category_color}}" >
           <div class="row">
