@@ -136,6 +136,17 @@
       </div>
     </div>
 
+    <div class="card" ng-show="filterState" >
+
+      <div class="item item-divider" ng-class="new-message">
+        Messagens
+      </div>
+
+      <div class="item item-text-wrap">
+        Seu filho(a) não possui messagens para essa categoria
+      </div>
+    </div>
+
     <div ng-hide="showNoMessage" collection-repeat="message in messages | orderBy:'-delivery_date' track by message.id">
       <div class="card">
         <div class="item item-divider item-divider-custom" style="background-color: {{message.category_color}}" >

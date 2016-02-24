@@ -151,6 +151,10 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
     });
   }
 
+  function filterState () {
+    $scope.filterState = $scope.messages == undefined || $scope.messages.length === 0;
+  }
+
   $scope.goToChild = function(childId){
     $scope.childrenOptions = false;
     disableBackButton();
@@ -160,12 +164,14 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
 
   $scope.openInNewPage = function(message) {
     ScrollPositions['maintain_scroll'] = true
+    console.log(message)
     $rootScope.article ={
       text: message.article_text,
       title: message.article_title,
       category: message.article_category,
       category_id: message.parent_category_id,
-      filter: $scope.filter
+      filter: $scope.filter,
+      category_color: message.category_color
     }
     $state.go('app.article');
   }
@@ -206,7 +212,7 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
       $scope.filter.category = categoryDefault;
       $scope.messages = Message.getMessages($scope.selectedChild.id);
     }
-    messageState();
+    filterState();
     $scope.closeFilter();
   }
 
