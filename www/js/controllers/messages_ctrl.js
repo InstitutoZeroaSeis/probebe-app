@@ -62,10 +62,10 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
 
     Message.onlyNewMessages({id: childId, lastMessage: lastMessage.id }).then(function(messages){
       Message.defineOldMessages(msgs, lastMessage, childId);
+        msgs = Message.configAgeChild(msgs, lastMessage, $scope.selectedChild);
 
       if(messages.data.length > 0){
         msgs = msgs.concat(messages.data);
-        msgs = Message.configAgeChild(msgs, lastMessage);
         Message.setMessages(childId, msgs);
         Message.setLastMessage(msgs, childId);
       }

@@ -1,4 +1,5 @@
 angular.module("proBebe.services").factory('Message', function($http, Constants, storage) {
+
   function Message() {}
 
   Message.all = function(params){
@@ -28,7 +29,8 @@ angular.module("proBebe.services").factory('Message', function($http, Constants,
     return storage.get("messages_" + childId) || [];
   }
 
-  Message.configAgeChild = function(messages, lastMessage){
+  Message.configAgeChild = function(messages, lastMessage, child){
+    console.log(moment(child.birth_date, "YYYY-MM-DD").fromNow())
     messages.forEach(function(message){
       message.isNew = false;
       if(message.mon_is_pregnant){
@@ -36,18 +38,11 @@ angular.module("proBebe.services").factory('Message', function($http, Constants,
         message.pregnancy = true;
         message.type = "week";
       }else{
-        var age = message.child_age_in_week_at_delivery;
-        var month = parseInt(age * 7 / 30);
-        message.age = age;
+        var age_in_weeks = message.child_age_in_week_at_delivery;
+        var month = ageInMonthOf(child);
+        message.age = age_in_weeks;
         message.type = "month";
-        if(month != 0) {
-          message.child_age_in_week_at_delivery = month + " meses";
-        }else if(month == 1){
-          message.child_age_in_week_at_delivery = month + " mês";
-        }
-        if(month == 0){
-          message.child_age_in_week_at_delivery = age + " semana(s)";
-        }
+        message.child_age_in_week_at_delivery = definePeriodString(month, age_in_weeks)
       }
       defineStatusOfMessages(message, lastMessage)
     })
@@ -69,6 +64,17 @@ angular.module("proBebe.services").factory('Message', function($http, Constants,
       }
     }
 
+  }
+
+  function ageInMonthOf(child){
+    return parseInt(moment(moment().format("YYYY-MM-DD"))
+      .diff(moment(child.birth_date, "YYYY-MM-DD"), 'months', true));
+  }
+
+  function definePeriodString(month, age_in_weeks){
+    if(month == 0) return age_in_weeks + " semana(s)";
+    if(month == 1) return month + " mês";
+    if(month > 1) return month + " meses";
   }
 
   function defineStatusOfMessages(message, lastMessage) {
