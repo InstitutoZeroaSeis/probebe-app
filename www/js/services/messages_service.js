@@ -30,7 +30,6 @@ angular.module("proBebe.services").factory('Message', function($http, Constants,
   }
 
   Message.configAgeChild = function(messages, lastMessage, child){
-    console.log(moment(child.birth_date, "YYYY-MM-DD").fromNow())
     messages.forEach(function(message){
       message.isNew = false;
       if(message.mon_is_pregnant){
@@ -39,7 +38,8 @@ angular.module("proBebe.services").factory('Message', function($http, Constants,
         message.type = "week";
       }else{
         var age_in_weeks = message.child_age_in_week_at_delivery;
-        var month = ageInMonthOf(child);
+        var month = ageInMonthOf(message, child);
+        console.log(message.id,message.child_age_in_week_at_delivery, month, message.delivery_date)
         message.age = age_in_weeks;
         message.type = "month";
         message.child_age_in_week_at_delivery = definePeriodString(month, age_in_weeks)
@@ -66,9 +66,8 @@ angular.module("proBebe.services").factory('Message', function($http, Constants,
 
   }
 
-  function ageInMonthOf(child){
-    return parseInt(moment(moment().format("YYYY-MM-DD"))
-      .diff(moment(child.birth_date, "YYYY-MM-DD"), 'months', true));
+  function ageInMonthOf(message, child){
+    return parseInt(moment(moment(message.delivery_date).format("YYYY-MM-DD")).diff(moment(child.birth_date, "YYYY-MM-DD"), 'months', true));
   }
 
   function definePeriodString(month, age_in_weeks){
