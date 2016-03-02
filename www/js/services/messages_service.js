@@ -39,29 +39,32 @@ angular.module("proBebe.services").factory('Message', function($http, Constants,
       }else{
         var age_in_weeks = message.child_age_in_week_at_delivery;
         var month = ageInMonthOf(message, child);
-        console.log(message.id,message.child_age_in_week_at_delivery, month, message.delivery_date)
         message.age = age_in_weeks;
         message.type = "month";
-        message.child_age_in_week_at_delivery = definePeriodString(month, age_in_weeks)
+        message.child_age_in_week_at_delivery = definePeriodString(month, age_in_weeks);
       }
-      defineStatusOfMessages(message, lastMessage)
+      defineStatusOfMessages(message, lastMessage);
     })
     return messages;
   }
 
   Message.defineOldMessages = function(messages, lastMessage, childId){
-    if(lastMessage.id){
-      var date = new Date();
-      var today = date.getDate();
-      var month = date.getMonth() + 1;
-      var splitDate = lastMessage.delivery_date.split("-");
-      var dateOfLastMessage = new Date(splitDate[0],(splitDate[1] -1), splitDate[2]);
-      if((dateOfLastMessage.getMonth() +1) > month || (today - dateOfLastMessage.getDate()) >= 1){
-        messages.forEach(function(message){
-          message.isNew = false;
-        })
-        Message.setMessages(childId, messages);
+    try{
+      if(lastMessage.id){
+        var date = new Date();
+        var today = date.getDate();
+        var month = date.getMonth() + 1;
+        var splitDate = lastMessage.delivery_date.split("-");
+        var dateOfLastMessage = new Date(splitDate[0],(splitDate[1] -1), splitDate[2]);
+        if((dateOfLastMessage.getMonth() +1) > month || (today - dateOfLastMessage.getDate()) >= 1){
+          messages.forEach(function(message){
+            message.isNew = false;
+          })
+          Message.setMessages(childId, messages);
+        }
       }
+    }catch(error){
+      console.log(error);
     }
 
   }
