@@ -155,6 +155,10 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
     $scope.filterState = $scope.messages == undefined || $scope.messages.length === 0;
   }
 
+  $scope.hasDeliveryDate = function(message){
+    return message.delivery_date
+  }
+
   $scope.goToChild = function(childId){
     $scope.childrenOptions = false;
     disableBackButton();
