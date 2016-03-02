@@ -74,7 +74,7 @@ angular.module("proBebe.controllers")
 
   $scope.signOut = function() {
     authentication.signOut();
-    mantainStatus();
+    // mantainStatus();
     $state.go('sign');
   };
 
@@ -243,13 +243,13 @@ angular.module("proBebe.controllers")
     });
   };
 
-  function mantainStatus (argument) {
-    var socialNetworkInfo = storage.get("socialNetworkInfo");
+  // function mantainStatus (argument) {
+  //   var socialNetworkInfo = storage.get("socialNetworkInfo");
 
-    // storage.clear();
+  //   storage.clear();
 
-    storage.set("socialNetworkInfo",socialNetworkInfo);
-  }
+  //   storage.set("socialNetworkInfo",socialNetworkInfo);
+  // }
 
   function defineData(){
     return {
