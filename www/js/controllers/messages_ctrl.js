@@ -58,7 +58,6 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
     var noFilter = !fromArticlePage();
     var lastMessage = Message.getLastMessage(childId);
     var msgs = Message.getMessages(childId);
-    msgs = fixBugMessageNoDeliveryDate(lastMessage, msgs, childId)
     if(noFilter) $scope.messages = msgs;
 
     Message.onlyNewMessages({id: childId, lastMessage: lastMessage.id }).then(function(messages){
@@ -80,48 +79,6 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
       messageHandler.show('Não foi possível carregar as mensagens');
     });
   }
-
-  // ================================ START FUNCTION FIX BUG ====================================//
-  function fixBugMessageNoDeliveryDate(lastMessage, msgs, childId){
-    msgs.forEach(function(message, index){
-      if(!message.delivery_date){
-        message.delivery_date = "2016-03-02";
-        if(message.mon_is_pregnant){
-          message.child_age_in_week_at_delivery += " semana(s)"
-          message.pregnancy = true;
-          message.type = "week";
-        }else{
-          var age_in_weeks = message.child_age_in_week_at_delivery;
-          var month = ageInMonthOf(message, $scope.selectedChild);
-          message.age = age_in_weeks;
-          message.type = "month";
-          message.child_age_in_week_at_delivery = definePeriodString(month, age_in_weeks)
-        }
-        defineStatusOfMessages(message, lastMessage)
-      }
-    });
-    Message.setMessages(childId, msgs);
-    Message.setLastMessage(msgs, childId);
-    return msgs;
-  }
-
-  function ageInMonthOf(message, child){
-    return parseInt(moment(moment(message.delivery_date).format("YYYY-MM-DD")).diff(moment(child.birth_date, "YYYY-MM-DD"), 'months', true));
-  }
-
-  function definePeriodString(month, age_in_weeks){
-    if(month == 0) return age_in_weeks + " semana(s)";
-    if(month == 1) return month + " mês";
-    if(month > 1) return month + " meses";
-  }
-
-  function defineStatusOfMessages(message, lastMessage) {
-    if(message.id > lastMessage.id) {
-      message.isNew = true;
-    }
-  }
-  // ================================ END FUNCTION FIX BUG ====================================//
-
 
   function noChildId (childIdParams) {
     return isNaN(childIdParams);
@@ -196,6 +153,10 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
 
   function filterState () {
     $scope.filterState = $scope.messages == undefined || $scope.messages.length === 0;
+  }
+
+  $scope.hasDeliveryDate = function(message){
+    return message.delivery_date
   }
 
   $scope.goToChild = function(childId){
