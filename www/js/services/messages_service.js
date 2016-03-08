@@ -74,7 +74,7 @@ angular.module("proBebe.services").factory('Message', function($http, Constants,
   }
 
   function definePeriodString(month, age_in_weeks){
-    if(month == 0) return age_in_weeks + " semana(s)";
+    if(month == 0) return "recém-nascido";
     if(month == 1) return month + " mês";
     if(month > 1) return month + " meses";
   }
