@@ -31,7 +31,10 @@ angular.module("proBebe.services").factory('Message', function($http, Constants,
 
   Message.configAgeChild = function(messages, lastMessage, child){
     messages.forEach(function(message){
-      message.isNew = false;
+      if(message.age) message.child_age_in_week_at_delivery = message.age;
+      message.isNew = true;
+      message.age = message.child_age_in_week_at_delivery;
+
       if(message.mon_is_pregnant){
         message.child_age_in_week_at_delivery += " semana(s)"
         message.pregnancy = true;
@@ -39,7 +42,6 @@ angular.module("proBebe.services").factory('Message', function($http, Constants,
       }else{
         var age_in_weeks = message.child_age_in_week_at_delivery;
         var month = ageInMonthOf(message, child);
-        message.age = age_in_weeks;
         message.type = "month";
         message.child_age_in_week_at_delivery = definePeriodString(month, age_in_weeks);
       }
@@ -80,8 +82,8 @@ angular.module("proBebe.services").factory('Message', function($http, Constants,
   }
 
   function defineStatusOfMessages(message, lastMessage) {
-    if(message.id > lastMessage.id) {
-      message.isNew = true;
+    if(message.id < lastMessage.id) {
+      message.isNew = false;
     }
   }
 

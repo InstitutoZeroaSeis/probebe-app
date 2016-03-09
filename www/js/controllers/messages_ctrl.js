@@ -58,6 +58,7 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
     var noFilter = !fromArticlePage();
     var lastMessage = Message.getLastMessage(childId);
     var msgs = Message.getMessages(childId);
+    msgs = Message.configAgeChild(msgs, lastMessage, $scope.selectedChild);
     if(noFilter) $scope.messages = msgs;
 
     Message.onlyNewMessages({id: childId, lastMessage: lastMessage.id }).then(function(messages){
@@ -168,7 +169,6 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
 
   $scope.openInNewPage = function(message) {
     ScrollPositions['maintain_scroll'] = true
-    console.log(message)
     $rootScope.article ={
       text: message.article_text,
       title: message.article_title,
