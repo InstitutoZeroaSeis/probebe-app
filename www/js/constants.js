@@ -1,6 +1,6 @@
 (function() {
   var API_BASE_URL = "http://www.probebe.org.br/api";
-  // var API_BASE_URL = "http://192.168.0.106:3000/api";
+  // var API_BASE_URL = "http://192.168.0.108:3000/api";
   angular.module("proBebe.constants", []).constant("Constants", Object.freeze({
     API_BASE_URL: API_BASE_URL,
     CHILDREN_URL: API_BASE_URL + "/children",
@@ -19,6 +19,8 @@
     SIGN_UP_URL: API_BASE_URL + "/users",
     PROFILE_URL: API_BASE_URL + "/profiles",
     PROFILE_TYPE_DONOR: 'donor',
+    PROFILE_ACTIVE: API_BASE_URL + '/active_profile',
+    PROFILE_DISABLE: API_BASE_URL + '/disable_profile',
     PROFILE_TYPE_POSSIBLE_DONOR: 'possible_donor',
     CLIENT_ID_FACEBOOK: '123448778003166',
     USER_DATA_FACEBOOK: 'https://graph.facebook.com/v2.2/me',

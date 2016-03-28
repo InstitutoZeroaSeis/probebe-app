@@ -103,7 +103,17 @@
                 <span class="input-label input-label-custom">Email</span>
                 <input type="text" class="custom-input" name="email" ng-model="profile.email" readonly="">
               </label>
+              <div class="row">
+                <div class="col">
+                  <button ng-hide="profile.active" class="button button-clear button-calm profile-status" ng-click="active()">
+                    Habilitar Conta
+                  </button>
+                  <button ng-show="profile.active" class="button button-clear button-assertive profile-status" ng-click="disable()">
+                    Desabilitar conta
+                  </button>
+                </div>
 
+              </div>
             </fieldset>
 
           </div>

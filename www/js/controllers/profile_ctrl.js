@@ -32,6 +32,24 @@ angular.module("proBebe.controllers")
 
   };
 
+  $scope.active = function () {
+    Profile.active()
+    .then(function(result) {
+      reloadProfile();
+    }).catch(function(response) {
+      messageHandler.show("Erro ao desativar a conta");
+    });
+  }
+
+  $scope.disable = function () {
+    Profile.disable()
+    .then(function(result) {
+      reloadProfile();
+    }).catch(function(response) {
+      messageHandler.show("Erro ao ativar a conta");
+    });
+  }
+
   function removeSon(index, profile){
     var son = profile.sons[index];
     if(son.id){
@@ -113,6 +131,7 @@ angular.module("proBebe.controllers")
       $scope.profile.name = profile.name;
       $scope.profile.gender = profile.gender;
       $scope.profile.cellPhone = profile.cell_phone;
+      $scope.profile.active = profile.active;
       sonsScope(profile);
       loading.hide();
     }).catch(function(err) {

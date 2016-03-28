@@ -33,6 +33,13 @@ angular.module("proBebe.services").factory('Profile', function($q, $rootScope, $
     return deferred.promise;
   }
 
+  Profile.active = function () {
+    return $http.get(Constants.PROFILE_ACTIVE);
+  }
+
+  Profile.disable = function () {
+    return $http.get(Constants.PROFILE_DISABLE);
+  }
   return Profile;
 
 });
