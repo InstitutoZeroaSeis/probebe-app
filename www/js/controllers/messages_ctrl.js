@@ -175,7 +175,11 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
       category: message.article_category,
       category_id: message.parent_category_id,
       filter: $scope.filter,
-      category_color: message.category_color
+      category_color: message.category_color,
+      share: {
+        text: message.text,
+        url: message.url
+      }
     }
     $state.go('app.article');
   }
@@ -185,7 +189,6 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
     $cordovaSocialSharing
     .share(message, subject, null, link) // Share via native share sheet
     .then(function(result) {
-      messageHandler.show("Mesagem compartilhada :)");
     }, function(err) {
       messageHandler.show("Erro em compartilhar messagem.");
     });

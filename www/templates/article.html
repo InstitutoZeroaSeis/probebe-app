@@ -3,7 +3,15 @@
 
     <div class="row">
       <div class="col" align="center">
-        <h4>{{article.title}}</h4>
+        <div class="row">
+          <h4 class="col col-75">{{article.title}}</h4>
+          <div ng-click="shareMessage(article.share.text, article.share.url)" class="tab-item item-share-social col col-25">
+            <i class="icon ion-android-share-alt article-share"> </i>
+          </div>
+
+        </div>
+
+
         <h5 class="article-category {{article.category_id}}" style="color: {{article.category_color}}">{{article.category}}</h5>
       </div>
     </div>

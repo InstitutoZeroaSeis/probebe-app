@@ -730,3 +730,8 @@ input[type=range]::-webkit-slider-thumb {
   font-size: 12px;
   min-height: 40px;
 }
+
+.article-share{
+  font-size: 27px !important;
+  padding: 4px !important;
+}
