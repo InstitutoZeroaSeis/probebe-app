@@ -3,6 +3,8 @@ services.service("authentication", function($q, $http, $rootScope, $cordovaDevic
   return {
     authenticate: function(email, password, name, social_network_id) {
       var deferred = $q.defer();
+      // to API validade by email and password
+      if(!social_network_id) social_network_id = 0;
       var authentication_data = {
         email: email,
         password: password,

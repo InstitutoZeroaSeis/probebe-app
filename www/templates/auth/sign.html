@@ -16,14 +16,14 @@
         <div class="col button-tab-sign" ng-class="{'button-tab-sign-active' : form.signup }" ng-click="toggleTab()">Cadastrar</div>
       </div>
 
-      <form ng-show="form.signin" class="animate-hide" ng-submit="signIn('app.messages')" method="get" accept-charset="utf-8">
+      <form ng-show="form.signin" name="signInForm" class="animate-hide" ng-submit="signIn('app.messages')" method="get" accept-charset="utf-8">
 
         <div class="list list-inset">
-          <label class="item item-input">
-            <input type="email" placeholder="Email" ng-model="login_info.email">
+          <label class="item item-input" ng-class="{ 'has-error' : signInForm.email.$invalid}">
+            <input type="email" name="email" placeholder="Email" ng-model="login_info.email" required>
           </label>
-          <label class="item item-input">
-            <input type="password" placeholder="Senha" ng-model="login_info.password">
+          <label class="item item-input" ng-class="{ 'has-error' : signInForm.password.$invalid}">
+            <input type="password" name="password" placeholder="Senha" ng-model="login_info.password" required>
           </label>
         </div>
 
