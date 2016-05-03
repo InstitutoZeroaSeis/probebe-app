@@ -5,7 +5,7 @@
     <div class="row" id="goMgs" ng-class="{ 'sucessMgs' : showSuccessMgs }">
 
       <div class="col text-info-profile" ng-hide="showSuccessMgs">
-        Adicione ou altere dados de filhos, indique o número de seu celular, e-mail e demaid dados aqui
+        Adicione ou altere dados do seu bebê(s), indique o número de seu celular, e-mail e demaid dados aqui
       </div>
 
     </div>
@@ -44,13 +44,13 @@
           <div class="list sons-nested-list">
 
             <h4 class="title-profile">
-              CADASTRO DE FILHOS
+              CADASTRO DE BEBÊS
             </h4>
             <div ng-repeat="son in profile.sons">
               <fieldset ng-hide="son._destroy">
 
                 <legend>
-                  {{$index+1}}° Filho
+                  {{$index+1}}° Bebê
                   <i class="radio-icon ion-close" ng-click="showConfirm($index, profile)"></i>
                 </legend>
 
@@ -82,7 +82,7 @@
               </fieldset>
             </div>
 
-            <button type="button" class="button button-block button-positive" ng-click="addSon()"> Adicionar outro filho </button>
+            <button type="button" class="button button-block button-positive" ng-click="addSon()"> Adicionar bebê </button>
           </div>
 
           <!-- CELLPHONE INFORMATION -->
