@@ -31,7 +31,7 @@ angular.module("proBebe.services").factory('Message', function($http, Constants,
 
   Message.configAgeChild = function(messages, lastMessage, child){
     messages.forEach(function(message){
-      if(message.age) message.child_age_in_week_at_delivery = message.age;
+      if(message.age) message.child_age_in_week_at_delivery = parseInt(message.age);
       message.isNew = true;
       message.age = message.child_age_in_week_at_delivery;
 
