@@ -32,7 +32,6 @@
     "android"
   ],
   "cordovaPlugins": [
-    "com.ionic.keyboard",
     "nl.x-services.plugins.toast",
     "org.apache.cordova.console",
     "org.apache.cordova.device",
@@ -48,13 +47,17 @@
     "https://git-wip-us.apache.org/repos/asf/cordova-plugin-inappbrowser.git",
     "cordova-plugin-crosswalk-webview",
     "cordova-plugin-splashscreen",
-    "phonegap-plugin-push"
+    "ionic-plugin-keyboard",
+    "phonegap-plugin-push@1.5.3",
+    "phonegap-plugin-push@1.6.0",
+    "phonegap-plugin-push@1.2.3",
+    "phonegap-plugin-push@1.5.2"
   ],
   "scripts": {
     "install": "node tasks/platforms.js"
   },
   "cordovaPlatforms": [
-    "ios",
-    "android"
+    "android",
+    "ios"
   ]
 }
