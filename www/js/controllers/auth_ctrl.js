@@ -32,7 +32,7 @@ angular.module("proBebe.controllers")
     }).catch(function(error) {
       $scope.authSocial = false;
       if(loading) loading.hide();
-      messageHandler.show("Impossível comunicar com o ProBebe. Favor verificar sua conexão com a internet");
+      messageHandler.show("Impossível comunicar com o ProBebˆ. Favor verificar sua conexão com a internet");
     });
   };
 

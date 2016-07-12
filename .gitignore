@@ -10,4 +10,4 @@ www/cordova_plugins.js
 www/plugins
 coverage/
 build/
-
+.idea

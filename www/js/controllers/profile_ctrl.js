@@ -94,7 +94,7 @@ angular.module("proBebe.controllers")
           $state.go('app.messages', {childId: "null"});
         },2000);
       }).catch(function(error) {
-        messageHandler.show("Impossível comunicar com o ProBebe. Favor verificar sua conexão com a internet");
+        messageHandler.show("Impossível comunicar com o ProBebê. Favor verificar sua conexão com a internet");
       });
     }else{
       messageHandler.show("Dados salvos!");
