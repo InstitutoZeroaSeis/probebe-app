@@ -1,11 +1,12 @@
 <ion-view class="profile" title="Perfil" cache-view="false">
 
-  <ion-content class="has-header bg-white" >
+  <ion-content class="has-header bg-white">
 
     <div class="row" id="goMgs" ng-class="{ 'sucessMgs' : showSuccessMgs }">
 
       <div class="col text-info-profile" ng-hide="showSuccessMgs">
-        Adicione ou altere dados do(s) seu(s) bebê(s), indique o número de seu celular, e-mail e demais dados aqui
+        Adicione ou altere dados do(s) seu(s) bebê(s), indique o número de seu celular, e-mail e demais dados
+        aqui
       </div>
 
     </div>
@@ -18,7 +19,7 @@
             <h4 class="title-profile">INFORMAÇÕES PESSOAIS</h4>
 
             <fieldset>
-              <label class="item item-input" >
+              <label class="item item-input">
                 <span class="input-label input-label-custom">Nome</span>
                 <input type="text" class="custom-input" name="userName" ng-model="profile.name">
               </label>
@@ -26,15 +27,15 @@
               <label class="item item-input">
                 <span class="input-label input-label-custom">Sexo (opcional)</span>
 
-                  <label class="item item-radio">
-                    <input type="radio" name="gender" ng-model="profile.gender" value="female">
-                    <div class="item-content custom-input label-radio-f">Feminino</div>
-                  </label>
+                <label class="item item-radio">
+                  <input type="radio" name="gender" ng-model="profile.gender" value="female">
+                  <div class="item-content custom-input label-radio-f">Feminino</div>
+                </label>
 
-                  <label class="item item-radio" style="position: absolute; right:0;">
-                    <input type="radio" name="gender" ng-model="profile.gender" value="male">
-                    <div class="item-content custom-input label-radio-m">Masculino</div>
-                  </label>
+                <label class="item item-radio" style="position: absolute; right:0;">
+                  <input type="radio" name="gender" ng-model="profile.gender" value="male">
+                  <div class="item-content custom-input label-radio-m">Masculino</div>
+                </label>
               </label>
             </fieldset>
 
@@ -54,41 +55,50 @@
                   <i class="radio-icon ion-close" ng-click="showConfirm($index, profile)"></i>
                 </legend>
 
-                <label class="item item-input" ng-class="{ 'has-error' : profileForm.sonName{{$index}}.$invalid}">
+                <label class="item item-input"
+                       ng-class="{ 'has-error' : profileForm.sonName{{$index}}.$invalid}">
                   <span class="input-label input-label-custom">Nome</span>
-                  <input type="text" class="custom-input" name="sonName{{$index}}" ng-model="profile.sons[$index].name"  ng-required="{{$index}} == 0">
+                  <input type="text" class="custom-input" name="sonName{{$index}}"
+                         ng-model="profile.sons[$index].name" ng-required="{{$index}} == 0">
                 </label>
 
                 <label class="item item-input">
                   <span class="input-label input-label-custom">Data nasc.</span>
-                  <input type="date" class="custom-input" name="sonBornDate" ng-model="profile.sons[$index].bornDate"  ng-required="{{$index == 0}}">
+                  <input type="date" class="custom-input" name="sonBornDate"
+                         ng-model="profile.sons[$index].bornDate" ng-required="{{$index == 0}}">
                 </label>
-                <div class="message-bornDate">Se você está grávida, coloque a data prevista do parto</div>
+                <div class="message-bornDate">Se você está grávida, coloque a data prevista do parto
+                </div>
 
                 <label class="item item-input">
                   <span class="input-label input-label-custom">Sexo (opcional)</span>
 
-                    <label class="item item-radio">
-                      <input type="radio" name="female{{$index}}" value="female" ng-model="profile.sons[$index].gender">
-                      <div class="item-content custom-input label-radio-f">Feminino</div>
-                    </label>
+                  <label class="item item-radio">
+                    <input type="radio" name="female{{$index}}" value="female"
+                           ng-model="profile.sons[$index].gender">
+                    <div class="item-content custom-input label-radio-f">Feminino</div>
+                  </label>
 
-                    <label class="item item-radio" style="position: absolute; right:0;">
-                      <input type="radio" name="male{{$index}}" value="male" ng-model="profile.sons[$index].gender">
-                      <div class="item-content custom-input label-radio-m">Masculino</div>
-                    </label>
+                  <label class="item item-radio" style="position: absolute; right:0;">
+                    <input type="radio" name="male{{$index}}" value="male"
+                           ng-model="profile.sons[$index].gender">
+                    <div class="item-content custom-input label-radio-m">Masculino</div>
+                  </label>
                 </label>
 
               </fieldset>
             </div>
 
-            <button type="button" class="button button-block button-light" ng-click="addSon()"> Adicionar bebê </button>
+            <button type="button" class="button button-block button-light" ng-click="addSon()"> Adicionar
+              bebê
+            </button>
           </div>
 
           <!-- CELLPHONE INFORMATION -->
           <h4 class="title-profile">TELEFONE E EMAIL</h4>
           <p class="text-info-profile">
-            Cadastre seu número de celular e email para receber informações personalizadas sobre os cuidados básicos do bebê.
+            Cadastre seu número de celular e email para receber informações personalizadas sobre os cuidados
+            básicos do bebê.
           </p>
           <div class="list">
 
@@ -96,24 +106,30 @@
 
               <label class="item item-input" ng-class="{ 'has-error' : profileForm.cellPhone.$invalid}">
                 <span class="input-label input-label-custom">Celular</span>
-                <input type="tel" class="custom-input" ng-keyup="validadeCellNumber()" name="cellPhone" ng-model="profile.cellPhone" required>
+                <input type="tel" class="custom-input" ng-keyup="validadeCellNumber()" name="cellPhone"
+                       ng-model="profile.cellPhone" required>
               </label>
 
               <label class="item item-input">
                 <span class="input-label input-label-custom">Email</span>
-                <input type="text" class="custom-input" name="email" ng-model="profile.email" readonly="">
+                <input type="text" class="custom-input" name="email" ng-model="profile.email"
+                       readonly="">
               </label>
 
             </fieldset>
 
             <div class="row">
               <div class="col">
-                <button ng-if="!profileForm.$valid" type="submit" class="button profile-status"> {{ profileForm.$valid ? '': 'Preencha todos os campos'}} </button>
+                <button ng-if="!profileForm.$valid" type="submit" class="button profile-status"> {{
+                  profileForm.$valid ? '': 'Preencha todos os campos'}}
+                </button>
 
-                <button ng-hide="profile.active" class="button button-block button-positive" ng-click="active()">
+                <button ng-hide="profile.active" class="button button-block button-positive"
+                        ng-click="active()">
                   Habilitar Conta
                 </button>
-                <button ng-show="profile.active" class="button button-block button-positive" ng-click="disable()">
+                <button ng-show="profile.active" class="button button-block button-positive"
+                        ng-click="disable()">
                   Desabilitar conta
                 </button>
               </div>
