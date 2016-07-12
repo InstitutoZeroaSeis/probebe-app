@@ -82,7 +82,7 @@
               </fieldset>
             </div>
 
-            <button type="button" class="button button-block button-positive" ng-click="addSon()"> Adicionar bebê </button>
+            <button type="button" class="button button-block button-light" ng-click="addSon()"> Adicionar bebê </button>
           </div>
 
           <!-- CELLPHONE INFORMATION -->
@@ -103,20 +103,22 @@
                 <span class="input-label input-label-custom">Email</span>
                 <input type="text" class="custom-input" name="email" ng-model="profile.email" readonly="">
               </label>
-              <div class="row">
-                <div class="col">
-                  <button ng-if="!profileForm.$valid" type="submit" class="button profile-status"> {{ profileForm.$valid ? '': 'Preencha todos os campos'}} </button>
 
-                  <button ng-hide="profile.active" class="button button-block button-positive" ng-click="active()">
-                    Habilitar Conta
-                  </button>
-                  <button ng-show="profile.active" class="button button-block button-positive" ng-click="disable()">
-                    Desabilitar conta
-                  </button>
-                </div>
-
-              </div>
             </fieldset>
+
+            <div class="row">
+              <div class="col">
+                <button ng-if="!profileForm.$valid" type="submit" class="button profile-status"> {{ profileForm.$valid ? '': 'Preencha todos os campos'}} </button>
+
+                <button ng-hide="profile.active" class="button button-block button-positive" ng-click="active()">
+                  Habilitar Conta
+                </button>
+                <button ng-show="profile.active" class="button button-block button-positive" ng-click="disable()">
+                  Desabilitar conta
+                </button>
+              </div>
+
+            </div>
 
           </div>
         </form>
