@@ -31,7 +31,9 @@
           <a class="link-password" ui-sref="resetPassword">Esqueci minha senha</a>
         </div>
 
-        <input type="submit" class="button button-block button-positive" value="Entrar" />
+        <button type="submit" ng-disabled="!signInForm.$valid" class="button button-block button-positive">
+          Entrar
+        </button>
       </form>
 
       <form ng-show="form.signup" class="animate-hide" name="signUpForm" ng-submit="signUp(signUpForm)" accept-charset="utf-8">
