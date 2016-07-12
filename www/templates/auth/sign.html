@@ -1,7 +1,6 @@
 
 <ion-view hide-nav-bar="true">
 
-
   <ion-content class='signin-content' class=" padding signin-style" scroll="x">
     <div class="row sign-logo">
       <div class="col col-center">
@@ -12,8 +11,8 @@
     <div class='signin-content signin-style  sign-tab' ng-hide="authSocial">
       <!-- NAV BUTTONS -->
       <div class="row">
-        <div class="col button-tab-sign" ng-class="{'button-tab-sign-active' : form.signin }" ng-click="toggleTab()">Login</div>
-        <div class="col button-tab-sign" ng-class="{'button-tab-sign-active' : form.signup }" ng-click="toggleTab()">Cadastrar</div>
+        <div class="col button-tab-sign" ng-class="{'button-tab-sign-active' : form.signin }" ng-click="goToSignIn()">Login</div>
+        <div class="col button-tab-sign" ng-class="{'button-tab-sign-active' : form.signup }" ng-click="goToSignUp()">Cadastrar</div>
       </div>
 
       <form ng-show="form.signin" name="signInForm" class="animate-hide" ng-submit="signIn('app.messages')" method="get" accept-charset="utf-8">
@@ -38,7 +37,6 @@
 
       <form ng-show="form.signup" class="animate-hide" name="signUpForm" ng-submit="signUp(signUpForm)" accept-charset="utf-8">
         <div class="list list-inset">
-
           <label class="item item-input" ng-class="{ 'has-error' : signUpForm.userName.$invalid}">
             <input type="text" name="userName" placeholder="Nome" ng-model="user.name" required>
           </label>
