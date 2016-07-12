@@ -89,9 +89,13 @@
               </fieldset>
             </div>
 
-            <button type="button" class="button button-block button-light" ng-click="addSon()"> Adicionar
-              bebê
-            </button>
+            <div class="row">
+              <div class="col">
+                <button type="button" class="button button-block button-light" ng-click="addSon()"> Adicionar
+                  bebê
+                </button>
+              </div>
+            </div>
           </div>
 
           <!-- CELLPHONE INFORMATION -->
@@ -101,9 +105,7 @@
             básicos do bebê.
           </p>
           <div class="list">
-
             <fieldset>
-
               <label class="item item-input" ng-class="{ 'has-error' : profileForm.cellPhone.$invalid}">
                 <span class="input-label input-label-custom">Celular</span>
                 <input type="tel" class="custom-input" ng-keyup="validadeCellNumber()" name="cellPhone"
@@ -115,7 +117,6 @@
                 <input type="text" class="custom-input" name="email" ng-model="profile.email"
                        readonly="">
               </label>
-
             </fieldset>
 
             <div class="row">
@@ -133,10 +134,9 @@
                   Desabilitar conta
                 </button>
               </div>
-
             </div>
-
           </div>
+
         </form>
       </div>
     </div>
