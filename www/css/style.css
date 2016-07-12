@@ -133,7 +133,8 @@ label.item.has-error {
 }
 
 .button.button-light {
-    color: #D87F36; !important;
+    color: #D87F36;
+    background-color: transparent !important;
 }
 
 .float-right {
@@ -284,7 +285,7 @@ label.item.has-error {
     margin-left: 10px;
 }
 
-.profile .item-input-radio .item-radio{
+.profile .item-input-radio .item-radio {
     margin: 8px;
     width: 44%;
     float: left;
@@ -646,7 +647,13 @@ input[type=range]::-webkit-slider-thumb {
 
 .text-info-profile {
     color: #656;
-    padding-left: 12px !important;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.text-info-phone {
+    color: #656;
+    margin-left: 10px;
 }
 
 .title-profile {
