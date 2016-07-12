@@ -7,7 +7,11 @@ angular.module("proBebe.services").factory('Profile', function($q, $rootScope, $
   }
 
   Profile.update = function(data){
-    return $http.post(Constants.PROFILE_URL, data);
+    return $http.post(Constants.PROFILE_URL, data).then(function (result) {
+      return result;
+    }).catch(function(err) {
+      return err;
+    });
   }
 
   Profile.maxRecipientChildren = function(recipientChildren){

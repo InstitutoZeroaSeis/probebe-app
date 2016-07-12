@@ -11,6 +11,10 @@ label.item.has-error {
     background-color: transparent;
 }
 
+.list {
+    background-color: #F6F6F6;
+}
+
 .messages-list {
     /*background: url("../img/bg-home.jpg");*/
     position: fixed;
@@ -222,9 +226,20 @@ label.item.has-error {
     margin-left: 15px;
 }
 
-.sons-nested-list {
+.babies-nested-list {
     margin-top: 15px;
     padding: 5px;
+}
+
+.baby-container {
+    margin-bottom: 10px;
+}
+
+.baby-header i {
+    float: right;
+    font-size: 18px;
+    line-height: 40px;
+    color: #bf0b0b;
 }
 
 .item-divider {
@@ -246,19 +261,38 @@ label.item.has-error {
     padding: 2px;
 }
 
-.profile .item-input {
-    margin-bottom: 6px;
-    padding: 0px 0px 0px 10px;
-    background-color: #f4f4f4;
+.profile .item {
+    border: none;
 }
 
-.profile .item-input input {
+.profile .item-input {
+    margin-bottom: 6px;
+    padding: 0 0 0 10px;
+}
+
+.profile .item-input input, .item-input-radio input {
     background-color: #fff;
     padding-left: 5px;
 }
 
+.profile .item-input-radio {
+    margin-bottom: 6px;
+    padding: 0;
+}
+
+.profile .item-input-radio .input-label {
+    margin-left: 10px;
+}
+
+.profile .item-input-radio .item-radio{
+    margin: 8px;
+    width: 45%;
+    float: left;
+    padding: 0;
+}
+
 .popup-buttons > button {
-    padding: 0px;
+    padding: 0;
     font-size: 10px;
 }
 
@@ -408,18 +442,19 @@ legend {
     display: block;
     margin-bottom: 1.42857;
     /*padding-left: 3px;*/
-    width: 23%;
-    border: 0px;
+    width: 100%;
+    border: 0;
     color: #444;
     font-size: 13px;
 }
 
 fieldset {
-    border: 1px dotted #ccc;
+    border: none;
 }
 
 .item-radio .item-content {
-    padding: 10px 10px 10px 10px;
+    padding: 10px;
+    text-align: center;
 }
 
 .item-radio .radio-icon {
@@ -620,19 +655,11 @@ input[type=range]::-webkit-slider-thumb {
 
 .input-label-custom {
     font-size: 11px !important;
+    font-weight: 800;
 }
 
 .custom-input {
     font-size: 13px !important;
-}
-
-.label-radio-f {
-    width: 84px;
-}
-
-.label-radio-m {
-    position: absolute;
-    right: 0;
 }
 
 .padding-text {

@@ -64,7 +64,6 @@ angular.module("proBebe.controllers")
       $scope.save = function (form) {
         if (form.$valid) {
           var data = paramToSave();
-          console.log(data)
           Profile.update(data)
               .then(function (result) {
                 reloadProfile();

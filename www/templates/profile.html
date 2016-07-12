@@ -5,8 +5,7 @@
     <div class="row" id="goMgs" ng-class="{ 'sucessMgs' : showSuccessMgs }">
 
       <div class="col text-info-profile" ng-hide="showSuccessMgs">
-        Adicione ou altere dados do(s) seu(s) bebê(s), indique o número de seu celular, e-mail e demais dados
-        aqui
+        Mantenha sempre atualizados seus dados e de seus bebês por aqui
       </div>
 
     </div>
@@ -16,7 +15,7 @@
         <form name="profileForm" ng-submit="save(profileForm)" accept-charset="utf-8">
           <!-- PERSONAL INFORMATION -->
           <ion-list>
-            <h4 class="title-profile">INFORMAÇÕES PESSOAIS</h4>
+            <h4 class="title-profile">Sobre você</h4>
 
             <fieldset>
               <label class="item item-input">
@@ -24,15 +23,14 @@
                 <input type="text" class="custom-input" name="userName" ng-model="profile.name">
               </label>
 
-              <label class="item item-input">
+              <label class="item item-input-radio">
                 <span class="input-label input-label-custom">Sexo (opcional)</span>
 
                 <label class="item item-radio">
                   <input type="radio" name="gender" ng-model="profile.gender" value="female">
                   <div class="item-content custom-input label-radio-f">Feminino</div>
                 </label>
-
-                <label class="item item-radio" style="position: absolute; right:0;">
+                <label class="item item-radio">
                   <input type="radio" name="gender" ng-model="profile.gender" value="male">
                   <div class="item-content custom-input label-radio-m">Masculino</div>
                 </label>
@@ -41,16 +39,16 @@
 
           </ion-list>
 
-          <!-- SONS NESTED FORM -->
-          <div class="list sons-nested-list">
+          <!-- BABIES NESTED FORM -->
+          <div class="list babies-nested-list">
 
             <h4 class="title-profile">
-              CADASTRO DE BEBÊS
+              Seus bebês
             </h4>
             <div ng-repeat="son in profile.sons">
-              <fieldset ng-hide="son._destroy">
+              <fieldset class="baby-container" ng-hide="son._destroy">
 
-                <legend>
+                <legend class="baby-header">
                   {{$index+1}}° Bebê
                   <i class="radio-icon ion-close" ng-click="showConfirm($index, profile)"></i>
                 </legend>
@@ -70,7 +68,7 @@
                 <div class="message-bornDate">Se você está grávida, coloque a data prevista do parto
                 </div>
 
-                <label class="item item-input">
+                <label class="item item-input-radio">
                   <span class="input-label input-label-custom">Sexo (opcional)</span>
 
                   <label class="item item-radio">
@@ -99,7 +97,7 @@
           </div>
 
           <!-- CELLPHONE INFORMATION -->
-          <h4 class="title-profile">TELEFONE E EMAIL</h4>
+          <h4 class="title-profile">Telefone e Email</h4>
           <p class="text-info-profile">
             Cadastre seu número de celular e email para receber informações personalizadas sobre os cuidados
             básicos do bebê.
