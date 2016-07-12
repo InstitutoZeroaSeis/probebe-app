@@ -252,10 +252,11 @@ label.item.has-error {
     color: #ffffff;
 }
 
-.message-bornDate {
+.message-birthdate {
     font-size: 10px;
     font-style: italic;
     text-align: center;
+    color: #7A7A7A;
 }
 
 .row .col {
