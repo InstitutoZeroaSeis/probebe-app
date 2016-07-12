@@ -117,33 +117,31 @@
                 <input type="text" class="custom-input" name="email" ng-model="profile.email"
                        readonly="">
               </label>
-
-              <div class="row">
-                <div class="col">
-                  <button ng-hide="profile.active" class="button button-light float-right"
-                          ng-click="active()">
-                    HABILITAR CONTA
-                  </button>
-                  <button ng-show="profile.active" class="button button-light float-right"
-                          ng-click="disable()">
-                    DESABILITAR CONTA
-                  </button>
-                </div>
-              </div>
             </fieldset>
-
             <div class="row">
               <div class="col">
-                <button ng-if="!profileForm.$valid" type="submit" class="form-status">
-                  Preencha todos os campos
+                <button ng-hide="profile.active" class="button button-light float-right"
+                        ng-click="active()">
+                  HABILITAR CONTA
                 </button>
-
-                <button type="submit" ng-disabled="!profileForm.$valid" class="button button-block button-positive">
-                  SALVAR
+                <button ng-show="profile.active" class="button button-light float-right"
+                        ng-click="disable()">
+                  DESABILITAR CONTA
                 </button>
               </div>
             </div>
+          </div>
 
+          <div class="row">
+            <div class="col">
+              <button ng-if="!profileForm.$valid" class="form-status">
+                Preencha todos os campos
+              </button>
+
+              <button type="submit" ng-disabled="!profileForm.$valid" class="button button-block button-positive">
+                SALVAR
+              </button>
+            </div>
           </div>
 
         </form>
