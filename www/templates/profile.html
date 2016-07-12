@@ -105,10 +105,12 @@
               </label>
               <div class="row">
                 <div class="col">
-                  <button ng-hide="profile.active" class="button button-clear button-calm profile-status" ng-click="active()">
+                  <button ng-if="!profileForm.$valid" type="submit" class="button profile-status"> {{ profileForm.$valid ? '': 'Preencha todos os campos'}} </button>
+
+                  <button ng-hide="profile.active" class="button button-block button-positive" ng-click="active()">
                     Habilitar Conta
                   </button>
-                  <button ng-show="profile.active" class="button button-clear button-assertive profile-status" ng-click="disable()">
+                  <button ng-show="profile.active" class="button button-block button-positive" ng-click="disable()">
                     Desabilitar conta
                   </button>
                 </div>
@@ -117,7 +119,6 @@
             </fieldset>
 
           </div>
-          <button type="submit" class="button button-block button-positive" /> {{ profileForm.$valid ? 'Atualizar perfil': 'Preencha todos os campos'}} </button>
         </form>
       </div>
     </div>

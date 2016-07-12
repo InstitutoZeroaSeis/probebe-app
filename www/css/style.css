@@ -723,12 +723,16 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 #messages-container{
-  margin-top: 25px.;
+  margin-top: 25px;
 }
 
 .profile-status{
   font-size: 12px;
   min-height: 40px;
+  color: #bf0b0b;
+  border: none;
+  background: none;
+  box-shadow: none;
 }
 
 .article-share{
