@@ -132,6 +132,10 @@ label.item.has-error {
     color: #D87F36; !important;
 }
 
+.float-right {
+    float: right;
+}
+
 .signin-style .item {
     border-color: rgba(0, 0, 0, 0.2);
     background-color: rgba(255, 255, 255, 0.92);

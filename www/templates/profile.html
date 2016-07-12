@@ -91,8 +91,8 @@
 
             <div class="row">
               <div class="col">
-                <button type="button" class="button button-block button-light" ng-click="addSon()"> Adicionar
-                  bebê
+                <button type="button" class="button button-block button-light" ng-click="addSon()">
+                  ADICIONAR BEBÊ
                 </button>
               </div>
             </div>
@@ -121,17 +121,25 @@
 
             <div class="row">
               <div class="col">
-                <button ng-if="!profileForm.$valid" type="submit" class="button profile-status"> {{
-                  profileForm.$valid ? '': 'Preencha todos os campos'}}
+                <button ng-if="!profileForm.$valid" type="submit" class="button profile-status">
+                  Preencha todos os campos
                 </button>
 
-                <button ng-hide="profile.active" class="button button-block button-positive"
-                        ng-click="active()">
-                  Habilitar Conta
+                <button type="submit" ng-disabled="!profileForm.$valid" class="button button-block button-positive">
+                  SALVAR
                 </button>
-                <button ng-show="profile.active" class="button button-block button-positive"
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <button ng-hide="profile.active" class="button button-light float-right"
+                        ng-click="active()">
+                  HABILITAR CONTA
+                </button>
+                <button ng-show="profile.active" class="button button-light float-right"
                         ng-click="disable()">
-                  Desabilitar conta
+                  DESABILITAR CONTA
                 </button>
               </div>
             </div>
