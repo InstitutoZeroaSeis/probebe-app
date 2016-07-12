@@ -50,7 +50,13 @@
           </label>
         </div>
 
-        <button type="submit" class="button button-block button-positive"> {{ signUpForm.$valid ? 'Cadastrar': 'Preencha todos os campos'}} </button>
+        <button ng-if="!signUpForm.$valid" class="form-status">
+          Preencha todos os campos
+        </button>
+
+        <button type="submit" ng-disabled="!signUpForm.$valid" class="button button-block button-positive">
+          Cadastrar
+        </button>
       </form>
       <div class='strike-parent'>
         <div class='strike'>

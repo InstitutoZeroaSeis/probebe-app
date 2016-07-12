@@ -268,7 +268,7 @@ label.item.has-error {
 }
 
 .sign-logo {
-    margin-top: 30px;
+    margin-top: 15px;
 }
 
 .img-logo {
@@ -753,13 +753,11 @@ input[type=range]::-webkit-slider-thumb {
     margin-top: 25px;
 }
 
-.profile-status {
+.form-status {
     font-size: 12px;
-    min-height: 40px;
+    min-height: 25px;
     color: #bf0b0b;
-    border: none;
-    background: none;
-    box-shadow: none;
+    margin: 0 4px;
 }
 
 .article-share {
