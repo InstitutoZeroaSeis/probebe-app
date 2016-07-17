@@ -1,26 +1,28 @@
 angular.module("proBebe.controllers")
-    .controller("AuthCtrl", function ($scope, $state, $http, $ionicPopup, $cordovaOauth, Constants, authentication, storage, errorHandler, messageHandler) {
+    .controller("AuthCtrl", function ($scope, $state, $http, $ionicPopup, $cordovaOauth, Constants, authentication, storage, errorHandler, messageHandler, $ionicLoading
+) {
 
       $scope.login_info = {};
       $scope.user = {};
       $scope.form = {
         signin: true,
         signup: false
-      }
+      };
 
       $scope.goToSignIn = function () {
         if ($scope.form.signup)
           $scope.form.signin = true;
         $scope.form.signup = false;
-      }
+      };
 
       $scope.goToSignUp = function () {
         if ($scope.form.signin)
           $scope.form.signup = true;
         $scope.form.signin = false;
-      }
+      };
 
       $scope.signIn = function (state, loading) {
+        $ionicLoading.show({template: 'Carregando...'});
         var authPromise = authentication.authenticate(
             $scope.login_info.email,
             $scope.login_info.password,
@@ -39,23 +41,28 @@ angular.module("proBebe.controllers")
         }).catch(function (error) {
           $scope.authSocial = false;
           if (loading) loading.hide();
-          messageHandler.show("Impossível comunicar com o ProBebˆ. Favor verificar sua conexão com a internet");
+          messageHandler.show("Impossível comunicar com o ProBebê. Favor verificar sua conexão com a internet");
         });
       };
 
       $scope.signUp = function (form) {
+        $ionicLoading.show({template: 'Carregando...'});
         if (form.$valid) {
           var data = defineData();
           $http.post(Constants.SIGN_UP_URL, data).then(function (result) {
             setLoginData($scope.user);
-            statusInfoApp()
+            statusInfoApp();
             $scope.signIn('app.profile');
+            $ionicLoading.hide();
           }).catch(function (response) {
-            $scope.user = null;
+            $scope.user.password = null;
             $scope.authSocial = false;
+            console.log("response", response);
+            $ionicLoading.hide();
             messageHandler.show(errorHandler.message(response));
-          });
+          })
         } else {
+          $ionicLoading.hide();
           messageHandler.show("Dados inválidos");
         }
       };
@@ -266,6 +273,7 @@ angular.module("proBebe.controllers")
       // }
 
       function defineData() {
+        console.log("user", $scope.user);
         return {
           user: {
             profile_attributes: {name: $scope.user.name, social_network_id: $scope.user.social_network_id},

@@ -7,16 +7,16 @@ angular.module("proBebe.services")
 
   Handler._itContainsKey = function(response){
     return response.data == undefined
-  }
+  };
 
   Handler._messageByKey = function(response){
     var errors = response.data.errors;
-    for(key in errors){
+    for(var key in errors){
       var attribute = this._defineAttribute(key);
       keyValue = attribute;
       message += attribute+": "+ errors[key]+" <br>";
     }
-  }
+  };
 
   Handler._defineAttribute = function(key){
     switch(key) {
@@ -32,7 +32,7 @@ angular.module("proBebe.services")
       default:
         return key;
     }
-  }
+  };
 
   Handler.message = function(response){
     message = "";
@@ -42,11 +42,11 @@ angular.module("proBebe.services")
       this._messageByKey(response);
     }
     return message;
-  }
+  };
 
   Handler.key = function(){
     return keyValue;
-  }
+  };
 
   return Handler;
 
