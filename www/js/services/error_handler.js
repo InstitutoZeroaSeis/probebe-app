@@ -37,7 +37,7 @@ angular.module("proBebe.services")
   Handler.message = function(response){
     message = "";
     if(this._itContainsKey(response)){
-      message = "Impossível comunicar com o ProBebe. Favor verificar sua conexão com a internet";
+      message = "Impossível comunicar com o servidor. Favor verificar sua conexão com a internet";
     }else{
       this._messageByKey(response);
     }

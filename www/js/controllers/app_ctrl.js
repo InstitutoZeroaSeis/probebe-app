@@ -19,7 +19,7 @@ angular.module("proBebe.controllers")
     .then(function(success) {
       if(success) getChildren();
     }).catch(function(error) {
-      messageHandler.show("Impossível recarregar o perfil");
+      messageHandler.show("Impossível recarregar o perfilno momento. Tente mais tarde");
     });
   }
 
