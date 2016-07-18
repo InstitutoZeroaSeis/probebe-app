@@ -1,5 +1,5 @@
 angular.module("proBebe.controllers")
-    .controller("ProfileCtrl", function ($rootScope, $scope, $timeout, $filter, $state, $ionicPopup, $ionicScrollDelegate, authentication, mask, Profile, errorHandler, messageHandler, storage) {
+    .controller("ProfileCtrl", function ($rootScope, $scope, $timeout, $filter, $state, $ionicPopup, $ionicScrollDelegate, authentication, mask, Profile, errorHandler, messageHandler, storage, $ionicLoading) {
 
       function init() {
         $scope.profile = {
@@ -12,7 +12,7 @@ angular.module("proBebe.controllers")
 
       $scope.addSon = function () {
         $scope.profile.sons.push({name: "", bornDate: "", gender: ""})
-      }
+      };
 
       $scope.showConfirm = function (index, profile) {
         var confirmPopup = $ionicPopup.confirm({
@@ -40,7 +40,7 @@ angular.module("proBebe.controllers")
             }).catch(function (response) {
           messageHandler.show("Erro ao ativar a conta");
         });
-      }
+      };
 
       $scope.disable = function () {
         Profile.disable()
@@ -50,7 +50,7 @@ angular.module("proBebe.controllers")
             }).catch(function (response) {
           messageHandler.show("Erro ao desativar a conta");
         });
-      }
+      };
 
       function removeSon(index, profile) {
         var son = profile.sons[index];
@@ -62,18 +62,21 @@ angular.module("proBebe.controllers")
       }
 
       $scope.save = function (form) {
+        $ionicLoading.show();
         if (form.$valid) {
           var data = paramToSave();
           Profile.update(data)
               .then(function (result) {
                 reloadProfile();
+                $ionicLoading.hide();
               }).catch(function (response) {
             messageHandler.show(errorHandler.message(response));
           });
         } else {
+          $ionicLoading.hide();
           messageHandler.show("Dados inválidos");
         }
-      }
+      };
 
       $scope.validadeCellNumber = function () {
         var cellPhone = $scope.profile.cellPhone;
@@ -83,7 +86,7 @@ angular.module("proBebe.controllers")
           cellPhone = mask.dashBetweenFourAndFiveDigit(cellPhone);
         }
         $scope.profile.cellPhone = cellPhone;
-      }
+      };
 
       function reloadProfile() {
         if ($scope.profile.sons.length != storage.get("profile").children.length) {
@@ -120,7 +123,7 @@ angular.module("proBebe.controllers")
             gender: son.gender,
             _destroy: son._destroy
           }
-        })
+        });
         return children;
       }
 

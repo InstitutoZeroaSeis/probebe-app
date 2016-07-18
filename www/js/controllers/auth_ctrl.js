@@ -57,9 +57,7 @@ angular.module("proBebe.controllers")
           }).catch(function (response) {
             $scope.user.password = null;
             $scope.authSocial = false;
-            console.log("response", response);
-            $ionicLoading.hide();
-            messageHandler.show(errorHandler.message(response));
+            messageHandler.show(errorHandler.message(response), 5500);
           })
         } else {
           $ionicLoading.hide();
@@ -273,7 +271,6 @@ angular.module("proBebe.controllers")
       // }
 
       function defineData() {
-        console.log("user", $scope.user);
         return {
           user: {
             profile_attributes: {name: $scope.user.name, social_network_id: $scope.user.social_network_id},

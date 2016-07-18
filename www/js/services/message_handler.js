@@ -3,10 +3,10 @@ angular.module("proBebe.services")
 
   function Handler() {}
 
-  Handler.show = function(message){
+  Handler.show = function(message, duration){
     $ionicLoading.show({
       template: message,
-      duration: 5000
+      duration: duration || 4000
     });
     return $ionicLoading;
   };
