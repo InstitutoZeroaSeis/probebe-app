@@ -12,9 +12,9 @@ angular.module("proBebe.controllers")
       buildProfile();
     }
 
-      $scope.addSon = function () {
-        $scope.profile.sons.push({name: "", bornDate: "", gender: ""})
-      };
+    $scope.addSon = function () {
+      $scope.profile.sons.push({name: "", bornDate: "", gender: ""})
+    };
 
     $scope.showConfirm = function (index, profile) {
       var confirmPopup = $ionicPopup.confirm({
@@ -34,25 +34,25 @@ angular.module("proBebe.controllers")
 
     };
 
-      $scope.active = function () {
-        Profile.active()
-            .then(function (result) {
-              messageHandler.show("Conta ativada com sucesso");
-              $scope.profile.active = true;
-            }).catch(function (response) {
-          messageHandler.show("Erro ao ativar a conta");
-        });
-      };
+    $scope.active = function () {
+      Profile.active()
+        .then(function (result) {
+          messageHandler.show("Conta ativada com sucesso");
+          $scope.profile.active = true;
+        }).catch(function (response) {
+        messageHandler.show("Erro ao ativar a conta");
+      });
+    };
 
-      $scope.disable = function () {
-        Profile.disable()
-            .then(function (result) {
-              messageHandler.show("Conta desativada com sucesso");
-              $scope.profile.active = false;
-            }).catch(function (response) {
-          messageHandler.show("Erro ao desativar a conta");
-        });
-      };
+    $scope.disable = function () {
+      Profile.disable()
+        .then(function (result) {
+          messageHandler.show("Conta desativada com sucesso");
+          $scope.profile.active = false;
+        }).catch(function (response) {
+        messageHandler.show("Erro ao desativar a conta");
+      });
+    };
 
     function removeSon(index, profile) {
       var son = profile.sons[index];
@@ -69,7 +69,7 @@ angular.module("proBebe.controllers")
 
       for (var c in children) {
         var initial = children[c].birth_date.split(/\//);
-        var birthDate = new Date([ initial[1], initial[0], initial[2] ].join('/'));
+        var birthDate = new Date([initial[1], initial[0], initial[2]].join('/'));
 
         months = today.getMonth() - birthDate.getMonth() + (12 * (today.getFullYear() - birthDate.getFullYear()));
 
@@ -89,7 +89,7 @@ angular.module("proBebe.controllers")
           .then(function (result) {
             var hasChildOverAge = calculeAge(data.profile.children_attributes);
             reloadProfile(hasChildOverAge);
-            $ionicLoading.hide();
+
           }).catch(function (response) {
           messageHandler.show(errorHandler.message(response));
         });
@@ -99,15 +99,15 @@ angular.module("proBebe.controllers")
       }
     };
 
-      $scope.validadeCellNumber = function () {
-        var cellPhone = $scope.profile.cellPhone;
-        if (cellPhone) {
-          cellPhone = mask.noDigit(cellPhone);
-          cellPhone = mask.bracketsTheFistTwoDigits(cellPhone);
-          cellPhone = mask.dashBetweenFourAndFiveDigit(cellPhone);
-        }
-        $scope.profile.cellPhone = cellPhone;
-      };
+    $scope.validadeCellNumber = function () {
+      var cellPhone = $scope.profile.cellPhone;
+      if (cellPhone) {
+        cellPhone = mask.noDigit(cellPhone);
+        cellPhone = mask.bracketsTheFistTwoDigits(cellPhone);
+        cellPhone = mask.dashBetweenFourAndFiveDigit(cellPhone);
+      }
+      $scope.profile.cellPhone = cellPhone;
+    };
 
     function reloadProfile(hasChildOverAge) {
       var successMessage = "Seus dados foram salvos!";
@@ -143,22 +143,22 @@ angular.module("proBebe.controllers")
       return son.id ? index.toString() : new Date().getTime();
     }
 
-      function childrenAttributes(sons) {
-        var children = {};
-        sons.forEach(function (son, index) {
-          children[getId(son, index)] = {
-            id: son.id,
-            name: son.name,
-            birth_date: $filter('date')(son.bornDate, "dd/MM/yyyy"),
-            gender: son.gender,
-            _destroy: son._destroy
-          }
-        });
-        return children;
-      }
+    function childrenAttributes(sons) {
+      var children = {};
+      sons.forEach(function (son, index) {
+        children[getId(son, index)] = {
+          id: son.id,
+          name: son.name,
+          birth_date: $filter('date')(son.bornDate, "dd/MM/yyyy"),
+          gender: son.gender,
+          _destroy: son._destroy
+        }
+      });
+      return children;
+    }
 
     function buildProfile() {
-      var loading = messageHandler.show("Carregando...");
+      $ionicLoading.show();
       Profile.get()
         .then(function (result) {
           var profile = result.data;
@@ -168,9 +168,9 @@ angular.module("proBebe.controllers")
           $scope.profile.cellPhone = profile.cell_phone;
           $scope.profile.active = profile.active;
           sonsScope(profile);
-          loading.hide();
+          $ionicLoading.hide();
         }).catch(function (err) {
-        loading.hide();
+        $ionicLoading.hide();
         messageHandler.show("Ocorreu um erro em buscar o perfil");
       });
     }
