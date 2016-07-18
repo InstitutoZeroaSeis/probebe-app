@@ -50,9 +50,9 @@
           </label>
         </div>
 
-        <button ng-if="!signUpForm.$valid" class="form-status">
+        <div ng-if="!signUpForm.$valid && signUpForm.$touched" class="form-status">
           Preencha todos os campos
-        </button>
+        </div>
 
         <button type="submit" ng-disabled="!signUpForm.$valid" class="button button-block button-positive">
           Cadastrar
