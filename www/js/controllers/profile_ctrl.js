@@ -158,7 +158,7 @@ angular.module("proBebe.controllers")
     }
 
     function buildProfile() {
-      $ionicLoading.show();
+        $ionicLoading.show();
       Profile.get()
         .then(function (result) {
           var profile = result.data;

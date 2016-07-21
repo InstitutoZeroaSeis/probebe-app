@@ -23,6 +23,9 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
       defineOptionsChild();
     }else{
       $scope.selectedChild = getChild(childIdParams);
+      var born = new Date($scope.selectedChild.birth_date + " EDT").setHours(0,0,0,0);
+      var today = new Date().setHours(0,0,0,0);
+      $scope.isBorn = born <= today;
       getMessage(childIdParams);
       loadCategories();
     }
@@ -168,7 +171,8 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
   }
 
   $scope.openInNewPage = function(message) {
-    ScrollPositions['maintain_scroll'] = true
+    ScrollPositions['maintain_scroll'] = true;
+    console.log(message)
     $rootScope.article ={
       text: message.article_text,
       title: message.article_title,

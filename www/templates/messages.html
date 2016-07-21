@@ -65,6 +65,13 @@
       </div>
     </div>
 
+    <div class="card" ng-show="selectedChild && !loadingMessages && !isBorn" >
+
+      <div class="item item-text-wrap">
+        Você esta em sua {{selectedChild.age_in_weeks}}ª semana de gestação
+      </div>
+    </div>
+
     <!-- ============== CHILDREN'S OPTIONS ===============-->
 
     <div class="row box-children-option" ng-show="childrenOptions">
