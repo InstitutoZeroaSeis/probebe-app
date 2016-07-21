@@ -2,13 +2,13 @@ var controllers;
 
 controllers = angular.module("proBebe.controllers");
 
-controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootScope, $state, $ionicPopup, $ionicModal, $cordovaToast, $window, $cordovaSocialSharing, Child, Profile, Constants, Microdonation, storage, messageHandler, BirthdayCard, Message, Category, $ionicViewService, ScrollPositions, $ionicScrollDelegate) {
+controllers.controller("MessagesCtrl", function ($ionicPlatform, $scope, $rootScope, $state, $ionicPopup, $ionicModal, $cordovaToast, $window, $cordovaSocialSharing, Child, Profile, Constants, Microdonation, storage, messageHandler, BirthdayCard, Message, Category, $ionicViewService, ScrollPositions, $ionicScrollDelegate) {
 
-  $rootScope.$on('networkOffline', function(event, networkState) {
+  $rootScope.$on('networkOffline', function (event, networkState) {
     $cordovaToast.showLongBottom('Sem conexão');
   });
 
-  $rootScope.$on("openFilter", function(){
+  $rootScope.$on("openFilter", function () {
     $scope.filterMenu = true;
     $scope.noFilter = {visibility: 'visible'};
   });
@@ -19,124 +19,124 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
     $scope.filterMenu = false;
     $scope.infoApp = storage.get("infoApp");
     var childIdParams = $state.params.childId;
-    if(noChildId(childIdParams)){
+    if (noChildId(childIdParams)) {
       defineOptionsChild();
-    }else{
+    } else {
       $scope.selectedChild = getChild(childIdParams);
-      var born = new Date($scope.selectedChild.birth_date + " EDT").setHours(0,0,0,0);
-      var today = new Date().setHours(0,0,0,0);
+      var born = new Date($scope.selectedChild.birth_date + " EDT").setHours(0, 0, 0, 0);
+      var today = new Date().setHours(0, 0, 0, 0);
       $scope.isBorn = born <= today;
       getMessage(childIdParams);
       loadCategories();
     }
   }
 
-  function defineCategory () {
-    if( fromArticlePage()){
-      var category = $scope.categories.filter(function(category){
+  function defineCategory() {
+    if (fromArticlePage()) {
+      var category = $scope.categories.filter(function (category) {
         return category.id == $rootScope.article.category_id;
       })[0];
       $rootScope.article = undefined;
       $scope.filterMessages(category);
       $scope.filter.category = category;
-    }else $scope.filter = { category: categoryDefault };
+    } else $scope.filter = {category: categoryDefault};
   }
 
-  function fromArticlePage(){
+  function fromArticlePage() {
     return $rootScope.article && ($rootScope.article.filter.category.id == $rootScope.article.category_id)
   }
 
-  function loadCategories () {
+  function loadCategories() {
     Category.all()
-    .then(function(response){
-      $scope.categories = response.data;
-      defineCategory();
-    }, function (error) {
-      messageHandler.show('Não foi possível carregar as categorias');
-    })
+      .then(function (response) {
+        $scope.categories = response.data;
+        defineCategory();
+      }, function (error) {
+        messageHandler.show('Não foi possível carregar as categorias');
+      })
   }
 
-  function getMessage (childId) {
+  function getMessage(childId) {
     $scope.loadingMessages = true;
     var noFilter = !fromArticlePage();
     var lastMessage = Message.getLastMessage(childId);
     var msgs = Message.getMessages(childId);
     msgs = Message.configAgeChild(msgs, lastMessage, $scope.selectedChild);
-    if(noFilter) $scope.messages = msgs;
+    if (noFilter) $scope.messages = msgs;
 
-    Message.onlyNewMessages({id: childId, lastMessage: lastMessage.id }).then(function(messages){
+    Message.onlyNewMessages({id: childId, lastMessage: lastMessage.id}).then(function (messages) {
       Message.defineOldMessages(msgs, lastMessage, childId);
 
-      if(messages.data.length > 0){
+      if (messages.data.length > 0) {
         msgs = msgs.concat(Message.configAgeChild(messages.data, lastMessage, $scope.selectedChild));
         Message.setMessages(childId, msgs);
         Message.setLastMessage(msgs, childId);
       }
 
-      if(noFilter) $scope.messages = msgs;
+      if (noFilter) $scope.messages = msgs;
       getBirthdayCard(childId);
       $scope.loadingMessages = false;
       messageState();
 
-    },function(error){
+    }, function (error) {
       $scope.loadingMessages = false;
       messageHandler.show('Não foi possível carregar as mensagens');
     });
   }
 
-  function noChildId (childIdParams) {
+  function noChildId(childIdParams) {
     return isNaN(childIdParams);
   }
 
-  function messageState () {
+  function messageState() {
     $scope.messageState = $scope.messages == undefined || $scope.messages.length === 0;
   }
 
-  function defineOptionsChild () {
+  function defineOptionsChild() {
     $scope.childrenOptions = true;
     $scope.children = storage.get("profile").children;
     $scope.messageState = false;
-    if($scope.children.length == 1){
+    if ($scope.children.length == 1) {
       $scope.goToChild($scope.children[0].id);
     }
   }
 
-  function getChild(childId){
-    return storage.get("profile").children.filter(function(child){
+  function getChild(childId) {
+    return storage.get("profile").children.filter(function (child) {
       return child.id == childId;
     })[0];
   }
 
-  function getBirthdayCard(childId){
-    var child =  getChild(childId);
-    $scope.birthdayCard = {show:false};
+  function getBirthdayCard(childId) {
+    var child = getChild(childId);
+    $scope.birthdayCard = {show: false};
     //0 week and 1 month
     var type = "1";
     var params = {
       type: type,
       age: parseInt(child.age_in_weeks * 7 / 30)
     };
-    if(child){
-      if(child.pregnancy){
+    if (child) {
+      if (child.pregnancy) {
         params.type = "0";
         params.age = child.age_in_weeks
       }
 
       BirthdayCard.get(params)
-      .then(function(response){
+        .then(function (response) {
 
-        if(response.data != null){
-          $scope.birthdayCard = response.data;
-          $scope.birthdayCard.show = true;
+          if (response.data != null) {
+            $scope.birthdayCard = response.data;
+            $scope.birthdayCard.show = true;
 
-          if(!params.type){
-            $scope.birthdayCard.age_text = "completou " + $scope.birthdayCard.age + " semana(s)";
-          }else{
-            var month = $scope.birthdayCard.age;
-            month > 1 ? $scope.birthdayCard.age_text = "completou " + month + " meses!" : $scope.birthdayCard.age_text = month + " mês!";
+            if (!params.type) {
+              $scope.birthdayCard.age_text = "completou " + $scope.birthdayCard.age + " semana(s)";
+            } else {
+              var month = $scope.birthdayCard.age;
+              month > 1 ? $scope.birthdayCard.age_text = "completou " + month + " meses!" : $scope.birthdayCard.age_text = month + " mês!";
+            }
           }
-        }
-      }).catch(function(error){
+        }).catch(function (error) {
         messageHandler.show("Não foi possível buscar cartão de aniversário");
       })
     }
@@ -144,36 +144,35 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
 
   function initDonationProcess() {
     Microdonation.setProfileType($scope.profile.profile_type);
-    if(Microdonation.isProfileDonor()){
+    if (Microdonation.isProfileDonor()) {
       Microdonation.sendMessages();
     }
   }
 
-  function disableBackButton(){
+  function disableBackButton() {
     $ionicViewService.nextViewOptions({
       disableBack: true
     });
   }
 
-  function filterState () {
+  function filterState() {
     $scope.filterState = $scope.messages == undefined || $scope.messages.length === 0;
   }
 
-  $scope.hasDeliveryDate = function(message){
+  $scope.hasDeliveryDate = function (message) {
     return message.delivery_date
-  }
+  };
 
-  $scope.goToChild = function(childId){
+  $scope.goToChild = function (childId) {
     $scope.childrenOptions = false;
     disableBackButton();
     ScrollPositions['maintain_scroll'] = false;
     $state.go('app.messages', {childId: childId}, {location: 'replace'});
-  }
+  };
 
-  $scope.openInNewPage = function(message) {
+  $scope.openInNewPage = function (message) {
     ScrollPositions['maintain_scroll'] = true;
-    console.log(message)
-    $rootScope.article ={
+    $rootScope.article = {
       text: message.article_text,
       title: message.article_title,
       category: message.article_category,
@@ -184,48 +183,48 @@ controllers.controller("MessagesCtrl", function($ionicPlatform, $scope, $rootSco
         text: message.text,
         url: message.url
       }
-    }
+    };
     $state.go('app.article');
-  }
+  };
 
-  $scope.shareMessage = function(message, link){
+  $scope.shareMessage = function (message, link) {
     var subject = "Pro Bebê";
     $cordovaSocialSharing
-    .share(message, subject, null, link) // Share via native share sheet
-    .then(function(result) {
-    }, function(err) {
-      messageHandler.show("Erro em compartilhar messagem.");
-    });
-  }
+      .share(message, subject, null, link) // Share via native share sheet
+      .then(function (result) {
+      }, function (err) {
+        messageHandler.show("Erro em compartilhar messagem.");
+      });
+  };
 
-  $scope.srcImg = function(category){
-    return "img/"+ category + ".png";
-  }
+  $scope.srcImg = function (category) {
+    return "img/" + category + ".png";
+  };
 
   $scope.closeInfoApp = function () {
     storage.set("infoApp", false);
-    $scope.displayNone = {display:'none'};
-  }
+    $scope.displayNone = {display: 'none'};
+  };
 
-  $scope.closeFilter = function(){
+  $scope.closeFilter = function () {
     $scope.noFilter = {visibility: 'hidden'};
     $scope.filterMenu = false;
-  }
+  };
 
-  $scope.filterMessages = function(category){
+  $scope.filterMessages = function (category) {
     $scope.filter = {category: category};
-    if( category != 'all'){
+    if (category != 'all') {
       $scope.messages = Message.getMessages($scope.selectedChild.id)
-      .filter(function(message){
-        return message.parent_category_id == category.id;
-      });
-    }else{
+        .filter(function (message) {
+          return message.parent_category_id == category.id;
+        });
+    } else {
       $scope.filter.category = categoryDefault;
       $scope.messages = Message.getMessages($scope.selectedChild.id);
     }
     filterState();
     $scope.closeFilter();
-  }
+  };
 
   $scope.$on('pushMessageReceived', init);
 
