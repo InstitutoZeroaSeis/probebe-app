@@ -193,7 +193,7 @@ controllers.controller("MessagesCtrl", function ($ionicPlatform, $scope, $rootSc
       .share(message, subject, null, link) // Share via native share sheet
       .then(function (result) {
       }, function (err) {
-        messageHandler.show("Erro em compartilhar messagem.");
+        messageHandler.show("Erro em compartilhar mensagem.");
       });
   };
 

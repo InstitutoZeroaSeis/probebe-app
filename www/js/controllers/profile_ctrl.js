@@ -90,13 +90,12 @@ angular.module("proBebe.controllers")
             if (result.status >= 400)
               throw result;
 
-            console.log("SUCESS", result);
             var hasChildOverAge = calculeAge(data.profile.children_attributes);
             reloadProfile(hasChildOverAge);
-
+            $ionicLoading.hide();
           })
           .catch(function (response) {
-            console.log("CATCH", response);
+            $ionicLoading.hide();
             messageHandler.show(errorHandler.message(response));
           });
       } else {
