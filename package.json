@@ -57,7 +57,7 @@
     "install": "node tasks/platforms.js"
   },
   "cordovaPlatforms": [
-    "android",
-    "ios"
+    "ios",
+    "android"
   ]
 }

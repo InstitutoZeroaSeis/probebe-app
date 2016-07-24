@@ -23,7 +23,7 @@ controllers.controller("MessagesCtrl", function ($ionicPlatform, $scope, $rootSc
       defineOptionsChild();
     } else {
       $scope.selectedChild = getChild(childIdParams);
-      var born = new Date($scope.selectedChild.birth_date + " EDT").setHours(0, 0, 0, 0);
+      var born = new Date($scope.selectedChild.birth_date).setHours(0, 0, 0, 0);
       var today = new Date().setHours(0, 0, 0, 0);
       $scope.isBorn = born <= today;
       getMessage(childIdParams);
